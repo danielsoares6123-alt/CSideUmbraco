@@ -1,0 +1,426 @@
+﻿@model IPublishedContent
+
+@{
+    var slides = Model.Value<IPublishedContent>("parameter"); // ajusta alias se necessário
+}
+
+@if (slides != null && slides.Children.Any())
+{
+    <div class="slides-wrapper">
+        <!-- Vídeo de fundo -->
+        <div class="bg-video-wrapper">
+            <video autoplay muted loop playsinline class="bg-video">
+                <source src="/videos/Sequence 01_2.mp4" type="video/mp4">
+            </video>
+        </div>
+
+
+        <div class="slides-container">
+
+            <div class="slide-box">
+                <!--<div class="slide-box1" style="margin: 0 auto; position: absolute;">
+                    <span>Os nossos mercados</span>
+                </div>-->
+                <div class="slide-socials">
+                    <a href="https://www.instagram.com" target="_blank" class="social-icon"><i class='bx bxl-instagram'></i></a>
+                    <a href="https://www.facebook.com" target="_blank" class="social-icon"><i class='bx bxl-facebook'></i></a>
+                </div>
+
+                @foreach (var slide in slides.Children)
+                {
+                    <div class="slide-footer">
+                        <h1 class="slide-box-title">@slide.Name</h1>
+                    </div>
+                }
+                <!--<button class="slide-button-contacts">encontra-nos aqui</button>-->
+            </div>
+        </div>
+    </div>
+    <div class="blur-line"></div>
+
+
+    <script>
+        let currentSlide = 0;
+        const slideBox = document.querySelector('.slide-box');
+        const slidesContent = slideBox.querySelectorAll('.slide-footer');
+        const totalSlides = slidesContent.length;
+        let isAnimating = false;
+
+        // --- Pop slide ---
+        function popSlide(nextIndex) {
+            if (isAnimating || nextIndex === currentSlide) return;
+            isAnimating = true;
+
+            const currentContent = slidesContent[currentSlide];
+            const nextContent = slidesContent[nextIndex];
+
+            nextContent.style.display = 'flex';
+            nextContent.style.transformOrigin = 'center'; // origem à esquerda
+            nextContent.style.transform = 'scale(0)';
+            nextContent.style.opacity = '0';
+
+            currentContent.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+            currentContent.style.transformOrigin = 'center'; // também para sair pela esquerda
+            currentContent.style.transform = 'scale(0)';
+            currentContent.style.opacity = '0';
+
+            currentContent.addEventListener('transitionend', function handler() {
+                currentContent.removeEventListener('transitionend', handler);
+                currentContent.style.display = 'none';
+                currentContent.style.transition = '';
+                currentContent.style.transform = '';
+                currentContent.style.opacity = '';
+
+                nextContent.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+                nextContent.style.transformOrigin = 'center';
+                nextContent.style.transform = 'scale(1)';
+                nextContent.style.opacity = '1';
+
+                nextContent.addEventListener('transitionend', function handlerNext() {
+                    nextContent.removeEventListener('transitionend', handlerNext);
+                    nextContent.style.transition = '';
+                    isAnimating = false;
+                    currentSlide = nextIndex;
+                });
+            });
+        }
+
+        // --- Inicialização ---
+        slidesContent.forEach((content, i) => {
+            content.style.display = (i === currentSlide) ? 'flex' : 'none';
+            content.style.transformOrigin = 'left center'; // definir sempre origem
+            content.style.transform = 'scale(1)';
+            content.style.opacity = (i === currentSlide) ? '1' : '0';
+        });
+
+        // --- Setas ---
+        const prev = slideBox.querySelector('.slide-prev');
+        const next = slideBox.querySelector('.slide-next');
+
+        if(prev){
+            prev.addEventListener('click', () => {
+                const nextIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+                popSlide(nextIndex);
+            });
+        }
+
+        if(next){
+            next.addEventListener('click', () => {
+                const nextIndex = (currentSlide + 1) % totalSlides;
+                popSlide(nextIndex);
+            });
+        }
+
+        // --- Slide automático ---
+        setInterval(() => {
+            const nextIndex = (currentSlide + 1) % totalSlides;
+            popSlide(nextIndex);
+        }, 5000); // muda a cada 5s
+
+        // --- Slide com drag ---
+        let startX = 0;
+        let isDragging = false;
+
+        slideBox.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+        });
+
+        slideBox.addEventListener('mousemove', (e) => {
+            if(!isDragging) return;
+            const diff = e.clientX - startX;
+            // Se o movimento for grande o suficiente
+            if(diff > 50){
+                const nextIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+                popSlide(nextIndex);
+                isDragging = false;
+            } else if(diff < -50){
+                const nextIndex = (currentSlide + 1) % totalSlides;
+                popSlide(nextIndex);
+                isDragging = false;
+            }
+        });
+
+        slideBox.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // --- Touch events para mobile ---
+        slideBox.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        slideBox.addEventListener('touchmove', (e) => {
+            if(!isDragging) return;
+            const diff = e.touches[0].clientX - startX;
+            if(diff > 50){
+                const nextIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+                popSlide(nextIndex);
+                isDragging = false;
+            } else if(diff < -50){
+                const nextIndex = (currentSlide + 1) % totalSlides;
+                popSlide(nextIndex);
+                isDragging = false;
+            }
+        });
+
+        slideBox.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+
+        const button = document.querySelector('.slide-button-contacts');
+        let angle = 0;
+
+        /*function rotateButtonGradient() {
+            angle += 1; // velocidade de rotação em graus
+            if (angle >= 360) angle = 0;
+
+            // atualiza o gradiente do botão
+            button.style.background = `linear-gradient(${angle}deg, #28282826 0%, #43c2ff78 100%)`;
+
+            requestAnimationFrame(rotateButtonGradient);
+        }
+
+        // inicia a animação
+        rotateButtonGradient();*/
+
+                document.addEventListener("DOMContentLoaded", () => {
+            const button = document.querySelector(".slide-button-contacts");
+            const contactBox = document.querySelector(".contact-box");
+
+            if(button && contactBox) {
+                button.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    contactBox.scrollIntoView({
+                        behavior: "smooth",  // rolagem suave
+                        block: "start"       // topo da contact-box
+                    });
+                });
+            }
+        });
+    </script>
+
+    <style>
+        .slides-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .slide-box {
+            position: relative;
+            top: 50px;
+            left: 0;
+            width: 320px !important;
+            height: 320px !important;
+            margin: 0 auto;
+            aspect-ratio: 1 / 1; /* mantém altura igual à largura */
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-align: center;
+            background: rgb(82 192 255 / 15%); /*backdrop-filter: blur(10px);*/
+            border-radius: 175px;
+            padding: 20px;
+            backdrop-filter: blur(30px);
+            border-radius: 50%; /* círculo perfeito */
+            transform: translateX(0);
+            box-shadow: inset 0px 3px 15px -7px rgb(255 255 255), 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        .slide-prev, .slide-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 10;
+            filter: invert(1);
+        }
+
+        .slide-prev {
+            left: -15px;
+        }
+
+        .slide-next {
+            top: 42.5%;
+            right: -15px;
+            transform: rotate(180deg);
+        }
+
+        .slide-socials {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .bg-video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+            .bg-video-wrapper video.bg-video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+            }
+
+            /* Overlay de gradiente branco no fundo */
+            .bg-video-wrapper::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 8%; /* altura da suavidade */
+                background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
+                z-index: 1; /* acima do vídeo */
+                pointer-events: none;
+            }
+
+        /* vídeo de fundo */
+        .bg-video {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .text-weight {
+            background: linear-gradient(-45deg, rgba(255, 255, 255, 0.35) 0%, /* branco translúcido */ rgba(0, 123, 255, 0.25) 100% /* azul translúcido */ );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 0.2px white;
+        }
+
+        /* wrapper */
+        .slides-wrapper {
+            position: relative;
+            width: 100%;
+            height: 83vh;
+            overflow: hidden;
+            margin-top: -20px;
+        }
+
+            .slides-wrapper video {
+                box-shadow: 0px 0px 50px 10px black;
+            }
+
+        /* slides fixos no topo */
+        .slides-container {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            color: #fff;
+            z-index: 1;
+            left: 0;
+            right: 0;
+        }
+
+        /* redes sociais */
+        .slide-socials {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            display: flex;
+            gap: 10px;
+        }
+
+            .slide-socials .social-icon {
+                color: white;
+                font-size: 2rem;
+                transition: transform 0.2s, color 0.2s;
+            }
+
+                .slide-socials .social-icon:hover {
+                    color: #007BFF;
+                    transform: scale(1.2);
+                }
+
+        .slides-wrapper .slide-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(96deg, rgba(255, 255, 255, 0.35) 0%, /* branco translúcido */ rgb(255 255 255 / 61%) 100% /* azul translúcido */ );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /*-webkit-text-stroke: 0.3px white;*/
+            width: unset !important;
+        }
+
+        .slide-button-contacts {
+            font-size: 10px;
+            text-transform: uppercase;
+            box-shadow: inset 0px 0px 10px 0px rgb(255 255 255);
+            position: absolute;
+            bottom: -48px;
+            right: 0px;
+            background: linear-gradient(45deg, #28282826 0%, #43c2ff78 100%);
+            color: #fff;
+            font-family: "Comfortaa", sans-serif;
+            height: 200px;
+            width: 180px;
+            border: 0px;
+            font-weight: 600 !important;
+            letter-spacing: 0.5px !important;
+            border-radius: 40px;
+            display: flex; /* ativa Flexbox */
+            flex-direction: column; /* garante alinhamento vertical */
+            justify-content: flex-end; /* alinha o conteúdo no fundo */
+            align-items: center; /* centraliza horizontalmente */
+            padding-bottom: 16px; /* distância do fundo (opcional) */
+            box-sizing: border-box; /* inclui padding na altura */
+            /* recorte com vértice no canto superior direito */
+            clip-path: polygon(0% 153px, 77% 152px, 84% 148px, 90% 140px, 93% 134px, /* vértice subindo no canto superior direito */ 100% 113px, /* canto superior direito original */ 100% 100%, /* canto inferior direito */ 0% 100% /* canto inferior esquerdo */ );
+            transition: .14s ease-out;
+        }
+
+
+
+        /* footer do slide */
+        .slide-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            font-size: 1rem;
+            padding: 8px 12px 0px;
+            border-radius: 6px;
+            text-align: left;
+            height: 90%;
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+    </style>
+}
+else
+{
+    <p>Nenhum slide encontrado.</p>
+}

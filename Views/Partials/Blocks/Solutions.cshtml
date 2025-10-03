@@ -1,0 +1,114 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container mt-5">
+    <h1>Limpeza Especializada</h1>
+</div>
+
+<div class="container-fluid mt-2 mb-5 ps-4 pe-4">
+
+    <!-- Swiper -->
+    <div class="mySwiper1 mt-4">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="box-slide" style="background-image: url('/images/DSCF5856.jpg'); background-position:center; background-size: cover;">
+                    <div class="overlay"></div>
+                    <span class="slide-text">Tapetes</span>
+                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="box-slide" style="background-image: url('/images/DSCF5864.jpg'); background-position:center; background-size: cover;">
+                    <div class="overlay"></div>
+                    <span class="slide-text">Peles</span>
+                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
+                </div>
+
+            </div>
+            <div class="swiper-slide">
+                <div class="box-slide" style="background-image: url('/images/DSCF5841 (1).jpg'); background-position:center; background-size: cover;">
+                    <div class="overlay"></div>
+                    <span class="slide-text">Fardamento</span>
+                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="box-slide" style="background-image: url('/images/DSCF5828.jpg'); background-position:center; background-size: cover;">
+                    <div class="overlay"></div>
+                    <span class="slide-text">Cortinados</span>
+                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="box-slide" style="background-image: url('/images/DSCF5864.jpg'); background-position:center; background-size: cover;">
+                    <div class="overlay"></div>
+                    <span class="slide-text">Sofás</span>
+                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+        const swiperElement = document.querySelector(".mySwiper1");
+    const swiperWrapper = swiperElement.querySelector(".swiper-wrapper");
+    const swiperSlides = swiperElement.querySelectorAll(".swiper-slide");
+    swiperSlides.forEach((slide,_) => {
+      const clonedSlide = slide.cloneNode(true);
+      swiperWrapper.appendChild(clonedSlide);
+    });
+
+          const swiper = new Swiper(".mySwiper1", {
+        slidesPerView: 4,
+        spaceBetween: 10,
+        loop: true, // loop infinito
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        autoplay: {
+            delay: 3000,   // muda de slide a cada 3 segundos
+            disableOnInteraction: false, // continua autoplay mesmo após interagir
+        },
+        breakpoints: {
+            0: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 4 }
+        }
+    });
+
+
+    // Resetar animação do texto ao trocar de slide
+    swiper.on('slideChange', () => {
+        document.querySelectorAll('.slide-text').forEach(text => {
+            text.style.transform = 'translateY(0)';
+        });
+    });
+
+
+
+        // Seleciona todos os elementos box-slide
+    const slides_solutions = document.querySelectorAll('.box-slide');
+
+    slides_solutions.forEach(slide => {
+        const text = slide.querySelector('.slide-text');
+
+        slide.addEventListener('mouseenter', () => {
+            // Anima o texto subindo 70px suavemente
+            text.style.transform = 'translateY(-70px)';
+            text.style.transition = 'transform 0.5s ease';
+        });
+
+        slide.addEventListener('mouseleave', () => {
+            // Volta ao estado original
+            text.style.transform = 'translateY(0)';
+        });
+    });
+
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />

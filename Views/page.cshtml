@@ -1,0 +1,248 @@
+﻿@{
+    Layout = "master.cshtml";
+}
+
+<section class="woosh-intro"></section>
+
+    <div class="container pt-5 pb-3">
+        <h1 class="woosh-intro-title">LIMPEZA DE TAPETES</h1>
+        <p class="woosh-intro-subtitle">
+As técnicas de limpeza da Woosh garantem o melhor resultado até nos tapetes mais delicados como: Arraiolos, Beiriz, Pele, Pelo alto, Persa, Oriental, entre outros. Cada tapete é rececionado de forma muito rigorosa antes de iniciar o processo de limpeza. Deste modo, é garantido que não há riscos associados à limpeza e é atribuído o processo de limpeza mais eficaz.
+        </p>
+    </div>
+
+<section class="woosh-pretratamento">
+    <div class="container">
+        <h2 class="title-box faq-toggle">Pré-tratamento <span class="arrow">&#9660;</span></h2>
+        <div class="faq-content">
+            <p>
+                Começamos por analisar o tipo de tecido, fibra e avaliar as nódoas locais e mais concentradas. 
+                De seguida é efetuada uma aspiração preliminar através de uma máquina vibratória, esta retira toda a areia e terra aspirando-as. 
+                A Woosh é a única empresa em Portugal a utilizar este equipamento que é considerado fundamental na limpeza de tapetes de pelo alto, 
+                tapetes que tendem a ocultar a sujidade.
+            </p>
+            <p>
+                No caso das Alcatifas, sendo este um tipo de tapete peculiar, a Woosh tem um cuidado redobrado com as nódoas e avaliação das fibras.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="woosh-limpeza">
+    <div class="container">
+        <h2 class="title-box faq-toggle">Limpeza <span class="arrow">&#9660;</span></h2>
+        <div class="faq-content">
+            <p>
+                <!-- Texto sobre a limpeza detalhada aqui -->
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="woosh-acabamento">
+    <div class="container">
+        <h2 class="title-box faq-toggle">Acabamento <span class="arrow">&#9660;</span></h2>
+        <div class="faq-content">
+            <p>
+                <!-- Texto sobre o acabamento detalhado aqui -->
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="woosh-parceiros">
+    <div class="container">
+        <div class="row justify-content-center align-items-start mb-6">
+            <div class="col-xl-6 col-lg-7 md-mb-20px text-center text-lg-start">
+                <h2 class="fw-700 text-dark-gray mb-3">Cresça Connosco</h2>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <p class="text-dark-gray mb-4">
+                    Torne-se um parceiro Woosh e cresça o seu negócio com a melhor e mais avançada tecnologia de limpeza especializada.
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-7 md-mb-10 sm-mb-15">
+            <div class="col md-mb-30px">
+                <div class="box-page position-relative overflow-hidden h-100 p-50px lg-p-30px box-shadow-quadruple-large border-radius-6px toggle-card">
+                    <span style="width: 90%;" class="d-block text-dark-gray fw-600 fs-22 mb-25px w-90">Torne-se um parceiro Woosh e cresça o seu negócio com a melhor e mais avançada tecnologia de limpeza especializada.</span>
+                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon">
+                </div>
+            </div>
+            <div class="col md-mb-30px">
+                <div class="box-page position-relative overflow-hidden h-100 p-50px lg-p-30px box-shadow-quadruple-large border-radius-6px toggle-card">
+                    <span style="width: 90%;"  class="d-block text-dark-gray fw-600 fs-22 mb-25px w-90">Ready to work together for better solutions.</span>
+                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .toggle-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .toggle-card.active {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .box-page {
+    color: #000;
+    background: #c3e2f8;
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    box-shadow: inset 0 0 16px rgb(197 250 251 / 61%), -3px 0 13px rgb(169 242 255 / 32%);
+    transform: scale(1.02);
+    transition: all 0.5s ease;
+    opacity: 1;
+    padding: 20px;
+    height: 88%;
+    border-radius: 20px;
+    position: absolute;
+    width: 95%;
+    }
+
+    .box-slide-icon {
+        float: right;
+        margin-top: -48px;
+        height: 35px;
+        font-size: 24px;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        pointer-events: none;
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.toggle-card').forEach(function(card){
+        card.addEventListener('click', function(){
+            const isActive = card.classList.contains('active');
+
+            // Fecha todos
+            document.querySelectorAll('.toggle-card').forEach(function(c){
+                c.classList.remove('active');
+            });
+
+            // Ativa o clicado
+            if(!isActive){
+                card.classList.add('active');
+            }
+        });
+    });
+</script>
+
+
+<style>
+
+    section {
+        padding: 40px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Títulos com caixas arredondadas */
+    .title-box {
+        display: inline-block;
+        font-weight: 300;
+        background-color: #c3e2f8;
+        padding: 10px 20px;
+        border-radius: 50px; 
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .title-box:hover {
+        background-color: #a8d4f0;
+    }
+
+    .arrow {
+        font-size: 18px;
+        margin-left: 5px;
+        transition: transform 0.3s;
+    }
+
+    /* Conteúdo escondido com slide toggle */
+    .faq-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        margin-top: 0;
+    }
+
+    .faq-content.active {
+        max-height: 1000px; /* valor grande suficiente para o conteúdo */
+        margin-top: 10px;
+    }
+
+    .faq-toggle.active .arrow {
+        transform: rotate(180deg);
+    }
+
+.woosh-intro {
+    padding-top: 220px !important;
+    padding-bottom: 150px !important;
+    margin-bottom: 16px;
+    background: 
+        linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), 
+        url(/images/DSCF5864.jpg) center/cover no-repeat;
+}
+
+
+.woosh-intro .container {
+    backdrop-filter: blur(23px);
+    padding: 72px 50px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 13px -7px #ffffff;
+    background-color: rgb(82 192 255 / 15%);
+}
+
+.woosh-intro h1, .woosh-intro p {
+    color: #fff
+}
+
+    .woosh-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #0070f3;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        margin-top: 10px;
+    }
+
+    .woosh-btn:hover {
+        background-color: #005bb5;
+    }
+
+    section {
+        padding: 30px !important;
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.faq-toggle').forEach(function(title) {
+        title.addEventListener('click', function() {
+            const content = title.nextElementSibling;
+
+            const isActive = content.classList.contains('active');
+
+            // Fecha todos os conteúdos
+            document.querySelectorAll('.faq-content').forEach(function(c){
+                c.classList.remove('active');
+            });
+            document.querySelectorAll('.faq-toggle').forEach(function(t){
+                t.classList.remove('active');
+            });
+
+            // Se não estava ativo, abre só o clicado
+            if (!isActive) {
+                content.classList.add('active');
+                title.classList.add('active');
+            }
+        });
+    });
+</script>

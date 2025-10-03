@@ -1,0 +1,36 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = "master.cshtml";
+
+    var homeNode = Umbraco.AssignedContentItem;
+
+    IPublishedContent Blocks = homeNode.Children.Where(x => x.IsDocumentType("blocks")).FirstOrDefault();
+}
+
+<div class="home-children">
+    @foreach (var bloco in Blocks.Children)
+    {
+        string content = bloco.Value<string>("content"); // Rich Text Editor
+        var partialName = $"Partials/Blocks/{bloco.Name}";
+
+        try
+        {
+            // Tenta renderizar o partial, mesmo que parameter seja null
+            @await Html.PartialAsync(partialName, bloco)
+        }
+        catch
+        {
+            // Se o partial não existir, renderiza Rich Text Editor
+            if (!string.IsNullOrEmpty(content))
+            {
+                <div class="block-content">
+                    @Html.Raw(content)
+                </div>
+            }
+        }
+    }
+
+</div>
+<div id="background-dots"></div>
+<script type="text/javascript" src="/js/dots.js"></script>

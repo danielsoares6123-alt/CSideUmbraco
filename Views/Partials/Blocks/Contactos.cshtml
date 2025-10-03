@@ -1,0 +1,202 @@
+﻿<!-- Container Principal -->
+<div class="container mt-5 mb-5">
+    <div class="contact-box ps-5 pe-5">
+        <!-- Primeira Row: Informação + Form -->
+        <div class="row main-row mb-5">
+            <!-- Coluna 1: Informação -->
+            <div class="col info-col pt-5">
+                <h1>
+                    O seu contacto é muito importante para nós.
+                </h1>
+                <p>Pode entrar em contacto connosco através do formulário de contacto, por telefone, e-mail ou presencialmente, estamos disponíveis para o ajudar.</p>
+
+                <!-- Row Interna: 4 Colunas -->
+                <div class="row inner-row">
+                    <div class="col-6 contact-item">
+                        <strong>Contacto</strong><br>214 481 960 | 229 476 886
+
+                    </div>
+                    <div class="col-6 contact-item">
+                        <strong>Email</strong><br />geral@woosh.pt
+                    </div>
+                    <div class="col-12 contact-item">
+                        <strong>Horário de atendimento</strong>
+                        <ul class="schedule">
+                            <li><span>Lisboa:</span><br /> 2ª a 6ª — 9h-13h / 14h-17h30</li>
+                            <li><span>Porto:</span><br /> 2ª a 6ª — 8h30-19h</li>
+                            <li><span>Sábado (Porto):</span><br /> 9h-13h</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna 2: Formulário -->
+            <div class="col form-col">
+                <div class="contact-main-box">
+                    <div class="contact-right-box"></div>
+                    <form class="contact-form">
+                        <h1>Fale connosco</h1>
+                        <span>
+                            Preencha o formulário abaixo e entraremos em contacto o mais breve possível.
+                        </span>
+                        <input type="text" placeholder="Nome" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="text" placeholder="Assunto" required>
+                        <textarea placeholder="Mensagem" rows="5" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda Row: Mapa -->
+        <div class="row map-row">
+            <div id="map" class="map-container"></div>
+        </div>
+
+        <!-- CSS -->
+        <style>
+            .map-container {
+                width: 100%;
+                height: 300px;
+                border-radius: 20px;
+                overflow: hidden; /* garante bordas arredondadas */
+            }
+
+            #map {
+                width: 100%;
+                height: 500px;
+                margin: 0 auto;
+            }
+        </style>
+
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+                        // Inicializa o mapa sem coordenadas fixas
+            var latOffset = (Math.random() - 0.5) * 0.02;
+            var lngOffset = (Math.random() - 0.5) * 0.02;
+            var markerLat = 38.7169 + latOffset;
+            var markerLng = -9.1397 + lngOffset;
+
+            // Inicializa o mapa centrado no marcador
+            var map = L.map('map').setView([markerLat, markerLng], 13);
+
+            // Tiles OpenStreetMap Light (via CartoDB)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Marcador azul em SVG
+            var marker = L.marker([markerLat, markerLng], {
+                icon: L.divIcon({
+                    html: `<svg width="20" height="20" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="256" cy="256" r="256" fill="#a8cdeb"/>
+                           </svg>`,
+                    className: '',
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10] // ajustar para o centro do círculo
+                })
+            }).addTo(map);
+
+        </script>
+
+
+    </div>
+</div>
+
+<!-- CSS -->
+<style>
+    .contact-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 50px auto;
+    }
+
+    .contact-box {
+        background: rgba(255,255,255,0.15); /* fundo transparente */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 30px;
+        padding: 30px;
+        box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1);
+    }
+
+    /* Row Principal */
+    .main-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    /* Colunas */
+    .info-col, .form-col {
+        flex: 1 1 45%;
+    }
+
+        /* Coluna de Contacto */
+        .info-col h2 {
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        .info-col p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+    .inner-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .contact-item {
+        background: rgba(255,255,255,0.1);
+        padding: 15px;
+        border-radius: 15px;
+        flex: 1 1 calc(50% - 10px);
+    }
+
+    /* Formulário */
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .contact-form button {
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255,255,255,0.25);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .contact-form button:hover {
+                background: rgba(255,255,255,0.4);
+            }
+
+    /* Mapa */
+    .map-container {
+        margin-top: 30px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+</style>

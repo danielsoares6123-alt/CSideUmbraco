@@ -1,0 +1,114 @@
+﻿<div class="row-icons">
+    <div class="col-icon">
+        <div class="icon">
+            <a href="#">
+                <img src="/images/circulo_Woosh.svg" alt="Círculo" />
+                <img src="/images/wetcleaning_Woosh.svg" alt="Wet Cleaning" />
+            </a>
+        </div>
+        <a href="#"><h3>WetCleaning</h3></a>
+    </div>
+
+    <div class="col-icon">
+        <div class="icon">
+            <a href="#">
+                <img src="/images/circulo_Woosh.svg" alt="Círculo" />
+                <img src="/images/sustentabilidade_Woosh.svg" alt="Sustentabilidade" />
+            </a>
+        </div>
+        <a href="#"><h3>Sustentabilidade</h3></a>
+    </div>
+
+    <div class="col-icon">
+        <div class="icon">
+            <a href="#">
+                <img src="/images/circulo_Woosh.svg" alt="Círculo" />
+                <img src="/images/HigienixacaoeTratamentos_Woosh.svg" alt="Higienização e Tratamentos" />
+            </a>
+        </div>
+        <a href="#"><h3>Higienização e Tratamentos</h3></a>
+    </div>
+
+    <div class="col-icon">
+        <div class="icon">
+            <a href="#">
+                <img src="/images/circulo_Woosh.svg" alt="Círculo" />
+                <img src="/images/produtosprofissionais_Woosh.svg" alt="Produtos Profissionais" />
+            </a>
+        </div>
+        <a href="#"><h3>Produtos Profissionais</h3></a>
+    </div>
+</div>
+
+<style>
+    .row-icons {
+        display: flex;
+        justify-content: center;
+        gap: 40px; /* espaço entre colunas */
+        text-align: center;
+        flex-wrap: nowrap; /* força tudo na mesma linha */
+        max-width: 1200px; /* opcional: limita largura total da linha */
+        margin: 0 auto;
+    }
+
+    .col-icon {
+        flex: 1 1 200px; /* cada coluna cresce e mantém mínimo de 200px */
+        padding: 20px;
+    }
+
+        .col-icon h3 {
+            font-size: 0.9rem !important;
+            font-weight: 600;
+        }
+
+        .col-icon a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .col-icon:hover a {
+            font-weight: bold;
+        }
+
+    .icon {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 15px auto;
+    }
+
+        .icon img {
+            transition: filter 0.5s ease-out;
+        }
+
+            .icon img:first-child {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .icon img:last-child {
+                position: relative;
+                width: 60%;
+                height: 60%;
+                z-index: 1;
+                margin-top: 20px;
+            }
+
+            .icon img[alt="Círculo"] {
+                filter: invert(69%) sepia(53%) saturate(600%) hue-rotate(180deg) brightness(105%) contrast(90%);
+                transition: transform 0.6s ease; /* animação suave */
+                transform-origin: center; /* gira em torno do centro */
+                opacity: 0.5;
+            }
+
+        .icon:hover img[alt="Círculo"] {
+            transform: rotate(180deg);
+        }
+
+        .icon:hover img:not([alt="Círculo"]) {
+            filter: blur(1px);
+        }
+</style>
