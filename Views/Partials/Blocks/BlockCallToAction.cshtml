@@ -1,7 +1,15 @@
-﻿<section class="p-0">
+﻿@model IPublishedContent
+
+@{
+    var gallery = Model.Value<IPublishedContent>("parameter"); // ajusta alias se necessário
+    string firstPhoto = gallery.Children.FirstOrDefault().Value<IPublishedContent>("image").Url();
+    string lastPhoto = gallery.Children.LastOrDefault().Value<IPublishedContent>("image").Url();
+}
+
+<section class="p-0">
             <div class="container-fluid">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-xl-4 col-lg-6 col-md-6 sm-h-450px cover-background" style="background-image: url('images/call-to-action-01.jpg')"></div>
+                    <div class="col-12 col-xl-4 col-lg-6 col-md-6 sm-h-450px cover-background" style="background-image: url('@firstPhoto"></div>
                     <div class="col-12 col-xl-4 col-lg-6 col-md-6 text-center bg-slate-blue">
                         <div class="p-15 xl-ps-8 xl-pe-8 md-ps-2 md-pe-2">
                             <span class="alt-font d-inline-block mb-15px fs-17 fw-500 text-gradient-light-gray-white text-decoration-line-bottom-medium border-color-base-color-transparent">Cresça Connosco</span>
@@ -13,7 +21,7 @@
                             </a> 
                         </div>
                     </div>
-                    <div class="col-md-4 d-none d-xl-block cover-background" style="background-image: url('images/call-to-action-02.jpg')"></div>
+                    <div class="col-md-4 d-none d-xl-block cover-background" style="background-image: url('@lastPhoto')"></div>
                 </div>
             </div>
         </section>
