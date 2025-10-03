@@ -599,3 +599,71 @@ button img {
     #btn-recusar {
       background-color: #a8d4f0;
     }
+
+.icon-accordion {
+    margin-top: 3px;
+    height: 25px;
+    float: right;
+    transform: rotate(135deg);
+}
+
+.active-accordion .accordion-header span {
+    color: #43C2FF;
+}
+
+.active-accordion .accordion-header img {
+    filter: brightness(0) saturate(100%) invert(63%) sepia(79%) saturate(1486%) hue-rotate(173deg) brightness(102%) contrast(104%);
+}
+
+.ws-button {
+    border-radius: 6px;
+    background-color: #43C2FF;
+    font-size: 13px;
+    color: #000;
+    padding: 13px 9px 13px 25px;
+    font-weight: bold;
+}
+
+    .ws-button .icon-accordion {
+        float: unset !important;
+        transform: rotate(45deg) !important;
+        filter: invert(1);
+        margin-left: 10px;
+        height: 20px;
+        margin-top: unset !important;
+    }
+
+/* Exemplo: cor diferente para a opção "Particulares" */
+.highlight .nav-link {
+    border: 2px solid #db811d3d;
+    border-radius: 5px;
+    color: #fff; /* muda para a cor que quiseres */
+    font-weight: bold; /* opcional */
+}
+
+.highlight::before {
+    background-color: #db811d3d !important;
+    backdrop-filter: blur(7px);
+}
+
+.highlight:hover .nav-link {
+    color: #fff !important;
+}
+
+/* Mostra o dropdown ao passar o mouse */
+.navbar-nav .dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+/* Opcional: mantém a animação de fade do Bootstrap */
+.dropdown-menu {
+    margin-top: 0;
+}
+
+.navbar-nav .nav-item {
+    overflow: unset !important;
+}
+
+.woosh-app-footer {
+    background-color: #81c5f6;
+}
