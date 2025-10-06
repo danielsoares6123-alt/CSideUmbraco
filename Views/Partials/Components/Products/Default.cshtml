@@ -1,0 +1,193 @@
+﻿@using Woosh.Models.DTOs
+@model List<ProductDto>
+
+<section class="pt-0 ps-6 pe-6 lg-ps-2 lg-pe-2 sm-ps-0 sm-pe-0">
+    <div class="container-fluid">
+        <div class="row flex-row-reverse">
+
+            <!-- Lista de produtos -->
+            <div class="col-xxl-10 col-lg-9 ps-5 md-ps-15px md-mb-60px">
+                <ul id="product-list" class="shop-modern shop-wrapper grid grid-4col xl-grid-3col sm-grid-2col xs-grid-1col gutter-extra-large text-center">
+
+                    @{
+                        var categorias = Model
+                        .GroupBy(p => p.CategoriaId)
+                        .OrderBy(g => g.First().CategoriaNome);
+                    }
+
+                    @foreach (var categoria in categorias)
+                    {
+                        @foreach (var produto in categoria)
+                        {
+                            <li class="grid-item produto-categoria-@categoria.Key">
+                                <div class="shop-box mb-10px">
+                                    <div class="shop-image mb-20px">
+                                        <img src="@produto.Imagem" alt="@produto.Titulo" data-no-retina="">
+                                        <div class="shop-overlay bg-gradient-gray-light-dark-transparent"></div>
+                                        <div class="shop-hover d-flex justify-content-center">
+                                        </div>
+                                    </div>
+                                    <h6 style="min-height: 60px; /* 20% da altura da viewport */">
+                                        @produto.Titulo
+                                    </h6>
+                                    <div class="shop-footer text-center">
+                                        <button class="ws-button ws-button-full" onclick="window.open('@produto.FichaTecnica.Replace("https://woosh.pt/cloud/", "https://cloud.woosh.pt/")', '_blank')">
+                                            Ficha técnica
+                                        </button>
+                                        <button class="ws-button-outline" onclick="window.open('@produto.FichaSeguranca.Replace("https://woosh.pt/cloud/", "https://cloud.woosh.pt/")', '_blank')">
+                                            Ficha de segurança
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+
+                <!-- Paginação permanece opcional ou pode ser removida se filtragem for instantânea -->
+            </div>
+
+            <!-- Sidebar com filtros -->
+            <div class="col-xxl-2 col-lg-3 shop-sidebar appear anime-child anime-complete">
+                <div class="mb-30px">
+                    <span class="alt-font fw-500 fs-19 text-dark-gray d-block mb-10px">Pesquisar produtos</span>
+                    <input type="text" id="pesquisa-produtos" class="form-control mb-20px" placeholder="Digite o nome do produto">
+
+                    <span class="alt-font fw-500 fs-19 text-dark-gray d-block mb-10px">Filtrar por categorias</span>
+                    <ul class="shop-filter category-filter fs-16">
+                        <li class="p-0">
+                            <a href="#" class="categoria-filtro" data-categoria="all">All</a>
+                        </li>
+                        @foreach (var cat in categorias)
+                        {
+                            <li>
+                                <a href="#" class="categoria-filtro" data-categoria="@cat.Key">
+                                    <span class="product-cb product-category-cb"></span>@cat.First().CategoriaNome
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const produtos = document.querySelectorAll('#product-list .grid-item');
+    let categoriasSelecionadas = [];
+
+    // Quando clica numa categoria
+    document.querySelectorAll('.categoria-filtro').forEach(function(el){
+        el.addEventListener('click', function(e){
+            e.preventDefault();
+            const cat = this.getAttribute('data-categoria');
+
+            // Alterna seleção
+            if(cat === 'all'){
+                categoriasSelecionadas = [];
+                // Remove visual de ativo
+                document.querySelectorAll('.categoria-filtro').forEach(f => f.classList.remove('active'));
+                this.classList.add('active');
+            } else {
+                this.classList.toggle('active');
+                if(this.classList.contains('active')){
+                    categoriasSelecionadas.push(cat);
+                } else {
+                    categoriasSelecionadas = categoriasSelecionadas.filter(c => c !== cat);
+                }
+                // Remove "All" se houver qualquer seleção
+                document.querySelector('.categoria-filtro[data-categoria="all"]').classList.remove('active');
+            }
+
+            // Aplica filtro
+            produtos.forEach(function(p){
+                if(categoriasSelecionadas.length === 0){
+                    p.style.display = 'block'; // mostra todos
+                } else {
+                    const pCat = Array.from(p.classList).find(c => c.startsWith('produto-categoria-')).replace('produto-categoria-', '');
+                    p.style.display = categoriasSelecionadas.includes(pCat) ? 'block' : 'none';
+                }
+            });
+        });
+    });
+
+        const inputPesquisa = document.getElementById('pesquisa-produtos');
+    inputPesquisa.addEventListener('input', function(){
+        const termo = this.value.toLowerCase();
+        const produtos = document.querySelectorAll('#product-list .grid-item');
+
+        produtos.forEach(p => {
+            const titulo = p.querySelector('.shop-box h5').textContent.toLowerCase();
+            // Mantém produto visível se o título contém o termo de pesquisa E se passa os filtros de categoria
+            p.style.display = titulo.includes(termo) ? '' : 'none';
+        });
+    });
+
+</script>
+
+
+<style>
+    body {
+        background-color: #fafafa !important;
+    }
+
+    .shape-image-animation svg {
+        fill: #fafafa !important;
+    }
+
+    /* Quando o filtro está ativo */
+    .categoria-filtro.active .product-cb.product-category-cb {
+        background-color: #43C2FF !important; /* cor do preenchimento */
+        border-color: #43C2FF !important; /* mesma cor da borda */
+    }
+    /* Grid básico */
+    #product-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -15px; /* negativo para compensar padding */
+        list-style: none;
+        padding: 0;
+        height: unset !important;
+    }
+
+        #product-list .grid-item {
+            padding: 30px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            position: unset !important;
+            top: unset !important;
+            left: unset !important;
+            max-height: 600px;
+        }
+
+    /* Responsivo */
+    @@media (min-width: 1200px) {
+        #product-list .grid-item {
+            width: 25%;
+        }
+        /* 4 colunas */
+    }
+
+    @@media (max-width: 1199px) and (min-width: 992px) {
+        #product-list .grid-item {
+            width: 33.33%;
+        }
+        /* 3 colunas */
+    }
+
+    @@media (max-width: 991px) and (min-width: 576px) {
+        #product-list .grid-item {
+            width: 50%;
+        }
+        /* 2 colunas */
+    }
+
+    @@media (max-width: 575px) {
+        #product-list .grid-item {
+            width: 100%;
+        }
+        /* 1 coluna */
+    }
+</style>

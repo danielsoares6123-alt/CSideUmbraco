@@ -8,6 +8,8 @@ builder.CreateUmbracoBuilder()
     .AddComposers()
     .Build();
 
+builder.Services.AddScoped<IProductsService, ProductsService>();
+
 WebApplication app = builder.Build();
 
 // --- Configurar Static Files para aceitar .glb ---

@@ -9,7 +9,7 @@
 <section class="big-section">
     <div class="container">
         <div class="row">
-            <div class="col-xxl-4 col-lg-5 position-relative md-mb-25px appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [-50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+            <div class="box-accordion col-xxl-4 col-lg-5 position-relative md-mb-25px appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [-50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
                 <h2 class="fw-700 alt-font text-dark-gray ls-minus-2px" style="" el="childs" staggervalue="150" easing="easeOutQuad">@mainTitle</h2>
                 <p style="" el="childs" staggervalue="150" easing="easeOutQuad">@Html.Raw(mainDescription)</p>
             </div>
@@ -34,7 +34,7 @@
                             <div id="@itemId" class="accordion-collapse collapse" data-bs-parent="#accordion-style-02" style="">
                                 <div class="accordion-body last-paragraph-no-margin border-bottom border-color-light-medium-gray">
                                     <p>
-                                        @itemContent
+                                        @Html.Raw(itemContent)
                                     </p>
                                 </div>
                             </div>

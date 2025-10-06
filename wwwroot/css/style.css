@@ -149,7 +149,7 @@ a {
 }
 
     a:hover {
-        color: var(--base-color);
+        color: #43C2FF;
         text-decoration: none;
     }
 
@@ -3980,8 +3980,8 @@ input:focus, select:focus, textarea:focus, .form-control:focus {
 }
 
 .bg-gradient-gray-light-dark-transparent {
-    background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(32, 35, 41, 0.8)), to(transparent));
-    background-image: linear-gradient(to top, rgba(32, 35, 41, 0.8) 0%, transparent 100%);
+    /*background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(32, 35, 41, 0.8)), to(transparent));
+    background-image: linear-gradient(to top, rgba(32, 35, 41, 0.8) 0%, transparent 100%);*/
 }
 
 .bg-gradient-dark-transparent {
@@ -22578,12 +22578,23 @@ canvas {
 
     .shop-modern .grid-item .shop-box .shop-image {
         overflow: hidden;
+        height: 400px;
+        position: relative;
+        background-color: #fff;
     }
 
         .shop-modern .grid-item .shop-box .shop-image img {
             -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 260px;
+            object-fit: contain;
+            display: block;
+            margin: auto; /* centra horizontal */
+            position: relative;
+            top: 50%; /* posiciona 50% do container */
+            transform: translateY(-50%); /* ajusta para ficar verticalmente centrado */
         }
+
 
         .shop-modern .grid-item .shop-box .shop-image .shop-overlay {
             position: absolute;
@@ -22671,10 +22682,10 @@ canvas {
         margin-right: 8px;
     }
 
-    .shop-modern .grid-item .shop-box:hover .shop-image img {
+    /*.shop-modern .grid-item .shop-box:hover .shop-image img {
         -webkit-transform: scale(1.05);
         transform: scale(1.05);
-    }
+    }*/
 
     .shop-modern .grid-item .shop-box:hover .shop-image .shop-buttons-wrap .btn {
         -webkit-transform: translateY(0px);
@@ -22711,6 +22722,7 @@ canvas {
 
         .shop-sidebar .shop-filter li a {
             display: block;
+            font-size: 12px;
         }
 
             .shop-sidebar .shop-filter li a:hover .product-cb {
