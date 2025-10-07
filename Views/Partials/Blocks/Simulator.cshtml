@@ -1,1 +1,279 @@
-﻿
+﻿<div id="simulator">
+    <div class="box">
+        <div class="simulator-phaser">
+            <div class="phase done" data-number="1"></div>
+            <div class="phase" data-number="2"></div>
+            <div class="phase" data-number="3"></div>
+            <div class="phase" data-number="4"></div>
+        </div>
+        <h6 class="text-center text-black mt-3">PRODUTO E QUANTIDADE</h6>
+
+        <!-- FASE 1: CARACTERISTICAS DE PRODUTO -->
+        <div class="row simulator-phase simulator-phase-one gap-5" data-phase="1">
+            <div class="col flex flex-col items-center">
+                <img src="/images/icons/sofa.svg" alt="Sofá" class="w-16 h-16" />
+                <span>Sofá</span>
+
+                <!-- Contador -->
+                <div class="flex items-center gap-3 mt-2 simulator-counter">
+                    <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                    <span class="counter-text text-lg font-bold">0</span>
+                    <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                </div>
+            </div>
+            <div class="col flex flex-col items-center">
+                <img src="/images/icons/tapete.svg" alt="Tapete" class="w-16 h-16" />
+                <span>Tapete</span>
+
+                <!-- Contador -->
+                <div class="flex items-center gap-3 mt-2 simulator-counter">
+                    <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                    <span class="counter-text text-lg font-bold">0</span>
+                    <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                </div>
+            </div>
+            <div class="col flex flex-col items-center">
+                <img src="/images/icons/puff.svg" alt="Puff" class="w-16 h-16" />
+                <span>Puff</span>
+
+                <!-- Contador -->
+                <div class="flex items-center gap-3 mt-2 simulator-counter">
+                    <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                    <span class="counter-text text-lg font-bold">0</span>
+                    <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                </div>
+            </div>
+            <div class="col flex flex-col items-center">
+                <img src="/images/icons/cadeira.svg" alt="Cadeira" class="w-16 h-16" />
+                <span>Cadeira</span>
+
+                <!-- Contador -->
+                <div class="flex items-center gap-3 mt-2 simulator-counter">
+                    <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                    <span class="counter-text text-lg font-bold">0</span>
+                    <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                </div>
+            </div>
+            <div class="col flex flex-col items-center">
+                <img src="/images/icons/cabeceira.svg" alt="Cabeceira" class="w-16 h-16" />
+                <span>Cabeceira</span>
+
+                <!-- Contador -->
+                <div class="flex items-center gap-3 mt-2 simulator-counter">
+                    <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                    <span class="counter-text text-lg font-bold">0</span>
+                    <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                </div>
+            </div>
+            <div class="col flex flex-col items-center">
+                <img src="/images/icons/colchao.svg" alt="Colchão" class="w-16 h-16" />
+                <span>Colchão</span>
+
+                <!-- Contador -->
+                <div class="flex items-center gap-3 mt-2 simulator-counter">
+                    <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                    <span class="counter-text text-lg font-bold">0</span>
+                    <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                </div>
+            </div>
+        </div>
+        <!-- [FIM] FASE 1: CARACTERISTICAS DE PRODUTO -->
+        <!-- FASE 2: CARACTERISTICAS DE PRODUTO -->
+        <div class="row simulator-phase simulator-phase-two gap-x-5 m-0 d-none" data-phase="2">
+            
+            <!-- ITEMS SELECIONADOS NA PRIMEIRA FASE SURGIRÃO AQUI -->
+            <div class="col-10 items"></div>
+
+            <div class="col-2 text-center pt-1 bg-lightgray add-more-products">
+                <button class="add-more-products-btn counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button><br />
+                <span>Adicionar<br />produtos</span>
+            </div>
+            <div class="item-properties">
+                <div class="row">
+                    <div class="col-3">
+                        <span>01. Caracteristicas</span>
+                    </div>
+                    <div class="col-9 text-left">
+
+                        <!-- ATRIBUTO SOFÁ -->
+                        <div class="attribute d-none" data-type="1">
+                            <div class="row">
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/sofa.svg" alt="Sofá" />
+                                        <p>Sofá lugares</p>
+                                        <!-- Contador -->
+                                        <div class="flex items-center gap-3 simulator-counter">
+                                            <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                                            <span class="counter-text text-lg font-bold">0</span>
+                                            <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIM DO ATRIBUTO SOFÁ -->
+                        <!-- ATRIBUTO PUFF -->
+                        <div class="attribute d-none" data-type="3">
+                            <div class="row">
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/puff.svg" alt="Puff" />
+                                        <p>Puff lugares</p>
+                                        <!-- Contador -->
+                                        <div class="flex items-center gap-3 simulator-counter">
+                                            <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                                            <span class="counter-text text-lg font-bold">0</span>
+                                            <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIM DO ATRIBUTO PUFF -->
+                        <!-- ATRIBUTO CADEIRA -->
+                        <div class="attribute d-none" data-type="4">
+                            <div class="row">
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/cadeirao.svg" alt="Cadeirão" />
+                                        <p>Cadeirão</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/cadeira.svg" alt="Cadeira" />
+                                        <p>Assento/costas</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/acento.svg" alt="Assento" />
+                                        <p>Só assento</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/chaiselong.svg" alt="Chaise Long" />
+                                        <p>Chaise Long</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIM DO ATRIBUTO CADEIRA -->
+                        <!-- ATRIBUTO CABECEIRA -->
+                        <div class="attribute d-none" data-type="5">
+                            <div class="row">
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box text-center">
+                                        <img src="/images/icons/cabeceira.svg" alt="Cabeceira" class="mx-auto" />
+                                        <p class="mt-2">Cabeceira cama</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIM DO ATRIBUTO CABECEIRA -->
+                        <!-- ATRIBUTO COLCHÃO -->
+                        <div class="attribute d-none" data-type="6">
+                            <div class="row">
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/bebe.svg" alt="Bebé" />
+                                        <p>Bebé</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/colchaoIndividual.svg" alt="Colchão Individual" />
+                                        <p>Individual</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/colchao.svg" alt="Colchão" />
+                                        <p>Casal</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIM DO ATRIBUTO COLCHÃO -->
+
+                    </div>
+                </div>
+                <div class="row pt-4 pb-4">
+                    <div class="col-3">
+                        <span>02. Acabamento</span>
+                    </div>
+                    <div class="col-9 text-left">
+                        <div class="flex">
+                            <button class="private-button">Tecido</button>
+                            <button class="private-button">Pele</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pb-4">
+                    <div class="col-3 text-left">
+                        <span>03. Serviço</span>
+                    </div>
+                    <div class="col-9 text-left">
+                        <div class="flex">
+                            <button class="private-button">Limpeza</button>
+                            <button class="private-button">Impermeabilização</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [FIM] FASE 2: CARACTERISTICAS DE PRODUTO -->
+
+    </div>
+    <a href="#" class="ws-button simulator-button-next">
+        SEGUINTE
+        <img src="/images/circulo_arrow_Woosh.svg" class="icon-accordion" data-no-retina="">
+    </a>
+</div>
+
+
+
+<link rel="stylesheet" href="/css/private.css" />
+<script src="/js/pages/private.js"></script>

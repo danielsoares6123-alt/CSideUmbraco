@@ -29,6 +29,7 @@ IPublishedContent settings = (currentPage != null && currentPage.Children.Any(x 
     <link rel="stylesheet" href="~/css/icon.min.css" />
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/responsive.css" />
+    @RenderSection("Styles", false)
 <script>
       window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -179,6 +180,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WT5XSKC"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+    <!-- Leaflet CSS e JS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha512-sA+4dJrPbjQ5vTyyD9DkoG8ftlD2vE3z+v0qD7G1ZOnWbk7B1vKbi8yUKKp6RwFdrF0RNsOayC0VY8zF2vL0Bg=="
+          crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha512-nmmMBVt1sj3X9ZzI7XzZ1F4yZ0LQRSU6ftf6CBx1F5Z86Vmu2axvWzU3WlBlQl6OgrFxY3rStFq9SDFP4FqEog=="
+            crossorigin=""></script>
+
     <!-- javascript libraries -->
     <script type="text/javascript" src="~/js/jquery.js"></script>
     <script type="text/javascript" src="~/js/vendors.min.js"></script>

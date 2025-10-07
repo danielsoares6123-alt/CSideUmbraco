@@ -1,0 +1,35 @@
+﻿<!-- Container principal -->
+<div role="search" class="flex flex-col items-center justify-center py-11 text-wooshdarkblue gap-6 w-full">
+    <p class="text-sm md:text-baseminus 2xl:text-base tracking-wide font-extrabold uppercase text-center">
+        Encontrar uma lavandaria Woosh
+    </p>
+
+    <!-- Campo de pesquisa -->
+    <div class="relative flex w-full lg:w-3/5 items-center">
+        <input type="search"
+               id="searchInput"
+               aria-label="Pesquisar lavandaria Woosh"
+               placeholder="Ex: código postal, morada, cidade ou país"
+               class="w-full placeholder-wooshdarkblue text-baseminus pl-8 pr-40 h-14 lg:h-16 rounded-full focus:outline-none shadow-sm" />
+
+        <!-- Botão localização -->
+        <button type="button"
+                onclick="usarLocalizacao(this)"
+                class="absolute right-36 top-0 text-wooshdarkblue font-bold px-5 h-14 lg:h-16 rounded-full hover:text-wooshhoverblue transition-all"
+                title="Usar a minha localização">
+            📍
+        </button>
+
+        <!-- Botão pesquisar -->
+        <button type="button"
+                onclick="procurarLavandaria()"
+                class="absolute right-0 top-0 text-white px-7 xsm:px-12 h-14 lg:h-16 bg-wooshdarkblue rounded-full text-baseminus font-bold focus:outline-none hover:bg-wooshhoverblue transition-all">
+            Procurar
+        </button>
+    </div>
+
+    <!-- Mapa -->
+    <div id="mapLocator" class="w-full lg:w-3/5 h-80 rounded-2xl shadow-md"></div>
+</div>
+
+<script src="/js/pages/locator.js"></script>

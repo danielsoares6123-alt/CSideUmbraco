@@ -1,0 +1,229 @@
+﻿.woosh-intro {
+    display: none;
+}
+
+.woosh-app-footer {
+    background-color: #BB94694a !important;
+}
+
+.ws-button {
+    background-color: #BB9469 !important;
+    padding: 5px 20px 5px 20px;
+}
+
+    .ws-button .icon-accordion {
+        margin-top: -1px;
+    }
+
+    .private-button {
+        background-color: lightgray;
+        color: #000;
+        border: 0px;
+        padding: 5px 20px;
+        border-radius: 6px;
+        transition: .25s ease-in-out;
+    }
+
+
+.private-button:hover {
+    background-color: #bb94695e !important;
+    border: 0px;
+    padding: 5px 20px;
+    border-radius: 6px;
+}
+
+    .private-button.active {
+        background: #BB9469;
+        color: white;
+    }
+
+    .ws-button:hover {
+        background-color: #000 !important;
+        color: #BB9469 !important;
+    }
+
+#simulator .simulator-phase .simulator-counter {
+    background-color: #BB94694a !important;
+}
+
+.counter-btn {
+    color: #BB9469 !important;
+    background-color: unset !important;
+    border: 0px !important;
+}
+
+.add-more-products-btn {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.highlight .nav-link {
+    background-color: hsl(32deg 77% 49% / 50%);
+    color: #fff !important;
+}
+
+#simulator .simulator-phase-two {
+    padding: 0 !important;
+}
+
+#simulator .simulator-header {
+    position: relative;
+}
+
+#simulator .simulator-phaser {
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0px;
+}
+
+    #simulator .simulator-phaser .phase {
+        background-color: #000;
+        height: 8px;
+        width: 150px;
+    }
+
+    #simulator .simulator-phaser .done {
+        background-color: #BB9469;
+    }
+
+
+#simulator .simulator-phase .items {
+    display: flex;
+    margin: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    border-bottom: 2px solid #bfbfbf;
+    max-height: 120px;
+    padding: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+    #simulator .simulator-phase .items::-webkit-scrollbar {
+        display: none;
+    }
+
+
+#simulator .simulator-phase .items .item img {
+    height: 70px;
+}
+
+    #simulator .simulator-phase .items .item p {
+        color: #000;
+        margin-top: -8px;
+    }
+
+#simulator .simulator-phase .items .item {
+    width: 158px;
+    padding: 10px;
+    cursor: pointer;
+    flex: none;
+}
+
+    #simulator .simulator-phase .items .active {
+        background-color: #f5dabd;
+        border-bottom: 4px solid #BB9469;
+        transition: 0.14s ease-in-out;
+    }
+
+#simulator .item-properties .attribute .attribute-box img {
+    height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+#simulator .item-properties .attribute .row {
+    gap: 20px;
+}
+
+#simulator .item-properties .attribute .attribute-col {
+    padding: 30px 0px;
+}
+
+#simulator .item-properties .attribute .attribute-box {
+    text-align: center;
+    background-color: #eeeeee;
+    border-radius: 20px;
+    padding: 0px 0px 22px 0px;
+}
+
+    #simulator .item-properties .attribute .attribute-box p {
+        font-size: 13px;
+    }
+
+
+    #simulator .item-properties .attribute .attribute-box .simulator-counter {
+        margin-top: unset !important;
+        position: unset !important;
+        background-color: #fff !important;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+#simulator .item-properties .col-3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+}
+
+#simulator .item-properties .row {
+    padding-left: 30px;
+    padding-top: 5px;
+}
+
+#simulator .simulator-phase .add-more-products {
+    cursor: pointer;
+}
+
+
+/* Container do switch */
+.switch {
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    position: relative;
+}
+
+    /* Slider (a parte que se move) */
+    .switch .slider {
+        position: absolute;
+        cursor: pointer;
+        background-color: #fff; /* fundo inicial */
+        border: 2px solid #ccc;
+        border-radius: 999px; /* redondo */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: all 0.3s ease;
+        height: 24px;
+    }
+
+        /* Bolinha interna */
+        .switch .slider::before {
+            content: "";
+            position: absolute;
+            height: 16px;
+            width: 16px;
+            left: 0px;
+            top: 2px;
+            background-color: #ccc;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+    /* Quando marcado */
+    .switch input:checked + .slider {
+        background-color: #BB9469; /* fundo do switch */
+        border-color: #BB9469;
+    }
+
+        .switch input:checked + .slider::before {
+            transform: translateX(20px); /* move a bolinha para a direita */
+            background-color: #fff; /* bolinha continua branca */
+        }
