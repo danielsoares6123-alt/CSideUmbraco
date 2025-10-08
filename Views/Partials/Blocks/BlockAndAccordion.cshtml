@@ -1,48 +1,66 @@
 ﻿@model IPublishedContent
 
 @{
-    var accordions = Model.Value<IPublishedContent>("parameter"); // ajusta alias se necessário
+    var accordions = Model.Value<IPublishedContent>("parameter");
     string mainTitle = accordions?.Value<string>("title") ?? "Default Main Title";
     string mainDescription = accordions?.Value<string>("description") ?? "Default description text.";
+    int index = 0;
 }
 
 <section class="big-section">
     <div class="container">
         <div class="row">
-            <div class="box-accordion col-xxl-4 col-lg-5 position-relative md-mb-25px appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [-50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                <h2 class="fw-700 alt-font text-dark-gray ls-minus-2px" style="" el="childs" staggervalue="150" easing="easeOutQuad">@mainTitle</h2>
-                <p style="" el="childs" staggervalue="150" easing="easeOutQuad">@Html.Raw(mainDescription)</p>
+            <div class="box-accordion col-xxl-4 col-lg-5 position-relative md-mb-25px appear anime-child anime-complete"
+                 data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [-50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <h2 class="fw-700 alt-font text-dark-gray ls-minus-2px">@mainTitle</h2>
+                <p>@Html.Raw(mainDescription)</p>
             </div>
             <div class="col-xxl-7 col-lg-7 offset-xxl-1">
-                <div class="accordion accordion-style-02 appear anime-child anime-complete" id="accordion-style-02" data-active-icon="icon-feather-chevron-up" data-inactive-icon="icon-feather-chevron-down" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
-                    
+                <div class="accordion accordion-style-02 appear anime-child anime-complete" id="accordion-style-02"
+                     data-active-icon="icon-feather-chevron-up" data-inactive-icon="icon-feather-chevron-down"
+                     data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+
                     @foreach (var accordion in accordions.Children.Where(x => x.IsDocumentType("accordion")).OrderBy(x => x.SortOrder))
                     {
                         var itemTitle = accordion.Value<string>("title") ?? "Default Item Title";
                         var itemContent = accordion.Value<string>("description") ?? "Default item content goes here.";
                         var itemId = $"accordion-style-02-{accordion.Id}";
-                        <!-- start accordion item -->
-                        <div class="accordion-item" style="" el="childs" staggervalue="150" easing="easeOutQuad">
+                        var isFirst = index == 0 ? "show" : ""; // abre o primeiro
+                        var isExpanded = index == 0 ? "true" : "false";
+                        var collapsedClass = index == 0 ? "" : "collapsed";
+
+                        <div class="accordion-item" el="childs" staggervalue="150" easing="easeOutQuad">
                             <div class="accordion-header border-bottom border-color-extra-medium-gray">
-                                <a href="#" data-bs-toggle="collapse" data-bs-target="#@itemId" aria-expanded="false" data-bs-parent="#accordion-style-02" class="collapsed">
+                                <a href="#" data-bs-toggle="collapse" data-bs-target="#@itemId"
+                                   aria-expanded="@isExpanded" data-bs-parent="#accordion-style-02"
+                                   class="@collapsedClass">
                                     <div class="accordion-title mb-0 position-relative text-dark-gray pe-30px">
                                         <img src="/images/circulo_arrow_Woosh.svg" class="icon-accordion" data-no-retina="" />
                                         <span class="fw-600 fs-18">@itemTitle</span>
                                     </div>
                                 </a>
                             </div>
-                            <div id="@itemId" class="accordion-collapse collapse" data-bs-parent="#accordion-style-02" style="">
+                            <div id="@itemId" class="accordion-collapse collapse @isFirst" data-bs-parent="#accordion-style-02">
                                 <div class="accordion-body last-paragraph-no-margin border-bottom border-color-light-medium-gray">
-                                    <p>
-                                        @Html.Raw(itemContent)
-                                    </p>
+                                    <p>@Html.Raw(itemContent)</p>
                                 </div>
                             </div>
                         </div>
-                        <!-- end accordion item -->
-                    } 
+
+                        index++;
+                    }
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const firstAccordion = document.querySelector('.accordion .accordion-item:first-child .accordion-header a');
+        if (firstAccordion) {
+            firstAccordion.click();
+        }
+    });
+
+</script>

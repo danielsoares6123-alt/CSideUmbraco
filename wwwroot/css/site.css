@@ -887,3 +887,23 @@ button img {
     border-radius: 8px;
     width: 100px;
 }
+
+.accordion-body ul li {
+    position: relative;
+}
+
+    .accordion-body ul li::before {
+        content: '';
+        position: absolute;
+        left: -21px;
+        top: 5px;
+        width: 6px;
+        height: 6px;
+        background-color: #43C2FF;
+        border-radius: 50%;
+    }
+
+.box-accordion .alt-font {
+    word-break: auto-phrase;
+    font-size: 44px;
+}
