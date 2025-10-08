@@ -1,12 +1,12 @@
 ﻿<div id="simulator">
     <div class="box">
         <div class="simulator-phaser">
-            <div class="phase done" data-number="1"></div>
+            <div class="phase done" data-number="0"></div>
+            <div class="phase" data-number="1"></div>
             <div class="phase" data-number="2"></div>
             <div class="phase" data-number="3"></div>
-            <div class="phase" data-number="4"></div>
         </div>
-        <h6 class="text-center text-black mt-3">PRODUTO E QUANTIDADE</h6>
+        <h6 class="text-center text-black mt-3 simulator-title">PRODUTO E QUANTIDADE</h6>
 
         <!-- FASE 1: CARACTERISTICAS DE PRODUTO -->
         <div class="row simulator-phase simulator-phase-one gap-5" data-phase="1">
@@ -80,7 +80,7 @@
         <!-- [FIM] FASE 1: CARACTERISTICAS DE PRODUTO -->
         <!-- FASE 2: CARACTERISTICAS DE PRODUTO -->
         <div class="row simulator-phase simulator-phase-two gap-x-5 m-0 d-none" data-phase="2">
-            
+
             <!-- ITEMS SELECIONADOS NA PRIMEIRA FASE SURGIRÃO AQUI -->
             <div class="col-10 items"></div>
 
@@ -89,9 +89,9 @@
                 <span>Adicionar<br />produtos</span>
             </div>
             <div class="item-properties">
-                <div class="row">
+                <div class="row properties">
                     <div class="col-3">
-                        <span>01. Caracteristicas</span>
+                        <span class="property-text"><span class="property-number">01.</span> Caracteristicas</span>
                     </div>
                     <div class="col-9 text-left">
 
@@ -104,15 +104,65 @@
                                         <p>Sofá lugares</p>
                                         <!-- Contador -->
                                         <div class="flex items-center gap-3 simulator-counter">
-                                            <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                                            <button class="counter-btn counter-inner decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
                                             <span class="counter-text text-lg font-bold">0</span>
-                                            <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                                            <button class="counter-btn counter-inner increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- FIM DO ATRIBUTO SOFÁ -->
+                        <!-- ATRIBUTO TAPETE -->
+                        <div class="attribute d-none" data-type="2">
+                            <div class="row">
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/redondo.svg" alt="Redondo" />
+                                        <p>Redondo</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" data-open-details="1" data-name="Redondo" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/quadrado.svg" alt="Quadrado" />
+                                        <p>Quadrado</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" data-open-details="2" data-name="Quadrado" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/retangulo.svg" alt="Retângulo" />
+                                        <p>Retângulo</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" data-open-details="3" data-name="Retângulo" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-2 attribute-col">
+                                    <div class="attribute-box">
+                                        <img src="/images/icons/outro.svg" alt="Outro" />
+                                        <p>Outro</p>
+                                        <!-- Switch toggle -->
+                                        <label class="switch mt-3 cursor-pointer">
+                                            <input type="checkbox" class="hidden" data-open-details="4" data-name="Outro" />
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIM DO ATRIBUTO TAPETE -->
                         <!-- ATRIBUTO PUFF -->
                         <div class="attribute d-none" data-type="3">
                             <div class="row">
@@ -122,9 +172,9 @@
                                         <p>Puff lugares</p>
                                         <!-- Contador -->
                                         <div class="flex items-center gap-3 simulator-counter">
-                                            <button class="counter-btn decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
-                                            <span class="counter-text text-lg font-bold">0</span>
-                                            <button class="counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                                            <button class="counter-btn counter-inner decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
+                                            <span class="counter-text counter-inner-text text-lg font-bold">0</span>
+                                            <button class="counter-btn counter-inner increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +190,7 @@
                                         <p>Cadeirão</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
-                                            <input type="checkbox" class="hidden" />
+                                            <input type="checkbox" class="hidden" data-name="Cadeirão" />
                                             <span class="slider"></span>
                                         </label>
                                     </div>
@@ -151,7 +201,7 @@
                                         <p>Assento/costas</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
-                                            <input type="checkbox" class="hidden" />
+                                            <input type="checkbox" class="hidden" data-name="Assento/costas" />
                                             <span class="slider"></span>
                                         </label>
                                     </div>
@@ -162,7 +212,7 @@
                                         <p>Só assento</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
-                                            <input type="checkbox" class="hidden" />
+                                            <input type="checkbox" class="hidden" data-name="Só assento" />
                                             <span class="slider"></span>
                                         </label>
                                     </div>
@@ -173,7 +223,7 @@
                                         <p>Chaise Long</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
-                                            <input type="checkbox" class="hidden" />
+                                            <input type="checkbox" class="hidden" data-name="Chaise Long" />
                                             <span class="slider"></span>
                                         </label>
                                     </div>
@@ -190,7 +240,7 @@
                                         <p class="mt-2">Cabeceira cama</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
-                                            <input type="checkbox" class="hidden" />
+                                            <input type="checkbox" class="hidden" data-name="Cabeceira cama" />
                                             <span class="slider"></span>
                                         </label>
                                     </div>
@@ -207,7 +257,7 @@
                                         <p>Bebé</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
-                                            <input type="checkbox" class="hidden" />
+                                            <input type="checkbox" class="hidden" data-name="Bebé" />
                                             <span class="slider"></span>
                                         </label>
                                     </div>
@@ -218,7 +268,7 @@
                                         <p>Individual</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
-                                            <input type="checkbox" class="hidden" />
+                                            <input type="checkbox" class="hidden" data-name="Individual" />
                                             <span class="slider"></span>
                                         </label>
                                     </div>
@@ -229,7 +279,7 @@
                                         <p>Casal</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
-                                            <input type="checkbox" class="hidden" />
+                                            <input type="checkbox" class="hidden" data-name="Casal" />
                                             <span class="slider"></span>
                                         </label>
                                     </div>
@@ -238,27 +288,128 @@
                         </div>
                         <!-- FIM DO ATRIBUTO COLCHÃO -->
 
-                    </div>
-                </div>
-                <div class="row pt-4 pb-4">
-                    <div class="col-3">
-                        <span>02. Acabamento</span>
-                    </div>
-                    <div class="col-9 text-left">
-                        <div class="flex">
-                            <button class="private-button">Tecido</button>
-                            <button class="private-button">Pele</button>
+                        <div class="switch-details d-none" data-id="1">
+                            <div class="d-flex gap-3">
+                                <a href="#">
+                                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" data-no-retina="">
+                                </a>
+                                <div>Formato: Redondo</div>
+                            </div>
+                            <div class="row p-0 pt-1">
+                                <div>Introduza as medidas do tapete</div>
+                            </div>
+                            <div class="row">
+                                <div class="d-flex p-0 measurements">
+                                    <div>
+                                        <img src="/images/icons/redondo.svg" alt="Redondo" />
+                                    </div>
+                                    <div class="d-flex">
+                                        <span>Diametro</span>
+                                        <input type="text" class="format-input" id="redondo" name="redondo" />
+                                        <span>= <span id="redondoResultados"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="switch-details d-none" data-id="2">
+                            <div class="d-flex gap-3">
+                                <a href="#">
+                                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" data-no-retina="">
+                                </a>
+                                <div>Formato: Quadrado</div>
+                            </div>
+                            <div class="row p-0 pt-1">
+                                <div>Introduza as medidas do tapete</div>
+                            </div>
+                            <div class="row">
+                                <div class="d-flex p-0 measurements">
+                                    <div>
+                                        <img src="/images/icons/quadrado.svg" alt="Quadrado" />
+                                    </div>
+                                    <div class="d-flex">
+                                        <span>x</span>
+                                        <input type="text" class="format-input" id="quadradoX" name="quadradoX" />
+                                        <span>y</span>
+                                        <input type="text" class="format-input" id="quadradoY" name="quadradoY" />
+                                        <span>= <span id="quadradoResultados"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="switch-details d-none" data-id="3">
+                            <div class="d-flex gap-3">
+                                <a href="#">
+                                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" data-no-retina="">
+                                </a>
+                                <div>Formato: Retângulo</div>
+                            </div>
+                            <div class="row p-0 pt-1">
+                                <div>Introduza as medidas do tapete</div>
+                            </div>
+                            <div class="row">
+                                <div class="d-flex p-0 measurements">
+                                    <div>
+                                        <img src="/images/icons/retangulo.svg" alt="Retângulo" />
+                                    </div>
+                                    <div class="d-flex">
+                                        <span>x</span>
+                                        <input type="text" class="format-input" id="retanguloX" name="retanguloX" />
+                                        <span>y</span>
+                                        <input type="text" class="format-input" id="retanguloY" name="retanguloY" />
+                                        <span>= <span id="retanguloResultados"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="switch-details d-none" data-id="4">
+                            <div class="d-flex gap-3">
+                                <a href="#">
+                                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" data-no-retina="">
+                                </a>
+                                <div>Formato: Outro</div>
+                            </div>
+                            <div class="row p-0 pt-1">
+                                <div>Introduza as medidas do tapete</div>
+                            </div>
+                            <div class="row">
+                                <div class="d-flex p-0 measurements">
+                                    <div>
+                                        <img src="/images/icons/outro.svg" alt="Outro" />
+                                    </div>
+                                    <div class="d-flex">
+                                        <span>x</span>
+                                        <input type="text" class="format-input" id="outroX" name="OutroX" />
+                                        <span>y</span>
+                                        <input type="text" class="format-input" id="outroY" name="OutroY" />
+                                        <span>= <span id="outrosResultados"></span></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row pb-4">
-                    <div class="col-3 text-left">
-                        <span>03. Serviço</span>
+                <div class="row pt-4 pb-4 finish">
+                    <div class="col-3">
+                        <span class="property-text"><span class="property-number">02.</span> Acabamento</span>
                     </div>
                     <div class="col-9 text-left">
                         <div class="flex">
-                            <button class="private-button">Limpeza</button>
-                            <button class="private-button">Impermeabilização</button>
+                            <button class="private-button finish-button" data-value="Tecido">Tecido</button>
+                            <button class="private-button finish-button" data-value="Pele">Pele</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pb-4 service">
+                    <div class="col-3 text-left">
+                        <span class="property-text"><span class="property-number">03.</span> Serviço</span>
+                    </div>
+                    <div class="col-9 text-left">
+                        <div class="flex">
+                            <button class="private-button service-s-button" data-value="Limpeza">Limpeza</button>
+                            <button class="private-button service-s-button" data-value="Impermeabilização">Impermeabilização</button>
                         </div>
                     </div>
                 </div>

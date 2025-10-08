@@ -22,6 +22,8 @@
         padding: 5px 20px;
         border-radius: 6px;
         transition: .25s ease-in-out;
+        text-transform: lowercase;
+        font-weight: bold;
     }
 
 
@@ -64,6 +66,7 @@
 
 #simulator .simulator-phase-two {
     padding: 0 !important;
+    border-top: 1px solid lightgray;
 }
 
 #simulator .simulator-header {
@@ -96,7 +99,7 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     border-bottom: 2px solid #bfbfbf;
-    max-height: 120px;
+    max-height: 155px;
     padding: 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -116,18 +119,49 @@
         margin-top: -8px;
     }
 
-#simulator .simulator-phase .items .item {
-    width: 158px;
-    padding: 10px;
+    #simulator .simulator-phase .items .item {
+        width: 158px;
+        padding: 30px 0px;
+        cursor: pointer;
+        flex: none;
+        position: relative;
+    }
+
+    .item .delete-icon {
+        position: absolute;
+        top: 0px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 45px;
+        height: 45px !important;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+    }
+
+        .item .delete-icon:hover {
+            opacity: 1;
+        }
+
+.item .done-icon {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 210px;
+    height: 25px !important;
     cursor: pointer;
-    flex: none;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+    display: none;
 }
 
-    #simulator .simulator-phase .items .active {
-        background-color: #f5dabd;
-        border-bottom: 4px solid #BB9469;
-        transition: 0.14s ease-in-out;
-    }
+#simulator .simulator-phase .items .active {
+    background-color: #ececec;
+    transition: 0.14s ease-in-out;
+}
 
 #simulator .item-properties .attribute .attribute-box img {
     height: 100px;
@@ -178,8 +212,17 @@
 
 #simulator .simulator-phase .add-more-products {
     cursor: pointer;
+    border-bottom: 1px solid lightgray;
 }
 
+#simulator .properties {
+    border-bottom: 1px solid lightgray;
+}
+
+#simulator .finish {
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 30px;
+}
 
 /* Container do switch */
 .switch {
@@ -211,7 +254,7 @@
             height: 16px;
             width: 16px;
             left: 0px;
-            top: 2px;
+            top: 3px;
             background-color: #ccc;
             border-radius: 50%;
             transition: all 0.3s ease;
@@ -227,3 +270,12 @@
             transform: translateX(20px); /* move a bolinha para a direita */
             background-color: #fff; /* bolinha continua branca */
         }
+
+
+#simulator .property-number {
+    color: #BB9469;
+}
+
+#simulator .property-text {
+    font-weight: bold;
+}

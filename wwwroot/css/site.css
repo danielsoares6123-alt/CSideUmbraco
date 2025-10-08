@@ -796,7 +796,7 @@ button img {
 
     #simulator .box {
         background-color: #fff;
-        width: 60%;
+        width: 1300px;
         border-radius: 30px;
     }
 
@@ -836,6 +836,7 @@ button img {
 /* Animação de contagem */
 .counter-text {
     display: inline-block;
+    font-size: 20px;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -853,4 +854,36 @@ button img {
 
 .bg-lightgray {
     background-color: #f1f1f1;
+}
+
+.switch-details {
+    margin-bottom: 30px;
+}
+
+.switch-details a img {
+    transform: rotate(-135deg);
+    height: 30px;
+    opacity: 0.7;
+}
+
+.switch-details a img:hover {
+    opacity: 1;
+}
+
+.measurements img {
+    width: 100px;
+}
+
+.measurements .d-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.measurements .d-flex input {
+    background-color: #f1f1f1;
+    border: 0px;
+    border-radius: 8px;
+    width: 100px;
 }
