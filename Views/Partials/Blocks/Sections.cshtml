@@ -1,0 +1,73 @@
+﻿@model IPublishedContent
+
+@{
+    var sections = Model.Value<IPublishedContent>("parameter");
+    var sectionsChilds = sections.Children().Where(x => x.IsDocumentType("section")).ToList();
+
+    string sectionsTitle = sections.Value("sectionsTitle").ToString();
+    string sectionsDescription = sections.Value("sectionsDescription").ToString();
+    int sectionIndex = 1; // começa em 1
+}
+
+<section class="pt-0">
+    <div class="container">
+        <div class="row mb-6 sm-mb-50px">
+            <div class="col-md-12 text-center text-md-start appear anime-complete" data-anime="{&quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;:0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }" staggervalue="300" easing="easeOutQuad" style="">
+                <div class="fs-140 xxl-fs-100 sm-fs-60 fw-600 text-dark-gray alt-font ls-minus-8px sm-ls-minus-2px skrollable skrollable-between" data-bottom-top="transform: translate3d(-50px, 0px, 0px);" data-top-bottom="transform: translate3d(50px, 0px, 0px);" style="transform: translate3d(12.3248px, 0px, 0px);">@sectionsTitle</div>
+            </div>
+            <div class="col-12 mt-2">
+                <div class="row align-items-center align-items-lg-end skrollable skrollable-between" data-bottom-top="transform: translate3d(-30px, 0px, 0px);" data-top-bottom="transform: translate3d(30px, 0px, 0px);" style="transform: translate3d(0.469909px, 0px, 0px);">
+                    <div class="col-lg-12 last-paragraph-no-margin md-mt-30px appear anime-complete" data-anime="{&quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;:0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }" staggervalue="300" easing="easeOutQuad" style="">
+                        <p class="w-95 md-w-80 mx-auto text-center text-lg-start sm-w-100">@sectionsDescription</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="separator-line-1px bg-extra-medium-gray"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@foreach (var section in sectionsChilds)
+{
+    string sectionTitle = section.Value("sectionTitle").ToString();
+    string sectionDescription = section.Value("sectionDescription").ToString();
+    List<IPublishedContent> images = section.HasValue("sectionImages") ? section.Value<IEnumerable<IPublishedContent>>("sectionImages").ToList() : new List<IPublishedContent>();
+
+    IPublishedContent firstImage = images.FirstOrDefault();
+    IPublishedContent lastImage = images.LastOrDefault();
+
+    <section class="pt-0">
+        <div class="container">
+            <div class="row mb-8">
+                <div class="col-lg-2 col-md-2 text-md-end">
+                    <span style="font-family: Inter, sans-serif;" class="fs-130 xl-fs-100 md-fs-80 lh-100 md-lh-80 alt-font fw-700 text-sliding-line bg-extra-medium-gray">@sectionIndex.ToString("D2")</span>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-8 md-mt-15px appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;:0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                    <h3 class="alt-font fw-600 mb-0 text-dark-gray ls-minus-2px" style="" el="childs" staggervalue="300" easing="easeOutQuad">@sectionTitle</h3>
+                </div>
+                <div class="col-lg-6 offset-xl-1 md-mt-20px appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;:0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                    <p style="" el="childs" staggervalue="300" easing="easeOutQuad">@Html.Raw(sectionDescription)</p>
+                    <div class="row" style="" el="childs" staggervalue="300" easing="easeOutQuad">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 sm-mb-30px skrollable skrollable-between" data-bottom-top="transform: translate3d(0, -30px, 0px);" data-top-bottom="transform: translate3d(0, 30px, 0px);" style="transform: translate3d(0px, -19.9213px, 0px);">
+                    <div class="position-relative appear" data-anime="{ &quot;effect&quot;: &quot;slide&quot;, &quot;direction&quot;: &quot;lr&quot;, &quot;color&quot;: &quot;#f7f7f7&quot;, &quot;duration&quot;: 1000, &quot;delay&quot;: 0 }" style="position: relative;">
+                        <img src="@firstImage.Url()" alt="" data-no-retina="" style="opacity: 1;">
+                    </div>
+                </div>
+                <div class="col-md-4 skrollable skrollable-between" data-bottom-top="transform: translate3d(0, 30px, 0px);" data-top-bottom="transform: translate3d(0, -30px, 0px);" style="transform: translate3d(0px, 19.9213px, 0px);">
+                    <div class="position-relative appear" data-anime="{ &quot;effect&quot;: &quot;slide&quot;, &quot;direction&quot;: &quot;rl&quot;, &quot;color&quot;: &quot;#f7f7f7&quot;, &quot;duration&quot;: 1000, &quot;delay&quot;: 0 }" style="position: relative;">
+                        <img src="@lastImage.Url()" alt="" data-no-retina="" style="opacity: 1;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    sectionIndex++;
+}

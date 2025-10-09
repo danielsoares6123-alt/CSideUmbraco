@@ -19,7 +19,7 @@
 }
 
 <section class="woosh-intro"
-         @(image != null ? Html.Raw($"style=\"background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), url('{image.Url()}') center/cover no-repeat;\"") : null)>
+         @(image != null ? Html.Raw($"style=\"background: linear-gradient(rgb(0 0 0 / 50%), rgb(0 0 0 / 0%)), url('{image.Url()}') center/cover no-repeat;\"") : null)>
     <div class="shape-image-animation bottom-0 p-0 w-100 d-none d-md-block">
         <svg xmlns="http://www.w3.org/2000/svg" width="3000" height="400" viewBox="0 180 2500 200" fill="#ffffff">
             <path class="st1" d="M 0 250 C 1200 400 1200 50 3000 250 L 3000 550 L 0 550 L 0 250">
@@ -30,7 +30,6 @@
         </svg>
     </div>
 </section>
-
 
 @if (showBoxes)
 {
@@ -89,7 +88,7 @@
 }
 
 <div class="woosh-app-footer">
-    <div class="container pt-2 pb-2">
+    <div class="container pt-1 pb-1">
         <div class="row">
             <div class="col-6">
                 <span class="text-black">Faça o download do App Woosh e descubra ainda mais vantagens de ser um parceiro Woosh</span>

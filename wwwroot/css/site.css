@@ -216,14 +216,28 @@ html, body {
 .woosh-footer {
     background: #383838;
     color: #fff;
-    padding: 50px 20px 20px;
+    padding: 35px 20px 38px;
     font-family: 'Arial', sans-serif;
+}
+
+.woosh-app-footer .text-black {
+    font-size: 13px;
+    color: lightgray;
+    padding-top: 2px;
+}
+
+.woosh-app-footer .col-6 {
+    line-height: 100%;
+}
+
+.woosh-app-footer img {
+    height: 48px;
 }
 
 .footer-container {
     display: flex;
+    column-gap: 30px;
     flex-wrap: wrap;
-    gap: 40px;
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
@@ -235,11 +249,12 @@ html, body {
 
     .footer-section h3 {
         margin-bottom: 0px;
-        font-size: 20px;
+        font-size: 17px;
         color: #43C2FF; /* azul Woosh */
     }
 
     .footer-section p {
+        font-size: 13px;
         line-height: 1.6;
         color: #fff;
     }
@@ -260,14 +275,19 @@ html, body {
     }
 
     .social-icons img {
-        width: 45px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         filter: invert(1);
     }
 
 .footer-bottom {
-    font-size: 14px;    
+    margin-top: 37px;
+    font-size: 14px;
     color: #aaa;
+}
+
+.footer-bottom p {
+    margin-bottom: 0px;
 }
 
 .footer-container .links {
@@ -275,7 +295,7 @@ html, body {
 }
 
 .footer-container .contact p {
-    margin-bottom: 15px;
+    margin-bottom: 9px;
 }
 
 /* Responsivo */
@@ -531,7 +551,7 @@ button img {
         .footer-section.links ul li a {
             text-decoration: none; /* sem sublinhado */
             color: #ccc; /* cor dos links */
-            font-size: 14px;
+            font-size: 13px;
             transition: color 0.3s ease;
         }
 
@@ -549,6 +569,7 @@ button img {
 
     .schedule li {
         margin-bottom: 6px;
+        font-size: 13px;
     }
 
         .schedule li span {
@@ -564,6 +585,11 @@ button img {
 .woosh-footer a {
     color: lightgray !important;
     text-decoration: none !important;
+    font-size: 13px;
+}
+
+.woosh-footer .contact p {
+    margin-b
 }
 
 #privacy-overlay {
