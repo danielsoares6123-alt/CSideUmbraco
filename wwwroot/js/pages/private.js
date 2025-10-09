@@ -1,5 +1,5 @@
 ﻿var productIndex = -1;
-localStorage.clear();
+localStorage.removeItem("products");
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('simulator').addEventListener('click', (e) => {

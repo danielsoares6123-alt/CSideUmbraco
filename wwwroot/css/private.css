@@ -60,7 +60,8 @@
 }
 
 .highlight .nav-link {
-    background-color: hsl(32deg 77% 49% / 50%);
+    border: 2px solid #bb9469bd !important;
+    background-color: #bb9469a8;
     color: #fff !important;
 }
 
@@ -278,4 +279,16 @@
 
 #simulator .property-text {
     font-weight: bold;
+}
+
+.footer-section h3 {
+    color: #BB9469 !important;
+}
+
+.highlight::before {
+    background-color: unset !important;
+}
+.highlight:hover .nav-link, .navbar .navbar-nav .nav-item.active .nav-link {
+    opacity: 1 !important;
+    filter: blur(1px);
 }

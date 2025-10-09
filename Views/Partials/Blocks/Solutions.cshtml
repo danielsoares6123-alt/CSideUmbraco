@@ -1,7 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Umbraco.Cms.Core.Models
+@model IPublishedContent
+
 @{
+    var boxes = Model.Value<IPublishedContent>("parameter");
+    var boxesChilds = boxes.Children().Where(x => x.IsDocumentType("box")).ToList();
 }
 
 <div class="container mt-5">
@@ -13,42 +15,22 @@
     <!-- Swiper -->
     <div class="mySwiper1 mt-4">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="box-slide" style="background-image: url('/images/DSCF5856.jpg'); background-position:center; background-size: cover;">
-                    <div class="overlay"></div>
-                    <span class="slide-text">Tapetes</span>
-                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="box-slide" style="background-image: url('/images/DSCF5864.jpg'); background-position:center; background-size: cover;">
-                    <div class="overlay"></div>
-                    <span class="slide-text">Peles</span>
-                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
-                </div>
+            @foreach (var box in boxesChilds)
+            {
+                string name = box.Value("boxName").ToString();
+                string image = box.HasValue("boxImage") ? box.Value<IPublishedContent>("boxImage").Url() : String.Empty;
+                var link = box.HasValue("pageDestination") ? box.Value<Link>("pageDestination").Url : "#";
 
-            </div>
-            <div class="swiper-slide">
-                <div class="box-slide" style="background-image: url('/images/DSCF5841 (1).jpg'); background-position:center; background-size: cover;">
-                    <div class="overlay"></div>
-                    <span class="slide-text">Fardamento</span>
-                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
+                <div class="swiper-slide">
+                    <div class="box-slide"
+                         style="background-image: url('@image'); background-position:center; background-size: cover; cursor:pointer;"
+                         onclick="window.location.href='@link'">
+                        <div class="overlay"></div>
+                        <span class="slide-text">@name</span>
+                        <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
+                    </div>
                 </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="box-slide" style="background-image: url('/images/DSCF5828.jpg'); background-position:center; background-size: cover;">
-                    <div class="overlay"></div>
-                    <span class="slide-text">Cortinados</span>
-                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="box-slide" style="background-image: url('/images/DSCF5864.jpg'); background-position:center; background-size: cover;">
-                    <div class="overlay"></div>
-                    <span class="slide-text">Sofás</span>
-                    <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -93,9 +75,9 @@
 
 
         // Seleciona todos os elementos box-slide
-    const slides_solutions = document.querySelectorAll('.box-slide');
+    const slides_boxes = document.querySelectorAll('.box-slide');
 
-    slides_solutions.forEach(slide => {
+    slides_boxes.forEach(slide => {
         const text = slide.querySelector('.slide-text');
 
         slide.addEventListener('mouseenter', () => {

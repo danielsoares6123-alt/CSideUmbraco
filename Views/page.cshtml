@@ -10,11 +10,18 @@
                     .Children()
                     .Where(x => x.IsDocumentType("block"))
                     .ToList(); // Se não houver, ToList() já retorna lista vazia
+
+    IPublishedContent image = currentPage.HasValue("image")
+        ? currentPage.Value<IPublishedContent>("image")
+        : null;
+
+    bool showBoxes = currentPage.Value<bool>("showBoxes");
 }
 
-<section class="woosh-intro">
+<section class="woosh-intro"
+         @(image != null ? Html.Raw($"style=\"background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), url('{image.Url()}') center/cover no-repeat;\"") : null)>
     <div class="shape-image-animation bottom-0 p-0 w-100 d-none d-md-block">
-        <svg xmlns="http://www.w3.org/2000/svg" widht="3000" height="400" viewBox="0 180 2500 200" fill="#ffffff">
+        <svg xmlns="http://www.w3.org/2000/svg" width="3000" height="400" viewBox="0 180 2500 200" fill="#ffffff">
             <path class="st1" d="M 0 250 C 1200 400 1200 50 3000 250 L 3000 550 L 0 550 L 0 250">
                 <animate attributeName="d" dur="5s" values="M 0 250 C 1200 400 1200 50 3000 250 L 3000 550 L 0 550 L 0 250;
                     M 0 250 C 400 50 400 400 3000 250 L 3000 550 L 0 550 L 0 250;
@@ -23,6 +30,37 @@
         </svg>
     </div>
 </section>
+
+
+@if (showBoxes)
+{
+    List<IPublishedContent> pages = currentPage.Children().Where(x => x.IsDocumentType("page")).ToList();
+
+    <div class="container mb-4" style="margin-top: -30px;">
+        <div class="row">
+            @foreach (var _page in pages)
+            {
+                string pageName = _page.Name;
+                string pageDescription = _page.Value("pageDescription").ToString();
+                string pageImage = _page.HasValue("image") ? _page.Value<IPublishedContent>
+                ("image").Url() : String.Empty;
+
+
+                <div class="col-4">
+                    <div class="box-slide"
+                         style="background-image: url('@pageImage'); background-position:center; background-size: cover; cursor:pointer;"
+                         onclick="window.location.href='@_page.Url()'">
+                        <div class="overlay"></div>
+                        <span class="page-description">@Html.Raw(pageDescription)</span>
+                        <span class="slide-text">@pageName</span>
+                        <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+}
 
 @foreach (var bloco in Blocks)
 {
@@ -45,27 +83,54 @@
         }
     }
 
-    @await Html.GetBlockGridHtmlAsync(bloco, "blockGrids");
+    @await Html.GetBlockGridHtmlAsync(bloco, "blockGrids")
+;
 
 }
 
 <div class="woosh-app-footer">
     <div class="container pt-2 pb-2">
-    <div class="row">
-        <div class="col-6">
-            <span class="text-black">Faça o download do App Woosh e descubra ainda mais vantagens de ser um parceiro Woosh</span>
+        <div class="row">
+            <div class="col-6">
+                <span class="text-black">Faça o download do App Woosh e descubra ainda mais vantagens de ser um parceiro Woosh</span>
+            </div>
+            <div class="col-2">
+                <img src="/images/icons/AppStore.svg" alt="Apple Store Woosh App" />
+            </div>
+            <div class="col-2">
+                <img src="/images/icons/googlePlay.svg" alt="Google Play Woosh App" />
+            </div>
         </div>
-        <div class="col-2">
-            <img src="/images/icons/AppStore.svg" alt="Apple Store Woosh App"/>
-        </div>
-        <div class="col-2">
-            <img src="/images/icons/googlePlay.svg" alt="Google Play Woosh App" />
-        </div>
-    </div>
     </div>
 </div>
 
 <style>
+    .box-slide {
+        min-height: 220px;
+    }
+
+        .box-slide .page-description {
+            font-size: 12px;
+            line-height: 150%;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none; /* evita interação quando invisível */
+            color: #fff;
+            padding-bottom: 10px;
+        }
+
+        .box-slide:hover .page-description {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+
+    section.big-section {
+        margin-top: -40px;
+    }
+
     .woosh-intro {
         position: relative;
         padding-top: 413px !important;

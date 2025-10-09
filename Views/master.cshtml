@@ -127,14 +127,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     </script>
 
-      <!-- Faixa de consentimento -->
-  <div id="cookie-banner">
-    <p>Este site utiliza cookies para otimizar a sua experiência de navegação. Aceita a utilização de cookies?</p>
-    <div>
-      <button id="btn-aceitar" onclick="aceitarCookies()">Aceitar</button>
-      <button id="btn-recusar" onclick="recusarCookies()">Recusar</button>
+    <!-- Overlay e faixa de consentimento -->
+    <div id="privacy-overlay">
+        <div id="privacy-banner">
+            <p>Este site utiliza cookies para otimizar a sua experiência de navegação. Aceita a utilização de cookies?</p>
+            <div>
+                <button class="accept" id="btn-aceitar" onclick="aceitarCookies();">Aceitar</button>
+                <button class="reject" id="btn-recusar" onclick="recusarCookies();">Recusar</button>
+            </div>
+        </div>
     </div>
-  </div>
+
 
   <script>
     function aceitarCookies() {
@@ -144,7 +147,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'functionality_storage': 'granted',
         'personalization_storage': 'granted'
       });
-      document.getElementById("cookie-banner").style.display = "none";
+      document.getElementById("privacy-overlay").style.display = "none";
+      document.getElementById("privacy-banner").style.display = "none";
       localStorage.setItem("cookiesConsent", "accepted");
     }
 
@@ -155,7 +159,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'functionality_storage': 'denied',
         'personalization_storage': 'denied'
       });
-      document.getElementById("cookie-banner").style.display = "none";
+      document.getElementById("privacy-overlay").style.display = "none";
+      document.getElementById("privacy-banner").style.display = "none";
+
       localStorage.setItem("cookiesConsent", "denied");
     }
 
@@ -165,10 +171,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       if(consent != null) {
       if (consent === "accepted" || consent === "denied") {
-        document.getElementById("cookie-banner").style.display = "none";
+        document.getElementById("privacy-overlay").style.display = "none";
+        document.getElementById("privacy-banner").style.display = "none";
       }
       } else {
-        document.getElementById("cookie-banner").style.display = "flex";
+        document.getElementById("privacy-overlay").style.display = "flex";
+        document.getElementById("privacy-banner").style.display = "flex";
       }
       
     };
