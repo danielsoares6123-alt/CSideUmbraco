@@ -29,7 +29,7 @@
                 @foreach (var slide in slides.Children)
                 {
                     <div class="slide-footer">
-                        <h1 class="slide-box-title">@slide.Name</h1>
+                        <h1 class="slide-box-title">@Html.Raw(slide.Name.Replace("-", "&#8209;"))</h1>
                     </div>
                 }
                 <!--<button class="slide-button-contacts">encontra-nos aqui</button>-->
@@ -331,7 +331,7 @@
         .slides-wrapper {
             position: relative;
             width: 100%;
-            height: 83vh;
+            height: 72vh;
             overflow: hidden;
             margin-top: -20px;
         }

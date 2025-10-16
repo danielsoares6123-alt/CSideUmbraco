@@ -1,6 +1,6 @@
 ﻿<!-- Container Principal -->
 <div class="container mt-5 mb-5">
-    <div class="contact-box ps-5 pe-5">
+    <div class="contact-box ps-4 pe-4">
         <!-- Primeira Row: Informação + Form -->
         <div class="row main-row mb-5">
             <!-- Coluna 1: Informação -->
@@ -35,19 +35,21 @@
                 <div class="contact-main-box">
                     <div class="contact-right-box"></div>
                     <form class="contact-form">
+                        @Html.AntiForgeryToken()
                         <h1>Fale connosco</h1>
                         <span>
                             Preencha o formulário abaixo e entraremos em contacto o mais breve possível.
                         </span>
-                        <input type="text" placeholder="Nome" required>
-                        <input type="email" placeholder="Email" required>
-                        <input type="text" placeholder="Assunto" required>
-                        <textarea placeholder="Mensagem" rows="5" required></textarea>
+                        <input type="text" name="Name" placeholder="Nome" class="required">
+                        <input type="email" name="Email" placeholder="Email" class="required">
+                        <input type="text" name="Subject" placeholder="Assunto" class="required">
+                        <textarea name="Message" placeholder="Mensagem" rows="5" class="required"></textarea>
                         <button type="submit">Enviar</button>
                     </form>
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="/js/pages/contacts.js" />
 
         <!-- Segunda Row: Mapa -->
         <div class="row map-row">
@@ -74,14 +76,26 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-                        // Inicializa o mapa sem coordenadas fixas
-            var latOffset = (Math.random() - 0.5) * 0.02;
-            var lngOffset = (Math.random() - 0.5) * 0.02;
-            var markerLat = 38.7169 + latOffset;
-            var markerLng = -9.1397 + lngOffset;
+                       // Coordenadas das cidades
+            var porto = [41.24301315310927, -8.631575891452938];
+            var lisboa = [38.73162217804171, -9.338514179828177];
 
-            // Inicializa o mapa centrado no marcador
-            var map = L.map('map').setView([markerLat, markerLng], 13);
+            // Informações das cidades
+            var locais = [
+                {
+                    coords: porto,
+                    nome: "Woosh Porto",
+                    rua: "Zona Industrial Maia I, Setor IX Rua Eng. João Tallone, 51 e 77, 4476-908 Maia"
+                },
+                {
+                    coords: lisboa,
+                    nome: "Woosh Lisboa",
+                    rua: "R. Alfredo da Silva lote 18 armazém 2 B, 2785-035 São Domingos de Rana"
+                }
+            ];
+
+            // Inicializa o mapa
+            var map = L.map('map');
 
             // Tiles OpenStreetMap Light (via CartoDB)
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -90,17 +104,29 @@
                 maxZoom: 19
             }).addTo(map);
 
-            // Marcador azul em SVG
-            var marker = L.marker([markerLat, markerLng], {
-                icon: L.divIcon({
-                    html: `<svg width="20" height="20" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="256" cy="256" r="256" fill="#a8cdeb"/>
-                           </svg>`,
-                    className: '',
-                    iconSize: [20, 20],
-                    iconAnchor: [10, 10] // ajustar para o centro do círculo
-                })
-            }).addTo(map);
+            // Função para criar marcador azul em SVG e adicionar popup
+            function addMarker(local) {
+                var marker = L.marker(local.coords, {
+                    icon: L.divIcon({
+                        html: `<svg width="20" height="20" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="256" cy="256" r="256" fill="#a8cdeb"/>
+                               </svg>`,
+                        className: '',
+                        iconSize: [20, 20],
+                        iconAnchor: [10, 10]
+                    })
+                }).addTo(map);
+
+                // Adiciona popup com nome e rua
+                marker.bindPopup(`<b>${local.nome}</b><br>${local.rua}`);
+            }
+
+            // Adiciona todos os marcadores
+            locais.forEach(addMarker);
+
+            // Ajusta o mapa para caber ambos os pontos
+            var bounds = L.latLngBounds([porto, lisboa]);
+            map.fitBounds(bounds, { padding: [50, 50] });
 
         </script>
 

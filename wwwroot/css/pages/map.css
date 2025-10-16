@@ -1,0 +1,100 @@
+#mapLaundries {
+    background-color: #1c1c1c;
+}
+
+.woosh-intro {
+    display: none;
+}
+
+.navbar {
+    display: none;
+}
+
+.map-header {
+    display: flex;
+    gap: 14px;
+    z-index: 99999;
+    position: fixed;
+    top: 30px;
+    left: 30px;
+}
+
+    .map-header .map-menu {
+        position: absolute;
+        left: 0;
+        top: 80px;
+        width: 510px;
+        background-color: #fff;
+        padding: 30px 30px;
+        border-radius: 20px;
+        transform: translate(-650px, 0); /* fora da tela inicialmente */
+        transition: transform 0.4s ease; /* anima ambos */
+    }
+
+        .map-header .map-menu.active {
+            transform: translate(0, 0); /* desliza para a posição visível */
+        }
+
+
+
+        .map-header .map-menu .map-search-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            margin-right: 5px;
+        }
+
+.map-logo {
+    width: 140px;
+    opacity: 0.7;
+    transition: .14s ease-out;
+    cursor: pointer;
+}
+
+    .map-logo:hover {
+        opacity: 1;
+    }
+
+/* Tooltip inicial escondida */
+.tooltip {
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    height: auto;
+    transform: translateX(-50%) translateY(0);
+    padding: 12px 12px;
+    border-radius: 100px;
+    font-size: 14px;
+    color: #fff;
+    width: 50px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    animation: bounce 2s ease infinite;
+    animation-play-state: paused;
+    text-align: center;
+}
+
+    .tooltip img {
+        margin: 0 auto;
+        filter: invert(1);
+        transform: rotate(90deg);
+        width: 100%;
+    }
+
+/* Animação "aos saltinhos" */
+@@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(-6px);
+    }
+}
+
+/* Quando visível */
+.tooltip.show {
+    opacity: 1;
+    animation-play-state: running;
+}

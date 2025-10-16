@@ -9,6 +9,8 @@ builder.CreateUmbracoBuilder()
     .Build();
 
 builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+builder.Services.AddTransient<EmailService>();
 
 WebApplication app = builder.Build();
 

@@ -12,12 +12,13 @@
     @foreach (var bloco in Blocks.Children)
     {
         string content = bloco.Value<string>("content"); // Rich Text Editor
-        var partialName = $"Partials/Blocks/{bloco.Name}";
+        string partialName = bloco.Value("partialName").ToString();
+        var partialPath = $"Partials/Blocks/{partialName}";
 
         try
         {
             // Tenta renderizar o partial, mesmo que parameter seja null
-            @await Html.PartialAsync(partialName, bloco)
+            @await Html.PartialAsync(partialPath, bloco)
         }
         catch
         {
@@ -34,16 +35,16 @@
 </div>
 <div id="background-dots"></div>
 <div class="woosh-app-footer">
-    <div class="container pt-1 pb-1">
+    <div class="container pt-2 pb-2">
         <div class="row">
-            <div class="col-4">
+            <div class="col-8">
                 <span class="text-black">Faça o download do App Woosh e descubra ainda mais vantagens de ser um parceiro Woosh</span>
             </div>
             <div class="col-2">
-                <img src="/images/icons/AppStore.svg" alt="Apple Store Woosh App" />
+                <img class="float-end" src="/images/icons/AppStore.svg" alt="Apple Store Woosh App" />
             </div>
             <div class="col-2">
-                <img src="/images/icons/googlePlay.svg" alt="Google Play Woosh App" />
+                <img class="float-end" src="/images/icons/googlePlay.svg" alt="Google Play Woosh App" />
             </div>
         </div>
     </div>

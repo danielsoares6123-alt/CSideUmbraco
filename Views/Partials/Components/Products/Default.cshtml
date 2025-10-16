@@ -19,29 +19,49 @@
                     {
                         @foreach (var produto in categoria)
                         {
-                            <li class="grid-item produto-categoria-@categoria.Key">
-                                <div class="shop-box mb-10px">
-                                    <div class="shop-image mb-20px">
-                                        <img src="@produto.Imagem" alt="@produto.Titulo" data-no-retina="">
-                                        <div class="shop-overlay bg-gradient-gray-light-dark-transparent"></div>
-                                        <div class="shop-hover d-flex justify-content-center">
-                                        </div>
-                                    </div>
-                                    <h6 style="min-height: 60px; /* 20% da altura da viewport */">
-                                        @produto.Titulo
-                                    </h6>
-                                    <div class="shop-footer text-center">
-                                        <button class="ws-button ws-button-full" onclick="window.open('@produto.FichaTecnica.Replace("https://woosh.pt/cloud/", "https://cloud.woosh.pt/")', '_blank')">
-                                            Ficha técnica
-                                        </button>
-                                        <button class="ws-button-outline" onclick="window.open('@produto.FichaSeguranca.Replace("https://woosh.pt/cloud/", "https://cloud.woosh.pt/")', '_blank')">
-                                            Ficha de segurança
-                                        </button>
+                            bool hasFichaSeguranca = !string.IsNullOrWhiteSpace(produto.FichaSeguranca);
+                            string fichaTecnicaClass = hasFichaSeguranca ? "ws-button-outline" : "ws-button-outline w-100";
+
+                            <li class="grid-item produto-categoria-@categoria.Key" data-produto="@produto.Titulo">
+                                <div class="shop-box mb-10px position-relative">
+                                    <div class="produto-select-checkbox">
+                                        <input type="checkbox" class="produto-checkbox" id="checkbox-@produto.Id" />
+                                        <label for="checkbox-@produto.Id"></label>
                                     </div>
 
+                                    <div class="shop-image mb-20px">
+                                        <div class="overlay">
+                                            <span>@produto.Descricao</span>
+                                        </div>
+                                        <img src="@produto.Imagem" alt="@produto.Titulo" data-no-retina="">
+                                        <div class="shop-overlay bg-gradient-gray-light-dark-transparent"></div>
+                                        <div class="shop-hover d-flex justify-content-center"></div>
+                                    </div>
+
+                                    <h6 style="font-size: 16px; margin-bottom: 12px;">@produto.Titulo</h6>
+
+                                    <div class="shop-footer text-center">
+                                        <button class="@fichaTecnicaClass"
+                                                onclick="window.open('@produto.FichaTecnica.Replace("https://woosh.pt/cloud/", "https://cloud.woosh.pt/")', '_blank')">
+                                            Ficha técnica
+                                        </button>
+
+                                        @if (hasFichaSeguranca)
+                                        {
+                                            <button class="ws-button-outline"
+                                                    onclick="window.open('@produto.FichaSeguranca.Replace("https://woosh.pt/cloud/", "https://cloud.woosh.pt/")', '_blank')">
+                                                Ficha de segurança
+                                            </button>
+                                        }
+                                    </div>
+
+                                    <button class="ws-button ws-button-full w-100 mt-3 solicitar-btn" type="button">
+                                        Solicitar orçamento
+                                    </button>
                                 </div>
                             </li>
                         }
+
                     }
                 </ul>
 
@@ -56,9 +76,6 @@
 
                     <span class="alt-font fw-500 fs-19 text-dark-gray d-block mb-10px">Filtrar por categorias</span>
                     <ul class="shop-filter category-filter fs-16">
-                        <li class="p-0">
-                            <a href="#" class="categoria-filtro" data-categoria="all">All</a>
-                        </li>
                         @foreach (var cat in categorias)
                         {
                             <li>
@@ -75,6 +92,22 @@
 </section>
 
 <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.shop-image').forEach(image => {
+            image.addEventListener('click', () => {
+                const checkbox = image.parentElement.querySelector('.produto-checkbox');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                }
+            });
+        });
+    });
+
+
+        const script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js";
+    document.head.appendChild(script);
+
     const produtos = document.querySelectorAll('#product-list .grid-item');
     let categoriasSelecionadas = [];
 
@@ -97,8 +130,6 @@
                 } else {
                     categoriasSelecionadas = categoriasSelecionadas.filter(c => c !== cat);
                 }
-                // Remove "All" se houver qualquer seleção
-                document.querySelector('.categoria-filtro[data-categoria="all"]').classList.remove('active');
             }
 
             // Aplica filtro
@@ -119,12 +150,110 @@
         const produtos = document.querySelectorAll('#product-list .grid-item');
 
         produtos.forEach(p => {
-            const titulo = p.querySelector('.shop-box h5').textContent.toLowerCase();
+            const titulo = p.querySelector('.shop-box h6').textContent.toLowerCase();
             // Mantém produto visível se o título contém o termo de pesquisa E se passa os filtros de categoria
             p.style.display = titulo.includes(termo) ? '' : 'none';
         });
     });
 
+                document.addEventListener("DOMContentLoaded", function () {
+        const produtos = document.querySelectorAll(".shop-box");
+
+        produtos.forEach(box => {
+            const solicitarBtn = box.querySelector(".solicitar-btn");
+            const checkbox = box.querySelector(".produto-checkbox");
+
+                solicitarBtn.addEventListener("click", () => {
+        const selecionados = document.querySelectorAll(".produto-checkbox:checked");
+
+        // Função para gerar a lista de produtos selecionados em HTML
+        const gerarListaProdutos = () => {
+            if (selecionados.length === 0 || selecionados.length == 1) {
+                // Se nenhum selecionado, mostra apenas o produto clicado
+                const nomeProduto = box.closest("li").dataset.produto;
+                return `<h6 class="m-0"><strong>${nomeProduto}</strong></h6>`;
+            }
+            // Se houver produtos selecionados, lista todos
+            let lista = "<ul style='text-align: center;' class='mb-0 p-0'>";
+            selecionados.forEach(item => {
+                const nomeProduto = item.closest("li").dataset.produto;
+                lista += `<li>${nomeProduto}</li>`;
+            });
+            lista += "</ul>";
+            return lista;
+        };
+
+        if (selecionados.length === 0 || selecionados.length == 1) {
+            // Apenas este produto, checkbox permanece desativada
+            Swal.fire({
+                title: 'Deseja avançar apenas com este produto?',
+                html: gerarListaProdutos(),
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sim, avançar',
+                cancelButtonText: 'selecionar mais produtos',
+                reverseButtons: true,
+                customClass: {
+                    popup: 'my-toast-error',
+                    title: 'my-toast-title',
+                    confirmButton: 'swal-ws-button ws-button ws-button-full',
+                    cancelButton: 'swal-ws-button ws-button ws-button-outline text-black'
+                }
+            }).then((result) => {
+               if (result.isConfirmed) {
+                    const produtoNome = box.closest("li").dataset.produto;
+
+                    // Cria a URL com parâmetros (query string)
+                    const url = `/orcamento?produto=${encodeURIComponent(produtoNome)}`;
+
+                    // Redireciona o utilizador
+                    window.location.href = url;
+                }
+            });
+
+                                // Marca o produto clicado automaticamente
+                    checkbox.checked = true;
+                    box.classList.add("selected");
+        } else {
+            // Já há produtos selecionados, entra no modo múltiplo
+            Swal.fire({
+                title: 'Produtos selecionados:',
+                html: gerarListaProdutos(),
+                icon: 'info',
+                confirmButtonText: 'Avançar com selecionados',
+                customClass: {
+                    popup: 'my-toast-info',
+                    confirmButton: 'swal-ws-button ws-button ws-button-full mb-5'
+                }
+                }).then((result) => {
+        if (result.isConfirmed) {
+            // Pega todos os produtos selecionados
+            const nomes = Array.from(selecionados).map(item => item.closest("li").dataset.produto);
+
+            // Cria a URL com todos os produtos separados por ponto e vírgula
+            const url = `/orcamento?produto=${encodeURIComponent(nomes.join(";"))}`;
+
+            // Redireciona o utilizador
+            window.location.href = url;
+        }
+    });
+
+
+            // Ativa o modo seleção múltipla
+            produtos.forEach(p => p.classList.add("select-mode"));
+            // Marca o produto clicado automaticamente
+            checkbox.checked = true;
+            box.classList.add("selected");
+        }
+    });
+
+
+            // Marca/desmarca seleção visual
+            checkbox.addEventListener("change", () => {
+                box.classList.toggle("selected", checkbox.checked);
+            });
+        });
+    });
 </script>
 
 
@@ -133,8 +262,13 @@
         background-color: #fafafa !important;
     }
 
+    .woosh-intro {
+        z-index: -1;
+    }
+
     .shape-image-animation svg {
         fill: #fafafa !important;
+        z-index: -1;
     }
 
     /* Quando o filtro está ativo */
@@ -162,14 +296,6 @@
             left: unset !important;
             max-height: 600px;
         }
-
-    /* Responsivo */
-    @@media (min-width: 1200px) {
-        #product-list .grid-item {
-            width: 25%;
-        }
-        /* 4 colunas */
-    }
 
     @@media (max-width: 1199px) and (min-width: 992px) {
         #product-list .grid-item {

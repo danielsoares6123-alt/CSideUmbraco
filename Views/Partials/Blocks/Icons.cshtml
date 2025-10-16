@@ -1,43 +1,27 @@
-﻿<div class="row-icons">
-    <div class="col-icon">
-        <div class="icon">
-            <a href="#">
-                <img src="/images/circulo_Woosh.svg" alt="Círculo" />
-                <img src="/images/wetcleaning_Woosh.svg" alt="Wet Cleaning" />
-            </a>
-        </div>
-        <a href="#"><h3>WetCleaning</h3></a>
-    </div>
+﻿@model IPublishedContent
 
-    <div class="col-icon">
-        <div class="icon">
-            <a href="#">
-                <img src="/images/circulo_Woosh.svg" alt="Círculo" />
-                <img src="/images/sustentabilidade_Woosh.svg" alt="Sustentabilidade" />
-            </a>
-        </div>
-        <a href="#"><h3>Sustentabilidade</h3></a>
-    </div>
+@{
+    IPublishedContent Boxes = Model.Value<IPublishedContent>("parameter").FirstOrDefault();
+    List<IPublishedContent> ListBoxes = Boxes.Children().Where(x => x.IsDocumentType("box")).ToList();
+}
 
-    <div class="col-icon">
-        <div class="icon">
-            <a href="#">
-                <img src="/images/circulo_Woosh.svg" alt="Círculo" />
-                <img src="/images/HigienixacaoeTratamentos_Woosh.svg" alt="Higienização e Tratamentos" />
-            </a>
-        </div>
-        <a href="#"><h3>Higienização e Tratamentos</h3></a>
-    </div>
+<div class="row-icons">
+    @foreach (var ListBox in ListBoxes)
+    {
+        string name = ListBox.Value("boxName").ToString();
+        string image = ListBox.HasValue("boxImage") ? ListBox.Value<IPublishedContent>("boxImage").Url() : String.Empty
+        string pageDestination = ListBox.HasValue("pageDestination") ? ListBox.Value<IPublishedContent>("pageDestination").Url() : String.Empty;
 
-    <div class="col-icon">
-        <div class="icon">
-            <a href="#">
+        <div class="col-icon">
+            <div class="icon">
+            <a href="@pageDestination">
                 <img src="/images/circulo_Woosh.svg" alt="Círculo" />
-                <img src="/images/produtosprofissionais_Woosh.svg" alt="Produtos Profissionais" />
+                <img src="@image" alt="@name" />
             </a>
         </div>
-        <a href="#"><h3>Produtos Profissionais</h3></a>
+        <a href="@pageDestination"><h3>@name</h3></a>
     </div>
+    }
 </div>
 
 <style>
@@ -48,7 +32,7 @@
         text-align: center;
         flex-wrap: nowrap; /* força tudo na mesma linha */
         max-width: 1200px; /* opcional: limita largura total da linha */
-        margin: 0 auto;
+        margin: -20px auto;
     }
 
     .col-icon {
@@ -95,6 +79,7 @@
                 height: 60%;
                 z-index: 1;
                 margin-top: 20px;
+                filter: brightness(0) saturate(100%) invert(76%) sepia(12%) saturate(9%) hue-rotate(336deg) brightness(78%) contrast(81%);
             }
 
             .icon img[alt="Círculo"] {

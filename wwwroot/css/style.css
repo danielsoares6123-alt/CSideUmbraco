@@ -244,7 +244,7 @@ video {
 
 h1, .h1 {
     font-size: 4.375rem;
-    line-height: 4.375rem;
+    line-height: 0;
 }
 
 h2, .h2 {
@@ -1578,7 +1578,7 @@ input, select, textarea, .form-control, .form-select {
     max-width: 100%;
     resize: none;
     outline: none;
-    font-size: 16px;
+    font-size: 13px;
     border: 1px solid #e4e4e4;
     color: var(--medium-gray);
     line-height: inherit;
@@ -1587,9 +1587,18 @@ input, select, textarea, .form-control, .form-select {
     transition: 0.3s;
 }
 
-.form-select {
-    color: var(--medium-gray);
-}
+    input::placeholder,
+    select::placeholder,
+    textarea::placeholder,
+    .form-control::placeholder,
+    .form-select::placeholder {
+        color: #9e9e9e !important;
+    }
+
+
+    .form-select {
+        color: var(--medium-gray);
+    }
 
     .form-select:focus {
         border-color: #dfdfdf;
@@ -3768,7 +3777,7 @@ input:focus, select:focus, textarea:focus, .form-control:focus {
 }
 
 .bg-extra-medium-gray {
-    background-color: var(--extra-medium-gray);
+    background-color: #81c5f6;
 }
 
 .bg-light-gray {
@@ -8935,7 +8944,7 @@ header.sticky .navbar.disable-fixed {
         padding: 5px;
         border: 0;
         top: 100%;
-        min-width: 120%;
+        min-width: 248px;
         background-color: #232323e6;
         box-shadow: 0 45px 45px 0 rgba(0, 0, 0, 0.05);
         -webkit-animation: hide-animation 0.5s;
@@ -22581,6 +22590,7 @@ canvas {
         height: 400px;
         position: relative;
         background-color: #fff;
+        border-radius: 16px;
     }
 
         .shop-modern .grid-item .shop-box .shop-image img {
@@ -22726,9 +22736,9 @@ canvas {
         }
 
             .shop-sidebar .shop-filter li a:hover .product-cb {
-                border-color: var(--dark-gray);
+                border-color: #43C2FF;
             }
-
+                .shop-sidebar .shop-filter li a:hover .product-cb
                 .shop-sidebar .shop-filter li a:hover .product-cb:after {
                     opacity: 1;
                 }
@@ -22747,7 +22757,7 @@ canvas {
             .shop-sidebar .shop-filter li .product-cb:after {
                 width: 8px;
                 height: 8px;
-                background-color: var(--dark-gray);
+                background-color: #43C2FF;
                 border-radius: 100%;
                 content: "";
                 position: absolute;

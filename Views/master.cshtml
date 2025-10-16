@@ -2,14 +2,14 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
 
-Layout = null;
+    Layout = null;
 
-// Pega o ancestor ou self no nível 1
-var currentPage = Umbraco.AssignedContentItem?.AncestorOrSelf(1);
+    // Pega o ancestor ou self no nível 1
+    var currentPage = Umbraco.AssignedContentItem?.AncestorOrSelf(1);
 
-IPublishedContent settings = (currentPage != null && currentPage.Children.Any(x => x.IsDocumentType("settings"))) 
-    ? currentPage.Children.FirstOrDefault(x => x.IsDocumentType("settings")) 
-    : null;
+    IPublishedContent settings = (currentPage != null && currentPage.Children.Any(x => x.IsDocumentType("settings")))
+        ? currentPage.Children.FirstOrDefault(x => x.IsDocumentType("settings"))
+        : null;
 
 }
 
@@ -30,39 +30,39 @@ IPublishedContent settings = (currentPage != null && currentPage.Children.Any(x 
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/responsive.css" />
     @RenderSection("Styles", false)
-<script>
-      window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    <script>
+          window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
 
-    // Estado inicial (sem consentimento, exceto segurança)
-    gtag('consent', 'default', {
-      'ad_storage': 'denied',
-      'analytics_storage': 'denied',
-      'functionality_storage': 'denied',
-      'personalization_storage': 'denied',
-      'security_storage': 'granted'
-    });
-</script>
+        // Estado inicial (sem consentimento, exceto segurança)
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'analytics_storage': 'denied',
+          'functionality_storage': 'denied',
+          'personalization_storage': 'denied',
+          'security_storage': 'granted'
+        });
+    </script>
 
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WT5XSKC');</script>
+    <script>        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WT5XSKC');</script>
 </head>
 <body>
 
-   @await Html.PartialAsync("Partials/_Navbar", settings)
+    @await Html.PartialAsync("Partials/_Navbar", settings)
 
-    
+
     <!-- Main content -->
     <main>
         @RenderBody()
     </main>
 
     <!-- Footer -->
-    @await Html.PartialAsync("Partials/_Footer")
+    @await Html.PartialAsync("Partials/_Footer", settings)
 
     <!-- Botão Scroll to Top -->
     <button id="scrollTopBtn" aria-label="Voltar ao topo">
@@ -82,48 +82,48 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </button>
 
     <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                const navbar = document.querySelector(".navbar");
-        const links = navbar.querySelectorAll(".nav-link"); // todos os links dentro da navbar
-        const brandImages = navbar.querySelectorAll(".navbar-brand img"); // corrige o seletor
+                        document.addEventListener("DOMContentLoaded", () => {
+                        const navbar = document.querySelector(".navbar");
+                const links = navbar.querySelectorAll(".nav-link"); // todos os links dentro da navbar
+                const brandImages = navbar.querySelectorAll(".navbar-brand img"); // corrige o seletor
 
-       window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
-        // fundo semi-transparente com blur
-        navbar.style.backgroundColor = "rgba(247, 247, 247, 0.6)";
-        navbar.style.backdropFilter = "blur(10px)";
+               window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                // fundo semi-transparente com blur
+                navbar.style.backgroundColor = "rgba(247, 247, 247, 0.6)";
+                navbar.style.backdropFilter = "blur(10px)";
 
-        // ícones/links
-        brandImages.forEach(img => img.style.setProperty("filter", "invert(0)", "important"));
-        links.forEach(link => link.style.setProperty("color", "#000", "important"));
-    } else {
-        // transparente total sem blur
-        navbar.style.backgroundColor = "rgba(255, 255, 255, 0)";
-        navbar.style.backdropFilter = "none"; // remove o blur
-        brandImages.forEach(img => img.style.removeProperty("filter"));
-        links.forEach(link => link.style.removeProperty("color"));
-    }
-});
-
-
-          const scrollBtn = document.getElementById('scrollTopBtn');
-
-          // Mostrar/esconder botão conforme scroll
-          window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-              scrollBtn.style.display = 'block';
+                // ícones/links
+                brandImages.forEach(img => img.style.setProperty("filter", "invert(0)", "important"));
+                links.forEach(link => link.style.setProperty("color", "#000", "important"));
             } else {
-              scrollBtn.style.display = 'none';
+                // transparente total sem blur
+                navbar.style.backgroundColor = "rgba(255, 255, 255, 0)";
+                navbar.style.backdropFilter = "none"; // remove o blur
+                brandImages.forEach(img => img.style.removeProperty("filter"));
+                links.forEach(link => link.style.removeProperty("color"));
             }
-          });
-
-          // Scroll suave ao topo
-          scrollBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          });
-
-
         });
+
+
+                  const scrollBtn = document.getElementById('scrollTopBtn');
+
+                  // Mostrar/esconder botão conforme scroll
+                  window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                      scrollBtn.style.display = 'block';
+                    } else {
+                      scrollBtn.style.display = 'none';
+                    }
+                  });
+
+                  // Scroll suave ao topo
+                  scrollBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  });
+
+
+                });
 
     </script>
 
@@ -139,67 +139,71 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
 
-  <script>
-    function aceitarCookies() {
-      gtag('consent', 'update', {
-        'ad_storage': 'granted',
-        'analytics_storage': 'granted',
-        'functionality_storage': 'granted',
-        'personalization_storage': 'granted'
-      });
-      document.getElementById("privacy-overlay").style.display = "none";
-      document.getElementById("privacy-banner").style.display = "none";
-      localStorage.setItem("cookiesConsent", "accepted");
-    }
+    <script>
+        function aceitarCookies() {
+          gtag('consent', 'update', {
+            'ad_storage': 'granted',
+            'analytics_storage': 'granted',
+            'functionality_storage': 'granted',
+            'personalization_storage': 'granted'
+          });
+          document.getElementById("privacy-overlay").style.display = "none";
+          document.getElementById("privacy-banner").style.display = "none";
+          localStorage.setItem("cookiesConsent", "accepted");
+        }
 
-    function recusarCookies() {
-      gtag('consent', 'update', {
-        'ad_storage': 'denied',
-        'analytics_storage': 'denied',
-        'functionality_storage': 'denied',
-        'personalization_storage': 'denied'
-      });
-      document.getElementById("privacy-overlay").style.display = "none";
-      document.getElementById("privacy-banner").style.display = "none";
+        function recusarCookies() {
+          gtag('consent', 'update', {
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied'
+          });
+          document.getElementById("privacy-overlay").style.display = "none";
+          document.getElementById("privacy-banner").style.display = "none";
 
-      localStorage.setItem("cookiesConsent", "denied");
-    }
+          localStorage.setItem("cookiesConsent", "denied");
+        }
 
-    // Mostrar a faixa só se o utilizador ainda não decidiu
-    window.onload = function() {
-      const consent = localStorage.getItem("cookiesConsent");
+        // Mostrar a faixa só se o utilizador ainda não decidiu
+        window.onload = function() {
+          const consent = localStorage.getItem("cookiesConsent");
 
-      if(consent != null) {
-      if (consent === "accepted" || consent === "denied") {
-        document.getElementById("privacy-overlay").style.display = "none";
-        document.getElementById("privacy-banner").style.display = "none";
-      }
-      } else {
-        document.getElementById("privacy-overlay").style.display = "flex";
-        document.getElementById("privacy-banner").style.display = "flex";
-      }
-      
-    };
-  </script>
+          if(consent != null) {
+          if (consent === "accepted" || consent === "denied") {
+            document.getElementById("privacy-overlay").style.display = "none";
+            document.getElementById("privacy-banner").style.display = "none";
+          }
+          } else {
+            document.getElementById("privacy-overlay").style.display = "flex";
+            document.getElementById("privacy-banner").style.display = "flex";
+          }
+
+        };
+    </script>
 
     <script src="~/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WT5XSKC"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <!-- Leaflet CSS e JS -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WT5XSKC"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <link rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha512-sA+4dJrPbjQ5vTyyD9DkoG8ftlD2vE3z+v0qD7G1ZOnWbk7B1vKbi8yUKKp6RwFdrF0RNsOayC0VY8zF2vL0Bg=="
           crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha512-nmmMBVt1sj3X9ZzI7XzZ1F4yZ0LQRSU6ftf6CBx1F5Z86Vmu2axvWzU3WlBlQl6OgrFxY3rStFq9SDFP4FqEog=="
             crossorigin=""></script>
 
     <!-- javascript libraries -->
     <script type="text/javascript" src="~/js/jquery.js"></script>
     <script type="text/javascript" src="~/js/vendors.min.js"></script>
-    <script type="text/javascript" src="~/js/main.js"></script>
+    @if (ViewBag.NoMainJs != true)
+    {
+        <script type="text/javascript" src="~/js/main.js"></script>
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

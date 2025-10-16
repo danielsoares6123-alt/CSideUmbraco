@@ -1,0 +1,107 @@
+﻿<section class="bg-gradient-quartz-white position-relative z-index-0 sm-pt-0 pt-0" style="margin-top: -50px;">
+    <div class="container-fluid overflow-hidden position-relative pb-5">
+        <div class="row justify-content-center mb-2 sm-mb-3">
+            <div class="mb-1 col-lg-6 text-center appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 600, &quot;delay&quot;:0, &quot;staggervalue&quot;: 300, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <h2 class="text-dark-gray fw-700 ls-minus-1px mb-1" style="" el="childs" staggervalue="300" easing="easeOutQuad">
+                    Torne-se nosso parceiro
+                </h2>
+                <span>
+                    Descubra como a Lavandaria das Lavandarias pode apoiar o crescimento da sua lavandaria de forma sustentável e eficiente.
+                </span>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xxl-6 col-xl-7 col-lg-11">
+                <form action="#" method="post" class="contact-form-style-03">
+                    @Html.AntiForgeryToken()
+
+                    <div class="row justify-content-center appear anime-complete" data-anime='{ "opacity":[0,1], "duration":600, "delay":0, "staggervalue":300, "easing":"easeOutQuad" }'>
+                        <!-- Nome -->
+                        <div class="col-md-6">
+                            <label for="name" class="form-label fw-600 text-dark-gray mb-0">Nome*</label>
+                            <div class="position-relative form-group mb-25px">
+                                <span class="form-icon"><i class="bi bi-emoji-smile"></i></span>
+                                <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="name" type="text" name="name" placeholder="Qual o seu nome?">
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-6">
+                            <label for="email" class="form-label fw-600 text-dark-gray mb-0">Email*</label>
+                            <div class="position-relative form-group mb-25px">
+                                <span class="form-icon"><i class="bi bi-envelope"></i></span>
+                                <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="email" type="email" name="email" placeholder="Digite o seu email">
+                            </div>
+                        </div>
+
+                        <!-- Telefone -->
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label fw-600 text-dark-gray mb-0">Telefone</label>
+                            <div class="position-relative form-group mb-25px">
+                                <span class="form-icon"><i class="bi bi-telephone"></i></span>
+                                <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control" id="phone" type="tel" name="phone" placeholder="Digite o seu telefone">
+                            </div>
+                        </div>
+
+                        <!-- Morada -->
+                        <div class="col-md-6">
+                            <label for="address" class="form-label fw-600 text-dark-gray mb-0">Morada</label>
+                            <div class="position-relative form-group mb-25px">
+                                <span class="form-icon"><i class="bi bi-house"></i></span>
+                                <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="address" type="text" name="address" placeholder="Digite a sua morada">
+                            </div>
+                        </div>
+
+                        <!-- Código Postal -->
+                        <div class="col-md-6">
+                            <label for="postalCode" class="form-label fw-600 text-dark-gray mb-0">Código Postal</label>
+                            <div class="position-relative form-group mb-25px">
+                                <span class="form-icon"><i class="bi bi-mailbox"></i></span>
+                                <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="postalCode" type="text" name="postalCode" placeholder="Digite o código postal">
+                            </div>
+                        </div>
+
+                        <!-- Localidade -->
+                        <div class="col-md-6">
+                            <label for="city" class="form-label fw-600 text-dark-gray mb-0">Localidade</label>
+                            <div class="position-relative form-group mb-25px">
+                                <span class="form-icon"><i class="bi bi-geo-alt"></i></span>
+                                <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="city" type="text" name="city" placeholder="Digite a localidade">
+                            </div>
+                        </div>
+
+                        <!-- Mensagem -->
+                        <div class="col-md-12">
+                            <label for="message" class="form-label fw-600 text-dark-gray mb-0">Mensagem</label>
+                            <div class="position-relative form-group mb-25px">
+                                <span class="form-icon"><i class="bi bi-chat-square-dots"></i></span>
+                                <textarea class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="message" name="message" placeholder="Descreva o seu pedido" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Aviso de privacidade atualizado -->
+                        <div class="col-xxl-6 col-lg-7 col-md-8">
+                            <p class="mb-0 fs-14 lh-24 text-center text-md-start">
+                                Comprometemo-nos a proteger a sua privacidade. Nunca recolheremos informações sem o seu consentimento.
+                                Ao submeter este formulário, concorda com os
+                                <a href="/termos-e-condicoes" target="_blank" class="text-base-color fw-600">Termos e Condições</a>.
+                            </p>
+                        </div>
+
+                        <!-- Botão de envio -->
+                        <div class="col-xxl-6 col-lg-5 col-md-4 text-center text-md-end sm-mt-25px">
+                            <input type="hidden" name="redirect" value="">
+                            <button class="ws-button-full submit" type="submit">Enviar</button>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-results mt-20px d-none"></div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="/js/pages/partner.js"></script>

@@ -1,7 +1,15 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
-    Layout = "master.cshtml";
+    Layout = "master.cshtml"; 
+    ViewBag.NoMainJs = true;
+
+    var path = Context.Request.Path.HasValue ? Context.Request.Path.Value : "";
+    var isParticulares = path?.IndexOf("/particulares", StringComparison.OrdinalIgnoreCase) >= 0;
+    var isSimulador = path?.IndexOf("/particulares/simulador", StringComparison.OrdinalIgnoreCase) >= 0;
+
+    var pagesToSkipJs = new[] { "/orcamento", "/seja-parceiro" };
+    ViewBag.NoMainJs = pagesToSkipJs.Any(p => path?.IndexOf(p, StringComparison.OrdinalIgnoreCase) >= 0);
 
     var currentPage = Umbraco.AssignedContentItem;
 
@@ -16,6 +24,7 @@
         : null;
 
     bool showBoxes = currentPage.Value<bool>("showBoxes");
+
 }
 
 <section class="woosh-intro"
@@ -31,45 +40,16 @@
     </div>
 </section>
 
-@if (showBoxes)
-{
-    List<IPublishedContent> pages = currentPage.Children().Where(x => x.IsDocumentType("page")).ToList();
-
-    <div class="container mb-4" style="margin-top: -30px;">
-        <div class="row">
-            @foreach (var _page in pages)
-            {
-                string pageName = _page.Name;
-                string pageDescription = _page.Value("pageDescription").ToString();
-                string pageImage = _page.HasValue("image") ? _page.Value<IPublishedContent>
-                ("image").Url() : String.Empty;
-
-
-                <div class="col-4">
-                    <div class="box-slide"
-                         style="background-image: url('@pageImage'); background-position:center; background-size: cover; cursor:pointer;"
-                         onclick="window.location.href='@_page.Url()'">
-                        <div class="overlay"></div>
-                        <span class="page-description">@Html.Raw(pageDescription)</span>
-                        <span class="slide-text">@pageName</span>
-                        <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
-                    </div>
-                </div>
-
-            }
-        </div>
-    </div>
-}
-
 @foreach (var bloco in Blocks)
 {
     string content = bloco.Value<string>("content"); // Rich Text Editor
-    var partialName = $"Partials/Blocks/{bloco.Name}";
+    string partialName = bloco.Value("partialName").ToString();
+    var partialPath = $"Partials/Blocks/{partialName}";
 
     try
     {
         // Tenta renderizar o partial, mesmo que parameter seja null
-        @await Html.PartialAsync(partialName, bloco)
+        @await Html.PartialAsync(partialPath, bloco)
     }
     catch
     {
@@ -87,18 +67,75 @@
 
 }
 
-<div class="woosh-app-footer">
-    <div class="container pt-1 pb-1">
+@if (showBoxes)
+{
+    List<IPublishedContent> pages = currentPage.Children().Where(x => x.IsDocumentType("page")).ToList();
+
+    <div class="container mb-4" style="margin-top: -30px;">
         <div class="row">
-            <div class="col-6">
-                <span class="text-black">Faça o download do App Woosh e descubra ainda mais vantagens de ser um parceiro Woosh</span>
+            @foreach (var _page in pages)
+            {
+                string pageName = _page.Name;
+                string pageDescription = _page.Value("pageDescription").ToString();
+                string pageImage = _page.HasValue("image") ? _page.Value<IPublishedContent>
+                ("image").Url() : String.Empty;
+
+
+                <div class="col-4 p20-10">
+                    <div class="box-slide"
+                         style="background-image: url('@pageImage'); background-position:center; background-size: cover; cursor:pointer;"
+                         onclick="window.location.href='@_page.Url()'">
+                        <div class="overlay"></div>
+                        <span class="page-description">@Html.Raw(pageDescription)</span>
+                        <span class="slide-text">@pageName</span>
+                        <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" />
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+}
+
+@{
+    bool hideAppFooter = isSimulador ? true : false;
+    string footerClass = hideAppFooter ? "pr-hide" : "";
+}
+
+<div class="woosh-app-footer @footerClass">
+    <div class="container pt-2 pb-2">
+        <div class="row">
+            <div class="col-8">
+
+                @if(isParticulares && !isSimulador)
+                {
+                    <h6 style="color: #000;" class="mb-0">QUAL É O PREÇO?</h6>
+                    <span class="text-black">
+                        Se quer saber o custo dos nossos serviços, faça uma simulação e ganhe um voucher de 10€.
+                    </span>
+                } else
+                {
+                    <span class="text-black">Faça o download do App Woosh e descubra ainda mais vantagens de ser um parceiro Woosh</span>
+                }
             </div>
-            <div class="col-2">
-                <img src="/images/icons/AppStore.svg" alt="Apple Store Woosh App" />
-            </div>
-            <div class="col-2">
-                <img src="/images/icons/googlePlay.svg" alt="Google Play Woosh App" />
-            </div>
+
+            @if(isParticulares && !isSimulador)
+            {
+                <div class="col-4">
+                    <a class="ws-button float-end" href="/particulares/simulador">
+                        Simular Agora
+                        <img src="/images/circulo_arrow_Woosh.svg" class="icon-accordion" data-no-retina="">
+                    </a>
+                </div>
+            } else
+            {
+                <div class="col-2">
+                    <img src="/images/icons/AppStore.svg" alt="Apple Store Woosh App" />
+                </div>
+                <div class="col-2">
+                    <img src="/images/icons/googlePlay.svg" alt="Google Play Woosh App" />
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -169,3 +206,8 @@
         padding: 30px !important;
     }
 </style>
+
+@if (isParticulares)
+{
+    <link rel="stylesheet" href="~/css/private.css" />
+}

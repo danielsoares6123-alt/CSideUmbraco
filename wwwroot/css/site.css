@@ -6,12 +6,22 @@ html, body {
     overflow-x: hidden;
 }
 
+p a {
+    color: #000;
+    text-decoration: underline;
+    text-decoration-color: #43C2FF;
+}
 
+    p a:hover {
+        color: #43C2FF;
+        text-decoration: underline;
+    }
 
 .container h1 {
     font-size: 2rem !important;
     letter-spacing: -1px !important;
-    font-weight: 300 !important;
+    color: #000;
+    font-weight: bold;
 }
 
 html, body {
@@ -31,6 +41,11 @@ html, body {
     pointer-events: none;
     overflow: hidden;
     z-index: -1;
+}
+
+.col-icon h3 {
+    font-weight: 400 !important;
+    color: #383838 !important;
 }
 
 
@@ -103,6 +118,7 @@ html, body {
     font-weight: 400;
     /* -webkit-text-stroke: 1px white; */
     font-family: "Comfortaa", sans-serif;
+    margin-bottom: 0px;
 }
 
     .slide-footer .slide-box-description {
@@ -198,8 +214,9 @@ html, body {
         opacity: 1;
     }
 
-
-
+.box-slide .page-description p {
+    color: #fff !important;
+}
 
 /* Texto no canto inferior esquerdo */
 .slide-text {
@@ -241,6 +258,7 @@ html, body {
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 60px;
 }
 
 .footer-section {
@@ -288,6 +306,7 @@ html, body {
 
 .footer-bottom p {
     margin-bottom: 0px;
+    color: #fff;
 }
 
 .footer-container .links {
@@ -473,7 +492,7 @@ button img {
 /* Botão */
 #scrollTopBtn {
     position: fixed;
-    bottom: 20px;
+    bottom: 90px;
     right: 20px;
     width: 50px;
     height: 50px;
@@ -658,7 +677,7 @@ button img {
 .ws-button {
     border-radius: 6px;
     background-color: #43C2FF;
-    font-size: 13px;
+    font-size: 12px;
     color: #fff;
     padding: 13px 9px 13px 25px;
     font-weight: bold;
@@ -722,6 +741,13 @@ button img {
     line-height: 170%;
 }
 
+p {
+    font-size: 13px;
+    line-height: 180%;
+    color: #000;
+    font-weight: bold;
+}
+
 .box-accordion p {
     font-size: 13px;
     line-height: 180%;
@@ -744,26 +770,73 @@ button img {
     gap: 10px;
 }
 
+.shop-image .overlay {
+    transition: .14s opacity ease-out;
+    position: relative;
+    display: none;
+    cursor: pointer;
+}
+
+.shop-image:hover .overlay {
+    width: 100%;
+    display: block;
+    background: linear-gradient(-45deg, rgb(167 209 255 / 87%) 0%, /* branco translúcido */ rgba(0, 123, 255, 0.41) 100% /* azul translúcido */ );
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    box-shadow: inset 0 0 16px rgb(197 250 251 / 61%), -3px 0 13px rgb(169 242 255 / 32%);
+    transform: scale(1.02);
+    transition: all 0.5s ease;
+    opacity: 1;
+    height: 100%;
+    position: absolute;
+    z-index: 9999;
+}
+
+.shop-image .overlay span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    transform: translate(-50%, -50%);
+    color: #fff !important;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 140%;
+    text-align: center;
+}
+
 .ws-button-full {
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 0.35) 0%, rgba(0, 123, 255, 0.25) 55%);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    transform: scale(1.02);
+    transition: all 0.5s ease;
+    opacity: 1;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 400;
+    border-radius: 16px !important;
     height: 50px;
     line-height: 100%;
     padding: 5px 20px;
     border: 0px;
-    color: #fff;
+    color: #000;
     width: 50%;
     transition: .14s ease-out;
-    text-transform: uppercase;
+    text-transform: lowercase;
 }
 
     .ws-button-full:hover {
-        background-color: var(--slate-blue);
+        background-color: #b9d0ff;
+        box-shadow: inset 0 0 16px rgb(197 250 251 / 61%), 0px 2px 13px rgb(156 156 156 / 32%);
     }
 
 .ws-button-outline {
-    border: 2px solid #43c2ff !important;
+    height: 49px;
+    border: 2px solid rgba(0, 123, 255, 0.25) !important;
     background-color: unset !important;
-    border-radius: 5px;
-    text-transform: uppercase;
+    border-radius: 16px;
+    text-transform: lowercase;
     line-height: 100%;
     font-size: 12px;
     position: relative;
@@ -780,7 +853,7 @@ button img {
         height: 100%;
         background-color: #43c2ff33 !important;
         z-index: 0;
-        border-radius: 5px;
+        border-radius: 14px;
         transition: width 0.3s ease;
     }
 
@@ -801,8 +874,8 @@ button img {
 
 
 #simulator {
+    padding-top: 180px;
     background-image: url('/media/ejepkphv/banner.jpg');
-    height: 88vh;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -812,6 +885,7 @@ button img {
     justify-content: center;
     flex-direction: column;
     gap: 30px;
+    padding-bottom: 50px;
 }
 
     /* Lente escura atrás dos filhos */
@@ -836,7 +910,7 @@ button img {
 
     #simulator .box {
         background-color: #fff;
-        width: 1300px;
+        width: 65%;
         border-radius: 30px;
     }
 
@@ -946,4 +1020,257 @@ button img {
 .box-accordion .alt-font {
     word-break: auto-phrase;
     font-size: 44px;
+}
+
+/* ----------------- TOAST ERROR ----------------- */
+.my-toast-error {
+    background-color: #ffff !important; /* vermelho suave */
+    font-family: Arial, sans-serif;
+    padding: 30px 0px 60px;
+    overflow: hidden !important;
+}
+
+    /* Título do toast */
+    .my-toast-error .swal2-title {
+        line-height: 1.2 !important;
+        font-size: 25px !important;
+    }
+
+div:where(.swal2-icon).swal2-error {
+    border-color: #81c5f6 !important;
+    color: #81c5f6 !important;
+}
+
+div:where(.swal2-icon).swal2-warning {
+    border-color: #81c5f6 !important;
+    color: #81c5f6 !important;
+}
+
+    div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line] {
+        background-color: #81c5f6 !important;
+    }
+
+.section-description-box ul li {
+    position: relative;
+}
+
+.section-description-box ul li::before {
+    content: '';
+    position: absolute;
+    left: -21px;
+    top: 12px;
+    width: 6px;
+    height: 6px;
+    background-color: #43C2FF;
+    border-radius: 50%;
+}
+
+.section-description-box ul li p {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.section-description-box p {
+    font-size: 13px;
+    line-height: 180%;
+    color: #000;
+    font-weight: bold;
+}
+
+.main-sections-description {
+    font-size: 16px;
+    line-height: 180%;
+    color: #000;
+}
+
+.section-image {
+    transition: 0.3s filter ease-out;
+}
+
+.section-image:hover {
+    filter: blur(4px);
+}
+
+.p20-10 {
+    padding: 20px 10px 0px;
+}
+
+.icon img {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(3%) saturate(25%) hue-rotate(324deg) brightness(90%) contrast(89%);
+}
+
+.pr-hide {
+    display: none;
+}
+
+/* Caixa do checkbox */
+.produto-select-checkbox {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 99999;
+}
+
+/* Esconde a checkbox original */
+.produto-checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+
+/* Cria o visual custom */
+.produto-select-checkbox label {
+    position: relative;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background-color: #eeeeee;
+    border-radius: 5px;
+}
+
+    /* O círculo do checkbox */
+    .produto-select-checkbox label::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--pr-main-color);
+        transition: all 0.2s ease;
+    }
+
+    /* Checkmark */
+    .produto-select-checkbox label::after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 9px;
+        width: 6px;
+        height: 12px;
+        border: solid var(--pr-main-color);
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg) scale(0);
+        transition: all 0.2s ease;
+    }
+
+/* Quando selecionado */
+.produto-checkbox:checked + label::after {
+    transform: rotate(45deg) scale(1);
+}
+
+/* Quando selecionado, muda fundo do círculo */
+.produto-checkbox:checked + label::before {
+    width: 18px;
+    height: 18px;
+    background-color: #bbdafb;
+}
+
+.swal2-container {
+    z-index: 99999999;
+}
+
+div:where(.swal2-icon).swal2-question {
+    border-color: #007bff40 !important;
+    color: #007bff40 !important;
+}
+
+div:where(.swal2-icon).swal2-info {
+    border-color: #007bff40 !important;
+    color: #007bff40 !important;
+}
+
+
+.swal-ws-button {
+    width: unset !important;
+    height: 44px;
+    margin: 0 10px !important;
+    padding-left: 15px;
+}
+
+/* Desktop médio: >= 1200px - 3 colunas */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    #product-list .grid-item {
+        width: 50% !important;
+    }
+}
+
+/* Desktop médio: >= 1200px - 3 colunas */
+@media (min-width: 1300px) and (max-width: 1499px) {
+    #product-list .grid-item {
+        width: 33.33% !important;
+    }
+}
+
+/* Desktop grande: >= 1400px - 4 colunas */
+@media (min-width: 1500px) {
+    #product-list .grid-item {
+        width: 25% !important;
+    }
+}
+
+input {
+    outline: none ;
+    border: none !important;
+    border-bottom: 1px solid !important;
+    background: transparent;
+}
+
+.ws-button-full:hover {
+    box-shadow: unset !important;
+    background: unset;
+}
+
+.map-header .leftArrow {
+    position: absolute;
+    bottom: -69px;
+    filter: invert(1);
+    left: 1px;
+    transform: rotate(90deg);
+    background-color: #8080809e;
+    border-radius: 40px;
+    padding: 16px;
+    height: 60px;
+    width: 60px;
+}
+
+.ws-button-full:hover img {
+    filter: invert(1);
+}
+
+.map-menu .ws-button-full:hover {
+    color: #fff;
+}
+
+.logos-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    background-color: #383838;
+    border-top: 1px solid #4e4e4e;
+    gap: 20px; /* Espaço entre imagem e texto */
+    z-index: 99999999;
+}
+
+    .logos-bar img {
+        margin-right: 70px;
+        height: 70%;
+        padding-top: 14px;
+        float: right;
+    }
+
+    .logos-bar p {
+        color: #fff;
+        float: left;
+        padding-top: 30px;
+        margin: 0; /* Remove margens que possam desalinhar */
+    }
+
+.container h1 {
+    line-height: 150%;
 }

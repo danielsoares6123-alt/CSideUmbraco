@@ -1,6 +1,76 @@
 ﻿var productIndex = -1;
 localStorage.removeItem("products");
 
+const productPrices = {
+    sofa: {
+        "1_lugar": { limpeza: 47, protecao: 41, ambos: 68 },
+        "2_lugares": { limpeza: 68, protecao: 62, ambos: 100 },
+        "2_lugares_chaise_long": { limpeza: 126, protecao: 105, ambos: 190 },
+        "3_lugares": { limpeza: 79, protecao: 68, ambos: 116 },
+        "4_lugares": { limpeza: 100, protecao: 84, ambos: 147 },
+        "5_lugares": { limpeza: 126, protecao: 105, ambos: 190 }
+    },
+    puff: {},
+    cadeira: {
+        specification: {
+            name: "Cadeirão",
+            limpeza: 41,
+            protecao: 35,
+            ambos: 63
+        },
+        specification: {
+            name: "Assento/costas",
+            limpeza: 16,
+            protecao: 14,
+            ambos: 21
+        },
+        specification: {
+            name: "Só assento",
+            limpeza: 12,
+            protecao: 10,
+            ambos: 16
+        },
+        specification: {
+            name: "Chaise Long",
+            limpeza: 53,
+            protecao: 44,
+            ambos: 79
+        }
+    },
+    tapete: {
+
+    },
+    colchão: {
+        specification: {
+            name: "Bebé",
+            limpeza: 37,
+            protecao: 32,
+            ambos: 53
+        },
+        specification: {
+            name: "Individual",
+            limpeza: 53,
+            protecao: 44,
+            ambos: 79
+        },
+        specification: {
+            name: "Casal",
+            limpeza: 63,
+            protecao: 54,
+            ambos: 95
+        }
+    },
+    cabeceira: {
+        specification: {
+            name: "Cabeceira cama",
+            limpeza: 47,
+            protecao: 40,
+            ambos: 68
+        }
+    }
+};
+
+
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('simulator').addEventListener('click', (e) => {
         const btn = e.target.closest('.counter-btn');
@@ -39,15 +109,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // Seleciona todos os botões de finish
     document.querySelectorAll('.finish-button').forEach(button => {
         button.addEventListener('click', () => {
-            const value = button.dataset.value; // Tecido ou Pele
-            // Atualiza a propriedade do produto correspondente
-            updateProductProperty(productIndex, "finish", value);
+            const serviceButtons = document.querySelectorAll('.service-s-button');
+            const allActive = Array.from(serviceButtons).every(b => b.classList.contains('active'));
 
-            // Marca o botão como ativo visualmente
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            if (!products[productIndex]) return;
+
+            const value = button.dataset.value; // Tecido ou Pele
+            const currentFinish = products[productIndex].properties?.finish;
+
+            // Toggle: se já está selecionado, remove; se não, define
+            const newFinish = currentFinish === value ? null : value;
+            updateProductProperty(productIndex, "finish", newFinish);
+
+            // Atualiza classes visualmente
             button.parentElement.querySelectorAll('.finish-button').forEach(b => b.classList.remove('active'));
-            button.classList.add('active');
+            if (newFinish) button.classList.add('active');
+
+            // Se for Pele, ativa todos os service-s-button apenas se algum não estiver ativo
+            if (value === "Pele" && newFinish) {
+
+                if (!allActive) {
+                    serviceButtons.forEach(b => {
+                        if (!b.classList.contains('active')) {
+                            b.click();
+                        }
+                    });
+                }
+            } else if (value === "Pele") {
+                serviceButtons.forEach(b => b.click());
+            } else {
+                if (allActive) {
+                    serviceButtons.forEach(b => b.click());
+                }
+            }
+
         });
     });
+
 
     // Seleciona todos os botões de service
     document.querySelectorAll('.service-s-button').forEach(button => {
@@ -480,20 +579,28 @@ function updateProductProperty(productIndex, key, value) {
     const products = JSON.parse(localStorage.getItem('products')) || [];
     if (!products[productIndex]) return;
 
-    // 🔹 Atualização normal das propriedades
-    if (key === "specifications") {
-        if (typeof products[productIndex].properties[key] !== "object") {
-            products[productIndex].properties[key] = { name: value };
-        } else {
-            products[productIndex].properties[key].name = value;
-        }
-    } else if (["x", "y", "result"].includes(key)) {
-        if (!products[productIndex].properties.specifications) {
-            products[productIndex].properties.specifications = {};
-        }
-        products[productIndex].properties.specifications[key] = value;
+    const product = products[productIndex];
+    const currentValue = product.properties?.[key];
+
+    // 🔹 Se já existir o mesmo valor, remove (toggle)
+    if (currentValue === value) {
+        delete product.properties[key];
     } else {
-        products[productIndex].properties[key] = value;
+        // 🔹 Atualização normal das propriedades
+        if (key === "specifications") {
+            if (typeof product.properties[key] !== "object") {
+                product.properties[key] = { name: value };
+            } else {
+                product.properties[key].name = value;
+            }
+        } else if (["x", "y", "result"].includes(key)) {
+            if (!product.properties.specifications) {
+                product.properties.specifications = {};
+            }
+            product.properties.specifications[key] = value;
+        } else {
+            product.properties[key] = value;
+        }
     }
 
     localStorage.setItem('products', JSON.stringify(products));
@@ -501,6 +608,7 @@ function updateProductProperty(productIndex, key, value) {
     // 🔹 Validação após atualização
     validateProductFields(productIndex);
 }
+
 
 function validateProductFields(productIndex) {
     const products = JSON.parse(localStorage.getItem('products')) || [];
@@ -608,6 +716,34 @@ document.querySelector('.simulator-button-next')?.addEventListener('click', () =
 
     const currentPhase = parseInt(visible.dataset.phase);
     const next = document.querySelector(`.simulator-phase[data-phase="${currentPhase + 1}"]`);
+
+    // 🔸 Bloqueia avanço se todos os contadores forem 0
+    const counters = visible.querySelectorAll('.counter-text');
+    const hasCount = [...counters].some(c => parseInt(c.textContent || '0') > 0);
+
+    if (!hasCount) {
+        Swal.fire({
+            toast: false,
+            position: 'middle',
+            icon: 'error',
+            title: 'Deve adicionar pelo menos uma unidade antes de avançar!',
+            showConfirmButton: false,
+            //timer: 3000,
+            //timerProgressBar: true,
+            customClass: {
+                popup: 'my-toast-error',  // aplica fundo vermelho
+                title: 'my-toast-title'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        return; // não avança
+    }
+
+
 
     // 🔸 Fase 1: guardamos cada unidade individualmente
     if (currentPhase === 1) {

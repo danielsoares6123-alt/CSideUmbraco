@@ -1,8 +1,4 @@
-﻿.woosh-intro {
-    display: none;
-}
-
-.woosh-app-footer {
+﻿.woosh-app-footer {
     background-color: #BB94694a !important;
 }
 
@@ -68,6 +64,22 @@
 #simulator .simulator-phase-two {
     padding: 0 !important;
     border-top: 1px solid lightgray;
+    overflow-y: scroll;
+}
+
+/* Para ecrãs com largura máxima de 1200px */
+@media (max-width: 1550px) {
+    #simulator .box {
+        zoom: 0.7;
+    }
+
+    #simulator .simulator-phase .items .item p {
+        font-size: 19px;
+    }
+
+    #simulator .item-properties .attribute .attribute-box p {
+        font-size: 19px !important;
+    }
 }
 
 #simulator .simulator-header {
@@ -292,3 +304,33 @@
     opacity: 1 !important;
     filter: blur(1px);
 }
+
+#scrollTopBtn svg {
+    fill: #BB9469 !important;
+}
+
+.bg-extra-medium-gray {
+    background-color: #BB9469 !important;
+}
+
+.section-description-box ul li::before {
+    background-color: #BB9469 !important;
+}
+
+.ws-button {
+    padding: 13px 25px 13px 25px;
+}
+
+.woosh-app-footer .ws-button {
+    width: 230px;
+    text-align: center;
+}
+
+div:where(.swal2-icon).swal2-error {
+    border-color: #bb9469bd !important;
+    color: #bb9469bd !important;
+}
+
+    div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line] {
+        background-color: #bb9469bd !important;
+    }
