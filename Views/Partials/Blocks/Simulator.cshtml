@@ -4,10 +4,9 @@
             <div class="phase done" data-number="0"></div>
             <div class="phase" data-number="1"></div>
             <div class="phase" data-number="2"></div>
-            <div class="phase" data-number="3"></div>
         </div>
+        <img src="/images/circulo_arrow_Woosh.svg" class="simulator-back" data-no-retina="">
         <h6 class="text-center text-black mt-3 simulator-title">PRODUTO E QUANTIDADE</h6>
-
         <!-- FASE 1: CARACTERISTICAS DE PRODUTO -->
         <div class="row simulator-phase simulator-phase-one gap-5" data-phase="1">
             <div class="col flex flex-col items-center">
@@ -84,9 +83,9 @@
             <!-- ITEMS SELECIONADOS NA PRIMEIRA FASE SURGIRÃO AQUI -->
             <div class="col-10 items"></div>
 
-            <div class="col-2 text-center pt-1 bg-lightgray add-more-products">
-                <button class="add-more-products-btn counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button><br />
-                <span>Adicionar<br />produtos</span>
+            <div class="col-2 bg-lightgray add-more-products d-flex flex-column align-items-center justify-content-center text-center">
+                <button class="add-more-products-btn counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
+                <span style="width: 131px;display: block;word-break: break-word;line-height: 117%;">Adicionar produtos</span>
             </div>
             <div class="item-properties">
                 <div class="row properties">
@@ -99,19 +98,23 @@
                         <div class="attribute d-none" data-type="1">
                             <div class="row">
                                 <div class="col-2 attribute-col">
-                                    <div class="attribute-box">
+                                    <div class="attribute-box text-center">
                                         <img src="/images/icons/sofa.svg" alt="Sofá" />
                                         <p>Sofá lugares</p>
                                         <!-- Contador -->
-                                        <div class="flex items-center gap-3 simulator-counter">
+                                        <div class="flex items-center gap-3 simulator-counter justify-center">
                                             <button class="counter-btn counter-inner decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
                                             <span class="counter-text text-lg font-bold">0</span>
                                             <button class="counter-btn counter-inner increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
                                         </div>
+
+                                        <!-- Aqui será inserido o switch dinamicamente -->
+                                        <div class="chaise-switch-container mt-5 pt-5"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <!-- FIM DO ATRIBUTO SOFÁ -->
                         <!-- ATRIBUTO TAPETE -->
                         <div class="attribute d-none" data-type="2">
@@ -391,7 +394,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row pt-4 pb-4 finish">
+                <div class="row pt-4 pb-4 mb-0 finish">
                     <div class="col-3">
                         <span class="property-text"><span class="property-number">02.</span> Acabamento</span>
                     </div>
@@ -402,7 +405,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row pb-4 service">
+                <div class="row pt-4 pb-4 service">
                     <div class="col-3 text-left">
                         <span class="property-text"><span class="property-number">03.</span> Serviço</span>
                     </div>
@@ -416,19 +419,44 @@
             </div>
         </div>
         <!-- [FIM] FASE 2: CARACTERISTICAS DE PRODUTO -->
+        <!-- FASE 3: PREÇÁRIO DOS PRODUTOS SELECIONADOS -->
+        <div class="row simulator-phase simulator-phase-two gap-x-5 m-0 d-none" data-phase="3">
+            <div class="selected-products-pricing"></div>
+        </div>
 
     </div>
     <a href="#" class="ws-button simulator-button-next">
         SEGUINTE
         <img src="/images/circulo_arrow_Woosh.svg" class="icon-accordion" data-no-retina="">
     </a>
+    <a href="#" class="ws-button submit-button" style="display: none;">
+        FINALIZAR
+        <img src="/images/circulo_arrow_Woosh.svg" class="icon-accordion" data-no-retina="">
+    </a>
 </div>
+
 
 <style>
     .woosh-intro {
         display: none;
     }
+
+    div:where(.swal2-container).swal2-center > .swal2-popup {
+        border-radius: 43px;
+        width: 50%;
+    }
+
+    div:where(.swal2-container) div:where(.swal2-html-container) input {
+        margin: 20px 0px;
+        font-size: 20px !important;
+    }
+
+    div:where(.swal2-container) div:where(.swal2-validation-message) {
+        margin: 0 auto !important;
+        border-radius: 20px;
+        background: #f1f1f1;
+    }
 </style>
 
-
+@Html.AntiForgeryToken()
 <script src="/js/pages/private.js"></script>

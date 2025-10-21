@@ -1,0 +1,225 @@
+﻿@model IPublishedContent
+
+@{
+    IPublishedContent Formations = Model.Value<IPublishedContent>("parameter");
+    List<IPublishedContent> FormationsList = Formations.Children().Where(x => x.IsDocumentType("formation")).ToList();
+}
+
+<section class="overflow-hidden formations-section" style="margin-top: -50px;">
+    <div class="container">
+        <div class="row align-items-center justify-content-center mb-6 text-center text-lg-start">
+            <div class="col-xl-5 col-lg-5 md-mb-20px appear anime-complete" data-anime="{ &quot;translateX&quot;: [50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" staggervalue="150" easing="easeOutQuad" style="">
+                <h4 class="text-dark-gray fw-700 mb-0 ls-minus-1px">Próximas formações</h4>
+            </div>
+            <div class="col-xl-5 col-lg-5 last-paragraph-no-margin md-mb-30px appear anime-complete" data-anime="{ &quot;translateX&quot;: [-50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" staggervalue="150" easing="easeOutQuad" style="">
+                <p class="w-90 xl-w-100 md-w-80 sm-w-100 md-mx-auto">Acompanhe o calendário das nossas formações e descubra as próximas oportunidades para desenvolver as suas competências e ampliar o seu conhecimento.</p>
+            </div>
+            <div style="gap: 20px;" class="col-xl-2 col-lg-2 d-flex justify-content-center justify-content-lg-end appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 800, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                <!-- start slider navigation -->
+                <img style="transform: rotate(-135deg);" src="/images/circulo_arrow_Woosh.svg" class="slider-one-slide-prev-1 slider-button box-slide-icon" data-no-retina="">
+                <img style="transform: rotate(45deg);" src="/images/circulo_arrow_Woosh.svg" class="slider-one-slide-next-1 slider-button box-slide-icon" data-no-retina="">
+                <!-- end slider navigation -->
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-12 position-relative">
+                <div class="outside-box-right-40 xs-outside-box-right-0 appear anime-complete" staggervalue="150" easing="easeOutQuad" style="overflow: visible;">
+                    <div class="swiper formations-swiper magic-cursor"
+                         data-slider-options='{
+        "slidesPerView": 2,
+        "spaceBetween": 40,
+        "centered": true,
+        "loop": true,
+        "navigation": {
+            "nextEl": ".slider-one-slide-next-1",
+            "prevEl": ".slider-one-slide-prev-1"
+        },
+        "pagination": {
+            "el": ".slider-four-slide-pagination-1",
+            "clickable": true
+        },
+        "breakpoints": {
+            "320": { "slidesPerView": 1 },
+            "768": { "slidesPerView": 2 },
+            "1200": { "slidesPerView": 3 }
+        }
+     }'>
+
+                        <div class="swiper-wrapper">
+                            @foreach (var Formation in FormationsList)
+                            {
+                                string formationTitle = Formation.Value("formationTitle").ToString();
+                                DateTime formationDate = Formation.Value<DateTime>("formationDate");
+                                string formationLocation = Formation.Value("formationLocation").ToString();
+                                string formationImage = Formation.HasValue("formationImage")
+                                ? Formation.Value<IPublishedContent>("formationImage").Url()
+                                : String.Empty;
+
+                                <div class="swiper-slide">
+                                    @{
+                                        var dataExtenso = formationDate.ToString("dd MMM. yy", new System.Globalization.CultureInfo("pt-PT")).ToUpper();
+                                        var horaFormatada = formationDate.ToString("HH:mm");
+                                        var dataFinal = $"{dataExtenso} | {horaFormatada}";
+                                    }
+
+
+                                    <span class="formation-date text-bold text-white">
+                                        @dataExtenso <span class="date-bar">|</span> <span class="date-hour">@horaFormatada</span>
+                                    </span>
+                                    <div class="interactive-banner-style-08">
+                                        <figure class="m-0 hover-box overflow-hidden position-relative border-radius-no-bottom">
+                                            <a href="demo-accounting-services.html" class="position-relative d-block">
+                                                <img src="@formationImage" alt="@formationTitle" data-no-retina="">
+
+                                                <span class="formation-image-lens position-absolute top-50 start-50 translate-middle bg-dark-gray bg-opacity-60 rounded-circle p-3 d-flex align-items-center justify-content-center"></span>
+                                            </a>
+
+                                            <figcaption class="d-flex flex-column align-items-start justify-content-center position-absolute left-0 top-0 w-100 h-100 z-index-1 p-14 lg-p-12">
+                                                <div class="align-items-center">
+                                                    <a href="#" class="formation-title text-white fs-24 lh-28 w-65 xl-w-75 d-block">@formationTitle</a>
+                                                </div>
+                                                <div class="position-absolute left-0 top-0 w-100 h-100 bg-gradient-gray-light-dark-transparent z-index-minus-1 opacity-9"></div>
+                                            </figcaption>
+                                        </figure>
+
+                                        <div class="formation-location">
+                                            <img src="/images/icons/location-pin.svg" alt="Localização" />
+                                            <span>@formationLocation</span>
+                                        </div>
+
+                                        <div class="mt-1">
+                                            <button class="ws-button-outline w-100 mt-2">Fazer inscrição</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                    </div>
+
+                </div>
+                <!-- start slider pagination -->
+                <div class="swiper-pagination slider-four-slide-pagination-1 swiper-pagination-style-2 swiper-pagination-clickable swiper-pagination-bullets"></div>
+                <!-- end slider pagination -->
+            </div>
+        </div>
+        <div class="row mb-3 ">
+            <div class="col-12">
+                <p>
+                    Estruturamos e realizamos acções de formação certificada de acordo com as necessidades das empresas e seus colaboradores. Utilizamos dinâmicas e métodos facilitadores de aprendizagem, direccionada para cada perfil de Cliente.
+                </p>
+                <p>
+                    As acções de formação são enriquecidas pela transversalidade de produtos e equipamentos, e pela experiência dos nossos técnicos que, pela resolução de casos práticos, ajudam na formação específica dos seus colaboradores. Ajustamo-nos a cada Cliente.
+                </p>
+                <p>
+                    Contactados pela empresa interessada numa acção de formação:
+                </p>
+                <ul>
+                    <li><p>Identificamos em conjunto as necessidades de formação</p></li>
+                    <li><p>Planeamos a formação, definindo objectivos, elaborando conteúdos e identificando metodologias</p></li>
+                    <li><p>Disponibilizamos recursos humanos, pedagógicos e logísticos</p></li>
+                    <li><p>Enviamos relatório de formação</p></li>
+            </div>
+            <div class="col">
+                <div>
+                    <button id="customFormationBtn" class="ws-button-outline">Formação à medida</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.AntiForgeryToken()
+<script src="/js/pages/formations.js"></script>
+<style>
+    .swiper-wrapper .swiper-slide {
+        max-width: 500px;
+        height: 500px !important;
+    }
+
+    .swiper-android .swiper-slide, .swiper-ios .swiper-slide, .swiper-wrapper {
+        gap: 40px;
+    }
+
+        .swiper-wrapper .swiper-slide figcaption {
+            padding: 40px 30px 0px 30px !important;
+        }
+
+        .swiper-wrapper .swiper-slide img {
+            height: 273px;
+            object-fit: cover;
+        }
+
+    .formation-title {
+        width: 100% !important;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 121%;
+    }
+
+    .formation-location {
+        background-color: #84c6f6;
+        color: #fff;
+        font-size: 13px;
+        font-weight: bold;
+        padding: 20px 30px;
+        border-radius: 0px 0px 25px 25px;
+        display: flex;
+        gap: 10px;
+        line-height: 152%;
+    }
+
+        .formation-location img {
+            height: 30px !important;
+            filter: invert(1);
+        }
+
+    .swiper-wrapper .swiper-slide figure img {
+        width: 100%;
+    }
+
+    .formation-date {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 100px;
+        min-width: 50px;
+        min-height: 50px;
+        color: #000 !important;
+    }
+
+    .formation-image-lens {
+        width: 100%;
+        height: 100%;
+        background-color: #2c61773b;
+        border-radius: 0px !important;
+    }
+
+    .formation-hour {
+        background: linear-gradient(-45deg, rgba(255, 255, 255, 0.55) 0%, rgb(146 210 255 / 66%) 55%);
+        padding: 10px;
+        border-radius: 100px;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        min-width: 50px;
+        min-height: 50px;
+        text-align: center;
+    }
+
+    .ws-button-full {
+        width: unset !important;
+    }
+
+    .swal2-html-container textarea {
+        font-size: 20px;
+        border: 0px;
+        border-bottom: 1px solid gray;
+    }
+
+        .swal2-html-container textarea:hover {
+            border: 0px !important;
+            border-bottom: 1px solid gray;
+        }
+</style>

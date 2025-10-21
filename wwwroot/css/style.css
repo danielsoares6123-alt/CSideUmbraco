@@ -155,6 +155,11 @@ a {
 
 p {
     margin-bottom: 25px;
+    color: gray !important;
+}
+
+.expertise-box:hover .slide-desc {
+    color: #000 !important;
 }
 
 .last-paragraph-no-margin p:last-of-type {
@@ -8976,6 +8981,7 @@ header.sticky .navbar.disable-fixed {
             word-wrap: break-word;
             overflow-wrap: break-word;
             box-sizing: border-box;
+            width: 90%;
         }
 
             .navbar .navbar-nav .dropdown .dropdown-menu a:hover {
@@ -22746,7 +22752,8 @@ canvas {
         .shop-sidebar .shop-filter li .product-cb {
             width: 16px;
             height: 16px;
-            border: 1px solid var(--medium-gray);
+            background-color: #fff !important;
+            border: 1px solid #dedede;
             display: inline-block;
             border-radius: 100%;
             position: absolute;
@@ -22754,21 +22761,24 @@ canvas {
             top: 8px;
         }
 
-            .shop-sidebar .shop-filter li .product-cb:after {
-                width: 8px;
-                height: 8px;
-                background-color: #43C2FF;
-                border-radius: 100%;
-                content: "";
+            .shop-sidebar .shop-filter li .product-cb::before {
+                content: '';
+                width: 14px;
+                height: 14px;
+                background-color: #bbdafb;
+                border: 1px solid #bbdafb;
+                border-radius: 50%;
+                display: block;
                 position: absolute;
-                left: 50%;
-                top: 50%;
-                opacity: 0;
-                -webkit-transition: 0.4s;
-                transition: 0.4s;
-                -webkit-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
+                left: 0px;
+                top: 0;
+                display: none;
             }
+
+            .shop-filter .active .product-cb::before {
+                display: block !important;
+            }
+
 
         .shop-sidebar .shop-filter li .item-qty {
             position: absolute;
@@ -23252,6 +23262,7 @@ footer {
 
         footer ul li {
             margin-bottom: 5px;
+            padding: 0;
         }
 
     footer .elements-social.social-icon-style-01 li, footer .elements-social.social-icon-style-02 li, footer .elements-social.social-icon-style-05 li, footer .elements-social.social-icon-style-08 li {

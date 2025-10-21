@@ -271,21 +271,18 @@
         z-index: -1;
     }
 
-    /* Quando o filtro está ativo */
-    .categoria-filtro.active .product-cb.product-category-cb {
-        background-color: #43C2FF !important; /* cor do preenchimento */
-        border-color: #43C2FF !important; /* mesma cor da borda */
-    }
-    /* Grid básico */
     #product-list {
         margin-bottom: 70px !important;
         display: flex;
         flex-wrap: wrap;
-        margin: -15px; /* negativo para compensar padding */
+        margin: -15px; /* cuidado, isso reduz o espaço geral */
         list-style: none;
         padding: 0;
         height: unset !important;
+        gap: 30px 0px; /* 30px entre linhas, 15px entre colunas */
+        /* ou só row-gap: 30px; se quiseres apenas espaçamento vertical */
     }
+
 
         #product-list .grid-item {
             padding: 30px;

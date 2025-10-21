@@ -2,73 +2,75 @@
 localStorage.removeItem("products");
 
 const productPrices = {
-    sofa: {
-        "1_lugar": { limpeza: 47, protecao: 41, ambos: 68 },
+    sofá: {
+        "1_lugares": { limpeza: 47, protecao: 41, ambos: 68 },
         "2_lugares": { limpeza: 68, protecao: 62, ambos: 100 },
         "2_lugares_chaise_long": { limpeza: 126, protecao: 105, ambos: 190 },
         "3_lugares": { limpeza: 79, protecao: 68, ambos: 116 },
         "4_lugares": { limpeza: 100, protecao: 84, ambos: 147 },
         "5_lugares": { limpeza: 126, protecao: 105, ambos: 190 }
     },
-    puff: {},
-    cadeira: {
-        specification: {
-            name: "Cadeirão",
-            limpeza: 41,
-            protecao: 35,
-            ambos: 63
-        },
-        specification: {
-            name: "Assento/costas",
-            limpeza: 16,
-            protecao: 14,
-            ambos: 21
-        },
-        specification: {
-            name: "Só assento",
-            limpeza: 12,
-            protecao: 10,
-            ambos: 16
-        },
-        specification: {
-            name: "Chaise Long",
-            limpeza: 53,
-            protecao: 44,
-            ambos: 79
-        }
+    puff: {
+        "1_lugares": { limpeza: 41, protecao: 35, ambos: 63 },
+        "2_lugares": { limpeza: 47, protecao: 41, ambos: 68 }
     },
-    tapete: {
-
-    },
-    colchão: {
-        specification: {
-            name: "Bebé",
-            limpeza: 37,
-            protecao: 32,
-            ambos: 53
-        },
-        specification: {
-            name: "Individual",
-            limpeza: 53,
-            protecao: 44,
-            ambos: 79
-        },
-        specification: {
-            name: "Casal",
-            limpeza: 63,
-            protecao: 54,
-            ambos: 95
-        }
-    },
-    cabeceira: {
-        specification: {
-            name: "Cabeceira cama",
-            limpeza: 47,
-            protecao: 40,
-            ambos: 68
-        }
-    }
+    cadeira: [
+        { name: "Cadeirão", limpeza: 41, protecao: 35, ambos: 63 },
+        { name: "Assento/costas", limpeza: 16, protecao: 14, ambos: 21 },
+        { name: "Só assento", limpeza: 12, protecao: 10, ambos: 16 },
+        { name: "Chaise Long", limpeza: 53, protecao: 44, ambos: 79 }
+    ],
+    tapete: [
+        { name: "Redondo", limpeza: 13, protecao: 9, ambos: 17 },
+        { name: "Quadrado", limpeza: 13, protecao: 9, ambos: 17 },
+        { name: "Retângulo", limpeza: 13, protecao: 9, ambos: 17 },
+        { name: "Outro", limpeza: 13, protecao: 9, ambos: 17 }
+    ],
+    colchão: [
+        { name: "Bebé", limpeza: 37, protecao: 32, ambos: 53 },
+        { name: "Individual", limpeza: 53, protecao: 44, ambos: 79 },
+        { name: "Casal", limpeza: 63, protecao: 54, ambos: 95 }
+    ],
+    cabeceira: [
+        { name: "Cabeceira cama", limpeza: 47, protecao: 40, ambos: 68 }
+    ]
 };
+
+
+
+document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.counter-btn');
+    if (!btn) return;
+
+    const attribute = btn.closest('.attribute');
+    if (!attribute) return;
+
+    // ⚠️ Só executa se for o atributo com data-type="1" (sofá)
+    if (attribute.dataset.type !== '1') return;
+
+    const container = btn.closest('.simulator-counter');
+    const text = container.querySelector('.counter-text');
+    let value = parseInt(text.textContent, 10);
+
+    // 🔹 Atualiza o switch consoante o número de lugares
+    const switchContainer = attribute.querySelector('.chaise-switch-container');
+
+    if (value === 2) {
+        // Se ainda não existe o switch, cria
+        if (!switchContainer.querySelector('.switch')) {
+            switchContainer.innerHTML = `
+                <label class="switch mt-3 cursor-pointer">
+                    <input type="checkbox" class="hidden" data-open-details="1" data-name="Chaise Long" />
+                    <span class="slider"></span>
+                </label>
+                <p class="small mt-1 mb-0">Chaise Long</p>
+            `;
+        }
+    } else {
+        // Remove se o contador mudar de 2
+        switchContainer.innerHTML = '';
+    }
+});
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -146,6 +148,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         });
     });
+
+    // 🔸 Delegação de evento para o switch "Chaise Long"
+    document.addEventListener('change', (e) => {
+        const switchEl = e.target.closest('.chaise-switch-container input[type="checkbox"]');
+        if (!switchEl) return;
+
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        if (!products[productIndex]) return;
+
+        const hasChaise = switchEl.checked;
+
+        // Atualiza o produto
+        updateProductProperty(productIndex, "hasChaise", hasChaise);
+
+        // Opcional: valida novamente o produto
+        validateProductFields(productIndex);
+    });
+
 
 
     // Seleciona todos os botões de service
@@ -330,12 +350,11 @@ switches.forEach(sw => {
 
                 // Mostra o .switch-details correspondente
                 target.style.setProperty('display', 'block', 'important');
-                
+
                 // Adiciona listener ao ícone de voltar (.box-slide-icon)
                 const backIcon = target.querySelector('.box-slide-icon');
                 if (backIcon) {
                     backIcon.addEventListener('click', () => {
-                        alert("teste");
                         // Esconde o detalhe atual
                         target.style.display = 'none';
                         // Mostra novamente todos os .attribute-box
@@ -709,6 +728,55 @@ document.querySelector('.add-more-products')?.addEventListener('click', () => {
     updatePhasesProgress(0);
 });
 
+document.querySelector('.simulator-back').addEventListener('click', () => {
+    const visible = [...document.querySelectorAll('.simulator-phase')]
+        .find(el => !el.classList.contains('d-none'));
+    if (!visible) return;
+
+    const currentPhase = parseInt(visible.dataset.phase);
+    const prevPhase = Math.max(currentPhase - 1, 1);
+    const prev = document.querySelector(`.simulator-phase[data-phase="${prevPhase}"]`);
+
+    if (prev) {
+        // Esconde a fase atual
+        visible.classList.add('d-none');
+        visible.style.display = 'none';
+        visible.style.opacity = "0";
+
+        // Mostra a fase anterior
+        prev.classList.remove('d-none');
+        prev.style.display = 'flex';
+        prev.style.opacity = "1";
+    }
+
+    // 🔹 Atualiza visual das fases no topo
+    updatePhasesProgress(currentPhase - 2);
+
+    // 🔹 Se voltar à fase 1, esconde o botão "voltar"
+    if (prevPhase === 1) {
+        const backBtn = document.querySelector('.simulator-back');
+        backBtn.classList.add('d-none');
+        backBtn.style.display = 'none';
+    } else {
+        const backBtn = document.querySelector('.simulator-back');
+        backBtn.classList.remove('d-none');
+        backBtn.style.display = 'inline-block';
+    }
+
+    // 🔹 Ajusta visibilidade dos botões de navegação
+    const nextBtn = document.querySelector('.simulator-button-next');
+    const submitBtn = document.querySelector('.submit-button');
+
+    nextBtn.classList.remove('d-none');
+    nextBtn.style.display = 'inline-block';
+
+    submitBtn.classList.add('d-none');
+    submitBtn.style.display = 'none';
+});
+
+
+
+
 document.querySelector('.simulator-button-next')?.addEventListener('click', () => {
     const visible = [...document.querySelectorAll('.simulator-phase')]
         .find(el => getComputedStyle(el).display !== 'none' && !el.classList.contains('d-none'));
@@ -716,37 +784,35 @@ document.querySelector('.simulator-button-next')?.addEventListener('click', () =
 
     const currentPhase = parseInt(visible.dataset.phase);
     const next = document.querySelector(`.simulator-phase[data-phase="${currentPhase + 1}"]`);
-
-    // 🔸 Bloqueia avanço se todos os contadores forem 0
-    const counters = visible.querySelectorAll('.counter-text');
-    const hasCount = [...counters].some(c => parseInt(c.textContent || '0') > 0);
-
-    if (!hasCount) {
-        Swal.fire({
-            toast: false,
-            position: 'middle',
-            icon: 'error',
-            title: 'Deve adicionar pelo menos uma unidade antes de avançar!',
-            showConfirmButton: false,
-            //timer: 3000,
-            //timerProgressBar: true,
-            customClass: {
-                popup: 'my-toast-error',  // aplica fundo vermelho
-                title: 'my-toast-title'
-            },
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-
-        return; // não avança
-    }
-
-
+    const backBtn = document.querySelector('.simulator-back');
 
     // 🔸 Fase 1: guardamos cada unidade individualmente
     if (currentPhase === 1) {
+        backBtn.classList.remove('d-none');
+        backBtn.style.display = 'inline-block';
+        const counters = visible.querySelectorAll('.counter-text');
+        const hasCount = [...counters].some(c => parseInt(c.textContent || '0') > 0);
+
+        if (!hasCount) {
+            Swal.fire({
+                toast: false,
+                position: 'middle',
+                icon: 'error',
+                title: 'Deve adicionar pelo menos uma unidade antes de avançar!',
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'my-toast-error',
+                    title: 'my-toast-title'
+                },
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
+            return; // não avança
+        }
+
         const container = visible.querySelectorAll('.col');
         let products = JSON.parse(localStorage.getItem('products')) || [];
 
@@ -776,6 +842,24 @@ document.querySelector('.simulator-button-next')?.addEventListener('click', () =
 
         localStorage.setItem('products', JSON.stringify(newProductsArray));
         renderItemsFromStorage();
+
+        // 🔸 Esconde botão de seguinte e mostra botão de finalizar
+        document.querySelector('.simulator-button-next').style.display = 'inline-block';
+        document.querySelector('.submit-button').style.display = 'none';
+    }
+
+    if (currentPhase === 2) {
+        backBtn.classList.remove('d-none');
+        backBtn.style.display = 'inline-block';
+
+        document.querySelector('.simulator-back').style.display = 'block';
+        // Ao clicar "next", quando fores mudar para a fase 3:
+        renderSelectedProductsPricing();
+
+        // 🔸 Esconde botão de seguinte e mostra botão de finalizar
+        document.querySelector('.simulator-button-next').style.display = 'none';
+        document.querySelector('.submit-button').style.display = 'inline-block';
+        document.querySelector('.submit-button').classList.remove("d-none");
     }
 
 
@@ -785,6 +869,143 @@ document.querySelector('.simulator-button-next')?.addEventListener('click', () =
     // muda de fase com transição suave
     if (next) changePhase(visible, next);
 });
+
+function renderSelectedProductsPricing() {
+    const container = document.querySelector('.selected-products-pricing');
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    container.innerHTML = '';
+
+    let totalGlobal = 0;
+
+    products.forEach((product, index) => {
+        const { type, properties } = product;
+        const priceInfo = productPrices[type];
+        let totalPrice = 0;
+        let details = '';
+
+        if (!priceInfo || !properties) {
+            container.innerHTML += `<div class="product-item">Dados em falta para ${product.name}</div>`;
+            return;
+        }
+
+        // 🔸 Sofás
+        if ((type === 'sofa' || type === 'sofá') || type === "puff") {
+            const lugaresKey = `${properties.lugares}_lugares${properties.hasChaise ? '_chaise_long' : ''}`;
+            const serviceType = normalizeService(properties.service);
+            totalPrice = priceInfo[lugaresKey]?.[serviceType] || 0;
+
+            const labelLugar = properties.lugares == 1 ? 'lugar' : 'lugares';
+            details = `${properties.lugares} ${labelLugar}${properties.hasChaise ? ' (chaise long)' : ''}`;
+        }
+
+        // 🔸 Tapetes
+        else if (type === 'tapete') {
+            const serviceType = normalizeService(properties.service);
+            const spec = properties.specifications;
+            const match = Array.isArray(priceInfo)
+                ? priceInfo.find(item => item.name.toLowerCase() === spec.name.toLowerCase())
+                : Object.values(priceInfo).find(item => item.name.toLowerCase() === spec.name.toLowerCase());
+
+            if (match) {
+                const pricePerM2 = match[serviceType] || 0;
+                const area = spec.result || 0;
+
+                if (area > 50) {
+                    totalPrice = null; // não mostrar preço
+                    details = `${spec.name} — ${area} m² <br/>
+        <small class="text-danger">
+            Este tapete tem mais de 50 m², contacte-nos para orçamento.
+        </small>`;
+                } else {
+                    totalPrice = pricePerM2 * area;
+                    details = `${spec.name} — ${area} m²`;
+                }
+            }
+        } // 🔸 Cadeiras
+        else if (type === 'cadeira') {
+            const serviceType = normalizeService(properties.service);
+            const spec = properties.specifications;
+            const match = Array.isArray(priceInfo)
+                ? priceInfo.find(item => item.name.toLowerCase() === spec.name.toLowerCase())
+                : Object.values(priceInfo).find(item => item.name.toLowerCase() === spec.name.toLowerCase());
+
+            if (match) {
+                totalPrice = match[serviceType] || 0; // preço apenas baseado na specification
+                details = `${spec.name}`; // apenas nome da especificação
+            } else {
+                totalPrice = null;
+                details = `${spec.name} — preço não disponível`;
+            }
+        }
+
+
+        // 🔸 Outros produtos
+        else if (Array.isArray(priceInfo)) {
+            const serviceType = normalizeService(properties.service);
+            const match = priceInfo.find(item =>
+                item.name.toLowerCase().includes(properties.specification?.toLowerCase() || '') ||
+                (type === 'puff' && item.name.toLowerCase() === 'puff')
+            );
+            if (match) totalPrice = match[serviceType];
+            details = match ? match.name : '';
+        }
+
+        if (properties.finish)
+            details += `<br/> <b>Acabamento: <b class="text-black">${properties.finish}</b>`;
+
+        // 🔹 Atualiza o total no objeto produto
+        product.totalPrice = totalPrice || 0;
+
+        totalGlobal += totalPrice || 0;
+
+        const html = `
+        <div class="product-item d-flex justify-content-between align-items-center py-2 border-bottom pt-1 pb-1 ps-2 pe-2">
+            <div>
+                <strong>${product.name}</strong><br>
+                <small>${details}</small><br/>
+                <small>Serviço: <b class="text-black">${properties.service.join(' + ')}</b></small>
+            </div>
+            <div class="text-end">
+                <span class="price fw-bold">${totalPrice ? totalPrice.toFixed(2) + ' €' : '—'}</span>
+            </div>
+        </div>
+        `;
+
+        container.insertAdjacentHTML('beforeend', html);
+    });
+
+    // 🔹 Atualiza o localStorage com os preços
+    localStorage.setItem('products', JSON.stringify(products));
+
+    // 🔸 Linha total
+    const totalHtml = `
+    <div class="row mt-1 p-2 align-items-center">
+        <div class="col text-start small">
+            <span>
+                *valor de serviço mínimo de 70€ para Lisboa e Porto <br/>
+                *valor de serviço mínimo a determinar fora destas zonas
+            </span>
+        </div>
+        <div class="col text-end pt-1">
+            <h5 class="fw-bold mb-0">Total: ${totalGlobal.toFixed(2)} €</h5>
+        </div>
+    </div>
+    `;
+    container.insertAdjacentHTML('beforeend', totalHtml);
+}
+
+
+
+// Função auxiliar para converter "Limpeza" + "Impermeabilização" em "ambos"
+function normalizeService(serviceArray) {
+    if (!serviceArray || !serviceArray.length) return 'limpeza';
+    const hasLimpeza = serviceArray.includes('Limpeza');
+    const hasProtecao = serviceArray.includes('Impermeabilização');
+    if (hasLimpeza && hasProtecao) return 'ambos';
+    if (hasProtecao) return 'protecao';
+    return 'limpeza';
+}
+
 
 // ---- Função auxiliar para marcar fases concluídas ----
 function updatePhasesProgress(currentPhase) {
@@ -815,3 +1036,181 @@ function updatePhasesProgress(currentPhase) {
         titleEl.textContent = phaseTitles[currentPhase];
     }
 }
+
+// 🔸 Evento do botão FINALIZAR
+document.querySelector('.submit-button').addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    // 🔹 Pega o token do anti-forgery na página
+    const antiForgeryToken = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+    const { value: formValues } = await Swal.fire({
+        title: '<span class="text-center text-black mt-3 simulator-title text-uppercase">Finalize o seu pedido</span>',
+        html: `
+    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="swal-name" type="text" name="name" placeholder="Qual o seu nome?">
+    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="swal-email" type="email" name="email" placeholder="Qual o seu email?">
+    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="swal-phone" type="tel" name="phone" placeholder="Contacte telefónico.">
+    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="swal-location" type="text" name="location" placeholder="Localidade.">
+    <input type="hidden" name="__RequestVerificationToken" value="${antiForgeryToken}">
+`,
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Submeter pedido',
+        cancelButtonText: 'Cancelar',
+        customClass: {
+            confirmButton: 'ws-button text-uppercase',
+            cancelButton: 'ws-button text-uppercase ws-button-cancel'
+        },
+        preConfirm: () => {
+            const name = document.getElementById('swal-name').value.trim();
+            const email = document.getElementById('swal-email').value.trim();
+            const phone = document.getElementById('swal-phone').value.trim();
+            const location = document.getElementById('swal-location').value.trim();
+
+            if (!name || name.length < 2) {
+                Swal.showValidationMessage(`Por favor, insira um nome válido.`);
+                return false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailPattern.test(email)) {
+                Swal.showValidationMessage(`Por favor, insira um email válido.`);
+                return false;
+            }
+
+            const phonePattern = /^\d{9,}$/;
+            if (!phone || !phonePattern.test(phone)) {
+                Swal.showValidationMessage(`Por favor, insira um número de telefone válido (mínimo 9 dígitos).`);
+                return false;
+            }
+
+            if (!location || location.length < 2) {
+                Swal.showValidationMessage(`Por favor, insira uma localidade válida.`);
+                return false;
+            }
+
+            return {
+                name,
+                email,
+                phone,
+                location,
+                __RequestVerificationToken: antiForgeryToken // ✅ token incluído
+            };
+        }
+    });
+
+
+
+
+    if (formValues) {
+        // Cria o FormData utilizando a função prepareFormDataProducts
+        const formData = prepareFormDataProducts({
+            name: formValues.name,
+            email: formValues.email,
+            phone: formValues.phone,
+            location: formValues.location,
+            __RequestVerificationToken: formValues.__RequestVerificationToken 
+        });
+
+        // Log de todos os pares do FormData
+        console.log('--- FormData ---');
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+
+        // 🔹 Envia para o endpoint do Umbraco Surface Controller
+        fetch('/umbraco/surface/Contacts/SendSimulatorForm', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: 'Pedido enviado com sucesso!',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'ws-button'
+                        }
+                    }).then(() => {
+                        // 🔹 Faz refresh da página ou volta ao topo
+                        window.location.reload(); // recarrega a página
+                        // ou, se só queres ir ao topo:
+                        // window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Erro',
+                        text: data.message || 'Ocorreu um erro ao enviar o pedido.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'ws-button'
+                        }
+                    });
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Ocorreu um erro na comunicação com o servidor.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        confirmButton: 'ws-button'
+                    }
+                });
+            });
+    }
+
+    function prepareFormDataProducts(formFields = {}) {
+        // Obtem os produtos do localStorage
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+
+        // Cria o FormData
+        const formData = new FormData();
+
+        // Adiciona campos do formulário (nome, email, etc.)
+        for (const key in formFields) {
+            formData.append(key, formFields[key]);
+        }
+
+        // Adiciona os produtos organizados
+        products.forEach((product, index) => {
+            const baseKey = `products[${index}]`;
+
+            formData.append(`${baseKey}[name]`, product.name);
+            formData.append(`${baseKey}[type]`, product.type);
+            formData.append(`${baseKey}[totalPrice]`, product.totalPrice);
+
+            const props = product.properties || {};
+            for (const propKey in props) {
+                const value = props[propKey];
+
+                // Se for array (ex: service), transformamos em JSON
+                if (Array.isArray(value)) {
+                    formData.append(`${baseKey}[properties][${propKey}]`, JSON.stringify(value));
+                }
+                // Se for objeto (ex: specifications), transformamos em JSON
+                else if (typeof value === 'object' && value !== null) {
+                    formData.append(`${baseKey}[properties][${propKey}]`, JSON.stringify(value));
+                }
+                else {
+                    formData.append(`${baseKey}[properties][${propKey}]`, value);
+                }
+            }
+        });
+
+        // Apenas para debug, logamos todos os pares do FormData
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+
+        return formData;
+    }
+
+
+});

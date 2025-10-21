@@ -1,27 +1,33 @@
 ﻿@model IPublishedContent
 
 @{
-    IPublishedContent Boxes = Model.Value<IPublishedContent>("parameter").FirstOrDefault();
+    IPublishedContent Boxes = Model.Value<IPublishedContent>("parameter");
     List<IPublishedContent> ListBoxes = Boxes.Children().Where(x => x.IsDocumentType("box")).ToList();
 }
 
 <div class="row-icons">
     @foreach (var ListBox in ListBoxes)
     {
-        string name = ListBox.Value("boxName").ToString();
-        string image = ListBox.HasValue("boxImage") ? ListBox.Value<IPublishedContent>("boxImage").Url() : String.Empty
-        string pageDestination = ListBox.HasValue("pageDestination") ? ListBox.Value<IPublishedContent>("pageDestination").Url() : String.Empty;
+        var name = ListBox.Value<string>("boxName");
+        var image = ListBox.HasValue("boxImage")
+        ? ListBox.Value<IPublishedContent>("boxImage")?.Url()
+        : string.Empty;
+
+        var link = ListBox.Value<IEnumerable<IPublishedContent>>("pageDestination")?.FirstOrDefault();
 
         <div class="col-icon">
             <div class="icon">
-            <a href="@pageDestination">
-                <img src="/images/circulo_Woosh.svg" alt="Círculo" />
-                <img src="@image" alt="@name" />
+                <a href="@(link?.Url() ?? "#")">
+                    <img src="/images/circulo_Woosh.svg" alt="Círculo" />
+                    <img src="@image" alt="@name" />
+                </a>
+            </div>
+            <a href="@(link?.Url() ?? "#")">
+                <h3>@name</h3>
             </a>
         </div>
-        <a href="@pageDestination"><h3>@name</h3></a>
-    </div>
     }
+
 </div>
 
 <style>
@@ -94,6 +100,6 @@
         }
 
         .icon:hover img:not([alt="Círculo"]) {
-            filter: blur(1px);
+            filter: brightness(0) saturate(100%) invert(76%) sepia(12%) saturate(9%) hue-rotate(336deg) brightness(78%) contrast(81%) blur(1px);
         }
 </style>

@@ -84,7 +84,7 @@ async function initMapLaundries(listLaundries) {
 
                     if (!TEST_MODE) {
                         const loader = new THREE.GLTFLoader();
-                        loader.load('/media/t2kpdytx/woosh_bubble.glb', gltf => {
+                        loader.load('/media/ammowuc2/woosh_bubble.glb', gltf => {
                             gltf.scene.traverse((child) => {
                                 if (child.isMesh) {
                                     child.userData.laundryData = {
@@ -133,8 +133,8 @@ async function initMapLaundries(listLaundries) {
         laundries.forEach(laundry => {
             if (laundry.lat !== 0 && laundry.lon !== 0) {
                 const el = document.createElement('div');
-                el.style.width = '100px';
-                el.style.height = '100px';
+                el.style.width = '30px';
+                el.style.height = '30px';
                 el.style.background = 'transparent';
                 el.style.cursor = 'pointer';
 

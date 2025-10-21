@@ -1,0 +1,51 @@
+﻿@model IPublishedContent
+
+@{
+    IPublishedContent Boxes = Model.Value<IPublishedContent>("parameter");
+    IPublishedContent foundBox = Boxes.Children().Where(x => x.IsDocumentType("box")).FirstOrDefault();
+
+    string name = foundBox.Value("boxName").ToString();
+    string description = foundBox.Value("description").ToString();
+    string image = foundBox.HasValue("boxImage") ? foundBox.Value<IPublishedContent>("boxImage").Url() : String.Empty;
+    string pageDestination = foundBox.HasValue("pageDestination") ? foundBox.Value<IEnumerable<IPublishedContent>>("pageDestination").FirstOrDefault().Url() : String.Empty;
+}
+
+<section class="parallax-section position-relative mb-3 mt-3" style="position: relative; overflow: hidden; min-height: 500px;">
+    <!-- Div do background que faz parallax -->
+    <div class="parallax-bg rellax" data-rellax-speed="5" style="background-image: url(@image); background-position: center; background-size: cover; position: absolute; top:0; left:0; width:100%; height:100%; z-index: -1;"></div>
+
+    <div class="opacity-extra-medium bg-dark-gray"></div>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-h-500px">
+            <div class="col-12 col-xl-8 col-lg-10 position-relative text-center parallax-scrolling-style-1">
+                <h1 style="font-size: 40px !important;" class="fw-700 alt-font text-white ls-minus-2px">@name</h1>
+                <p class="text-white" style="font-size: 20px; font-weight: 300;">@description</p>
+                @if (!string.IsNullOrEmpty(pageDestination))
+                {
+                    <a href="@pageDestination" class="ws-button-full know-more">Saber mais</a>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
+<script>
+    var rellax = new Rellax('.parallax-bg', {
+        center: true,    // centraliza verticalmente
+        vertical: true,
+        horizontal: false
+    });
+</script>
+
+ <style>
+.know-more {
+    padding: 15px 40px;
+    color: #fff;
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+    min-width: 220px;
+}
+ </style>

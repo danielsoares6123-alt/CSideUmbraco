@@ -64,7 +64,6 @@
 #simulator .simulator-phase-two {
     padding: 0 !important;
     border-top: 1px solid lightgray;
-    overflow-y: scroll;
 }
 
 /* Para ecrãs com largura máxima de 1200px */
@@ -111,7 +110,7 @@
     margin: 0;
     flex-wrap: nowrap;
     overflow-x: auto;
-    border-bottom: 2px solid #bfbfbf;
+    border-bottom: 2px solid lightgray;
     max-height: 155px;
     padding: 0;
     scrollbar-width: none;
@@ -159,7 +158,7 @@
 
 .item .done-icon {
     position: absolute;
-    bottom: 5px;
+    bottom: 8px;
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -225,7 +224,7 @@
 
 #simulator .simulator-phase .add-more-products {
     cursor: pointer;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 2px solid lightgray;
 }
 
 #simulator .properties {
@@ -267,7 +266,7 @@
             height: 16px;
             width: 16px;
             left: 0px;
-            top: 3px;
+            top: 2px;
             background-color: #ccc;
             border-radius: 50%;
             transition: all 0.3s ease;

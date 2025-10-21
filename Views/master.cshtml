@@ -1,11 +1,18 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
-
     Layout = null;
 
     // Pega o ancestor ou self no nível 1
     var currentPage = Umbraco.AssignedContentItem?.AncestorOrSelf(1);
+    var navigationPage = Umbraco.AssignedContentItem;
+    string metaTitle = navigationPage.HasValue("metaTitle") && !string.IsNullOrWhiteSpace(currentPage.Value<string>("metaTitle"))
+                       ? navigationPage.Value<string>("metaTitle")
+                       : navigationPage.Name;
+
+    string metaDescription = navigationPage.HasValue("metaDescription") && !string.IsNullOrWhiteSpace(currentPage.Value<string>("metaDescription"))
+                             ? navigationPage.Value<string>("metaDescription")
+                             : string.Empty;
 
     IPublishedContent settings = (currentPage != null && currentPage.Children.Any(x => x.IsDocumentType("settings")))
         ? currentPage.Children.FirstOrDefault(x => x.IsDocumentType("settings"))
@@ -18,7 +25,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@Umbraco.AssignedContentItem?.Name</title>
+    <title>Woosh - @metaTitle</title>
+    <meta name="description" content="@metaDescription">
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +37,11 @@
     <link rel="stylesheet" href="~/css/icon.min.css" />
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/responsive.css" />
+    <link rel="icon" type="image/png" href="/images/icons/favicon_Woosh.png" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/favicon_Woosh.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/favicon_Woosh.png">
+    <link rel="shortcut icon" href="/images/icons/favicon_Woosh.png">
+
     @RenderSection("Styles", false)
     <script>
           window.dataLayer = window.dataLayer || [];

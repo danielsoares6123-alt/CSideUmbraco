@@ -19,7 +19,9 @@
             {
                 string name = box.Value("boxName").ToString();
                 string image = box.HasValue("boxImage") ? box.Value<IPublishedContent>("boxImage").Url() : String.Empty;
-                var link = box.HasValue("pageDestination") ? box.Value<Link>("pageDestination").Url : "#";
+                var link = box.Value<IEnumerable<IPublishedContent>>("pageDestination")?
+                .FirstOrDefault()?.Url() ?? "#";
+
 
                 <div class="swiper-slide">
                     <div class="box-slide"
