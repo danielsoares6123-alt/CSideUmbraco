@@ -255,6 +255,9 @@ h1, .h1 {
 h2, .h2 {
     font-size: 3.438rem;
     line-height: 3.438rem;
+    color: var(--dark-gray) !important;
+    font-family: var(--alt-font) !important;
+    font-weight: 700 !important;
 }
 
 h3, .h3 {

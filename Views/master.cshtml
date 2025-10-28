@@ -100,8 +100,13 @@
                 const links = navbar.querySelectorAll(".nav-link"); // todos os links dentro da navbar
                 const brandImages = navbar.querySelectorAll(".navbar-brand img"); // corrige o seletor
 
-               window.addEventListener("scroll", () => {
+                        // 1. Envolve a lógica de estilo em uma função dedicada
+        const checkScrollPosition = () => {
+            // Certifique-se de que 'navbar', 'brandImages' e 'links' estão definidos globalmente ou passados como parâmetros
             if (window.scrollY > 50) {
+                // Adiciona a classe para indicar que houve scroll
+                navbar.classList.add("navbar-scrolled");
+
                 // fundo semi-transparente com blur
                 navbar.style.backgroundColor = "rgba(247, 247, 247, 0.6)";
                 navbar.style.backdropFilter = "blur(10px)";
@@ -110,12 +115,46 @@
                 brandImages.forEach(img => img.style.setProperty("filter", "invert(0)", "important"));
                 links.forEach(link => link.style.setProperty("color", "#000", "important"));
             } else {
+                // Remove a classe quando o scroll está no topo
+                navbar.classList.remove("navbar-scrolled");
+
                 // transparente total sem blur
                 navbar.style.backgroundColor = "rgba(255, 255, 255, 0)";
                 navbar.style.backdropFilter = "none"; // remove o blur
                 brandImages.forEach(img => img.style.removeProperty("filter"));
                 links.forEach(link => link.style.removeProperty("color"));
             }
+        };
+
+        // 2. Chama a função imediatamente ao carregar a página
+        // Isso verifica a posição inicial do scroll (útil se a página for recarregada em uma posição mais baixa)
+        checkScrollPosition();
+
+        // 3. Adiciona a função ao evento de 'scroll' como você já tinha
+        window.addEventListener("scroll", checkScrollPosition);
+
+               window.addEventListener("scroll", () => {
+                    if (window.scrollY > 50) {
+            // Adiciona a classe para indicar que houve scroll
+            navbar.classList.add("navbar-scrolled");
+
+            // fundo semi-transparente com blur
+            navbar.style.backgroundColor = "rgba(247, 247, 247, 0.6)";
+            navbar.style.backdropFilter = "blur(10px)";
+
+            // ícones/links
+            brandImages.forEach(img => img.style.setProperty("filter", "invert(0)", "important"));
+            links.forEach(link => link.style.setProperty("color", "#000", "important"));
+        } else {
+            // Remove a classe quando o scroll está no topo
+            navbar.classList.remove("navbar-scrolled");
+
+            // transparente total sem blur
+            navbar.style.backgroundColor = "rgba(255, 255, 255, 0)";
+            navbar.style.backdropFilter = "none"; // remove o blur
+            brandImages.forEach(img => img.style.removeProperty("filter"));
+            links.forEach(link => link.style.removeProperty("color"));
+        }
         });
 
 

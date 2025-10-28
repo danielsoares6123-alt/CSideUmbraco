@@ -106,6 +106,10 @@ html, body {
     transition: text-decoration 0.5s ease-out;
 }
 
+.navbar-nav .nav-link img {
+    display: none;
+}
+
 .navbar-nav .dropdown {
     padding: 0 !important;
 }
@@ -200,6 +204,14 @@ html, body {
         transition: opacity 0.5s ease, transform 0.5s ease;
         pointer-events: none; /* não bloqueia hover */
     }
+
+.highlight .box-slide-icon {
+    filter: brightness(0) saturate(100%) invert(60%) sepia(58%) saturate(268%) hue-rotate(351deg) brightness(92%) contrast(87%) !important;
+}
+
+.highlight:hover .box-slide-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(2%) saturate(7453%) hue-rotate(3deg) brightness(109%) contrast(109%) !important;
+}
 
     .box-slide:hover .box-slide-icon {
         opacity: 1; /* aparece */
@@ -615,10 +627,6 @@ button img {
 
 .woosh-footer a:hover {
     color: #fff !important;
-}
-
-.woosh-footer .contact p {
-    margin-b
 }
 
 #privacy-overlay {
@@ -1260,6 +1268,10 @@ input {
     color: #fff;
 }
 
+.mobile-logo-bar {
+    display: none;
+}
+
 .logos-bar {
     position: fixed;
     bottom: 0;
@@ -1373,7 +1385,7 @@ div:where(.swal2-container) div:where(.swal2-validation-message) {
 }
 
 .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
-    bottom: 40px !important;
+    bottom: 0px !important;
 }
 
 .swiper-pagination-bullet-active {
@@ -1406,4 +1418,8 @@ div:where(.swal2-container) div:where(.swal2-validation-message) {
 
 .social-icons a:hover img {
     filter: brightness(0) saturate(100%) invert(99%) sepia(100%) saturate(42%) hue-rotate(320deg) brightness(109%) contrast(98%);
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("/images/icons/menu.png") !important;
 }

@@ -10,9 +10,18 @@
     string pageDestination = foundBox.HasValue("pageDestination") ? foundBox.Value<IEnumerable<IPublishedContent>>("pageDestination").FirstOrDefault().Url() : String.Empty;
 }
 
-<section class="parallax-section position-relative mb-3 mt-3" style="position: relative; overflow: hidden; min-height: 500px;">
+<section class="parallax-section position-relative mb-3 mt-3" style="position: relative; overflow: hidden; min-height: 500px; margin: 0 !important;">
     <!-- Div do background que faz parallax -->
-    <div class="parallax-bg rellax" data-rellax-speed="5" style="background-image: url(@image); background-position: center; background-size: cover; position: absolute; top:0; left:0; width:100%; height:100%; z-index: -1;"></div>
+    <div class="parallax-bg rellax"
+         data-rellax-speed="10"
+         style="background-image: url(@image);
+            background-position: center top -30px;
+            background-size: cover;
+            position: absolute;
+            top:-340px; left:0;
+            width:100%; height:210%;
+            z-index: -1;">
+    </div>
 
     <div class="opacity-extra-medium bg-dark-gray"></div>
 

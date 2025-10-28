@@ -9,6 +9,7 @@
         : new List<string>();
 
     string email = Model.Value("email").ToString();
+    string address = Model.Value("address").ToString();
     // Lê os números do campo e divide por vírgula, ponto e vírgula ou quebra de linha
     var phoneNumbersRaw = Model.HasValue("phoneNumbers") ? Model.Value<string>("phoneNumbers") : string.Empty;
     var splitedPhoneNumbers = phoneNumbersRaw
@@ -110,42 +111,24 @@
                     <a href="mailto:@email">@email</a>
                 }
             </p>
-            <ul class="schedule">
-                <li>
-                    <span>Lisboa</span> |
-                    @if (!string.IsNullOrEmpty(firstNumber))
-                    {
-                        <a href="tel:@CleanNumber(firstNumber)">@firstNumber</a>
-
-                        <br />
-                    }
-                    2ª a 6ª — 9h-13h / 14h-17h30
-                </li>
-                <li>
-                    <span>Porto</span> |
-                    @if (!string.IsNullOrEmpty(lastNumber))
-                    {
-                        <a href="tel:@CleanNumber(lastNumber)">@lastNumber</a>
-
-                        <br />
-                    }
-                    2ª a 6ª — 8h30-19h<br />
-                    Sábado - 9h-13h
-                </li>
-            </ul>
+            @Html.Raw(address)
         </div>
 
         <div class="logos-bar">
             <div class="container">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-12">
                         <p>&copy; 2025 Woosh Limpezas. Todos os direitos reservados.</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-12">
                         <img src="/media/nadgjno0/barra_logos-02-3.png" alt="PRR Plano de Recuperação e Resiliência" />
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="mobile-logo-bar">
+            <img src="/media/nadgjno0/barra_logos-02-3.png" alt="PRR Plano de Recuperação e Resiliência" />
         </div>
     </div>
 </footer>

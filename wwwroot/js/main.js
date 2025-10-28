@@ -209,11 +209,19 @@
         $('.sub-menu.show').collapse('hide');
     });
 
-    // Close all left menu submenu
+    // Toggle all left menu submenus
     $(document).on('click', '#navbar-menu .navbar-toggler', function () {
-        // Close left menu
-        $('.sub-menu.show').collapse('hide');
+        // Alterna os submenus
+        $('.sub-menu').each(function () {
+            var $submenu = $(this);
+            if ($submenu.hasClass('show')) {
+                $submenu.collapse('hide');
+            } else {
+                $submenu.collapse('show');
+            }
+        });
     });
+
 
     // Close on outside area
     $(document).on('click', 'body', function (e) {
@@ -329,9 +337,9 @@
             }
         }
     }).on('mouseleave', function (e) {
+        if (getWindowWidth() < menuBreakPoint) return; // não fechar no mobile
         var _this = $(this);
-        _this.removeClass('menu-left');
-        _this.removeClass('open');
+        _this.removeClass('menu-left open');
     });
 
     // Add active class to current menu
@@ -3720,3 +3728,47 @@ function initMap() {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const MOBILE_BREAKPOINT = 768; // Ajuste para o seu breakpoint CSS
+
+    const preventLinkDefault = (event) => {
+        if (window.innerWidth <= MOBILE_BREAKPOINT) {
+            event.preventDefault();
+        }
+    };
+
+    const handleMobileDropdowns = () => {
+        const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+        const dropdownLinks = document.querySelectorAll('.dropdown > .nav-link');
+
+        dropdownLinks.forEach(link => {
+            if (isMobile) {
+                if (link.href && link.getAttribute('href') !== '#') {
+                    link.setAttribute('data-href-desktop', link.href);
+                }
+                link.removeAttribute('href');
+                link.addEventListener('click', preventLinkDefault);
+            } else {
+                const originalHref = link.getAttribute('data-href-desktop');
+                if (originalHref) {
+                    link.setAttribute('href', originalHref);
+                    link.removeAttribute('data-href-desktop');
+                }
+                link.removeEventListener('click', preventLinkDefault);
+            }
+        });
+    };
+
+    handleMobileDropdowns();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(handleMobileDropdowns, 150);
+    });
+});
+
+$(document).on('click', '#menuToggleBtn', function () {
+    $('#mainNavbar').collapse('toggle'); // alterna abrir/fechar
+});

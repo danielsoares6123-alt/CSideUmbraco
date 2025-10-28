@@ -33,16 +33,17 @@
 <style>
     .row-icons {
         display: flex;
+        flex-wrap: wrap; /* permite quebrar em mobile */
         justify-content: center;
-        gap: 40px; /* espaço entre colunas */
         text-align: center;
-        flex-wrap: nowrap; /* força tudo na mesma linha */
-        max-width: 1200px; /* opcional: limita largura total da linha */
-        margin: -20px auto;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
     }
 
     .col-icon {
-        flex: 1 1 200px; /* cada coluna cresce e mantém mínimo de 200px */
+        flex: 1 1 200px;
+        box-sizing: border-box;
         padding: 20px;
     }
 

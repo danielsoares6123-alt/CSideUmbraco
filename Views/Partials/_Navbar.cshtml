@@ -12,9 +12,7 @@
             <img src="/images/logo.svg" alt="Logotipo" style="height:40px;" />
         </a>
 
-        <!-- Botão para mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
-                aria-controls="mainNavbar" aria-expanded="false" aria-label="Alternar navegação">
+        <button class="navbar-toggler" type="button" id="menuToggleBtn" aria-expanded="false" aria-label="Alternar navegação">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -34,6 +32,7 @@
                         <li class="@liClass dropdown">
                             <a class="nav-link" href="@option.Url()" id="navbarDropdown_@option.Id">
                                 @option.Name
+                                <img onclick="window.location.href='@option.Url()'" src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" data-no-retina="">
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown_@option.Id">
                                 @foreach (var child in option.Children().Where(c => c.IsDocumentType("page")))

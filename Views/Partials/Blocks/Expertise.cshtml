@@ -66,14 +66,15 @@
 
     .expertise-row {
         display: flex;
+        flex-wrap: wrap; /* permite quebrar linha */
         gap: 20px;
         margin-bottom: 20px;
     }
 
-    .expertise-col {
-        flex: 1;
-        transition: all 0.4s ease;
-    }
+.expertise-col {
+    flex: 1 1 calc(50% - 20px) !important; /* 2 por linha no desktop */
+    box-sizing: border-box;
+}
 
     .expertise-box {
         position: relative;

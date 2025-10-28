@@ -1,0 +1,89 @@
+﻿@model IPublishedContent
+
+@{
+    IPublishedContent Mobile = Model.Value<IPublishedContent>("parameter");
+    IPublishedContent MobileStepper = Mobile.Children.Where(x => x.IsDocumentType("mobileStepper")).FirstOrDefault();
+    List<IPublishedContent> Steps = MobileStepper.Children().Where(x => x.IsDocumentType("mobileStep")).Count() > 0 ? MobileStepper.Children().Where(x => x.IsDocumentType("mobileStep")).ToList() : new List<IPublishedContent>();
+    IPublishedContent MobileGallery = Mobile.Children.Where(x => x.IsDocumentType("mobileGallery")).FirstOrDefault();
+
+    string pageTitle = MobileStepper.Value("mobileStepperTitle").ToString();
+    string pageSubTitle = MobileStepper.Value("mobileStepperSubTitle").ToString();
+
+    string galleryTitle = MobileGallery.Value("mobileGalleryTitle").ToString();
+    string galleryDescription = MobileGallery.Value("mobileGalleryDescription").ToString();
+    string galleryTooltip = MobileGallery.Value("mobileGalleryTooltip").ToString();
+    List<IPublishedContent> galleryImages = MobileGallery.HasValue("mobileGalleryimages") ? MobileGallery.Value<IEnumerable<IPublishedContent>>("mobileGalleryimages").ToList() : new List<IPublishedContent>();
+}
+
+<section class="pt-0 pb-4 page-title-big-typography ipad-top-space-margin cover-background background-position-center-bottom position-relative half-section sm-py-0" style="background-image: url(&quot;images/demo-application-page-title-bg.jpg&quot;); margin-top: inherit;">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;opacity&quot;: [0, 1], &quot;rotateY&quot;: [-90, 0], &quot;rotateZ&quot;: [-10, 0], &quot;translateY&quot;: [80, 0], &quot;translateZ&quot;: [50, 0], &quot;staggervalue&quot;: 200, &quot;duration&quot;: 900, &quot;easing&quot;: &quot;easeOutCirc&quot; }">
+                <h2 class="mb-10px fw-500" style="" el="childs" staggervalue="200" easing="easeOutCirc">@pageSubTitle</h2>
+                <h1 class="mb-0 text-dark-gray fw-700 ls-minus-2px" style="" el="childs" staggervalue="200" easing="easeOutCirc">@pageTitle</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pt-0">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-lg-4 row-cols-sm-2 justify-content-center g-0 appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateX&quot;: [-50, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+
+            @for (int i = 0; i < Steps.Count(); i++)
+            {
+                var step = Steps.ElementAt(i);
+                string stepTitle = step.Value("mobileStepTitle").ToString();
+                string stepDescription = step.Value("mobileStepDescription").ToString();
+                string stepNumber = (i + 1).ToString("D2"); // mantém sempre 2 dígitos, ex: 01, 02, ... 10
+
+                <!-- start process step item -->
+                <div class="col process-step-style-06 text-center last-paragraph-no-margin hover-box md-mb-50px" style="" el="childs" staggervalue="150" easing="easeOutQuad">
+                    <h5 class="d-block text-dark-gray mb-0 fw-700 ls-minus-2px">@stepNumber</h5>
+                    <div class="process-step-icon-box position-relative mt-25px mb-25px">
+                        <span class="progress-step-separator bg-dark-gray w-100 separator-line-1px opacity-1"></span>
+                        <div class="step-box d-flex align-items-center justify-content-center bg-linen border-radius-100 mx-auto w-30px h-30px">
+                            <span class="w-8px h-8px bg-base-color border-radius-100"></span>
+                        </div>
+                    </div>
+                    <span class="d-inline-block alt-font fw-700 text-dark-gray fs-17 mb-5px">@stepTitle</span>
+                    <p class="w-75 sm-w-80 d-inline-block">@stepDescription</p>
+                </div>
+                <!-- end process step item -->
+            }
+
+        </div>
+    </div>
+</section>
+
+
+<section class="pt-0 overflow-hidden sm-pb-17 xs-pb-25">
+    <div class="container-fluid ps-10 xxl-ps-6 sm-ps-30px sm-pe-30px">
+        <div class="row justify-content-center">
+            <div style="background-color: #383838;padding-top: 70px !important;padding-bottom: 20px !important;" class="col-12 cover-background overflow-visible ps-8 pe-8 xxl-ps-6 xxl-pe-6 lg-ps-4 lg-pe-4 pt-8 xxl-pt-6 lg-pt-4 xl-pb-2 md-p-8 md-pb-3 border-radius-top-left sm-border-radius-all" style="background-image: url(images/demo-application-how-it-works-bg-01.jpg)">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-5 position-relative mt-40px xxl-mt-10px lg-mt-40px md-mt-0 md-mb-50px text-center text-lg-start appear anime-child anime-complete" data-anime="{ &quot;el&quot;: &quot;childs&quot;, &quot;translateY&quot;: [30, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }">
+                        <div class="bg-white-transparent-very-light d-inline-block mb-20px fw-600 text-white text-uppercase border-radius-30px ps-20px pe-20px fs-12" style="" el="childs" staggervalue="150" easing="easeOutQuad">@galleryTooltip</div>
+                        <h3 class="fw-600 text-white w-90 xl-w-100 ls-minus-1px" style="" el="childs" staggervalue="150" easing="easeOutQuad">@galleryTitle</h3>
+                        <p class="w-85 xl-w-100 mb-40px md-mb-35px" style="" el="childs" staggervalue="150" easing="easeOutQuad">@galleryDescription</p>
+                    </div>
+                    <div class="col-xl-8 col-lg-7 appear anime-complete" data-anime="{ &quot;translateY&quot;: [0, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" staggervalue="150" easing="easeOutQuad" style="">
+                        <div class="outside-box-right-10 md-outside-box-right-20 sm-outside-box-right-0 margin-minus-95px-bottom md-margin-minus-60px-bottom">
+                            <div class="swiper slider-one-slide magic-cursor drag-cursor swiper-initialized swiper-horizontal swiper-backface-hidden" data-slider-options="{ &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 20, &quot;loop&quot;: true, &quot;autoplay&quot;: { &quot;delay&quot;: 4000, &quot;disableOnInteraction&quot;: false }, &quot;keyboard&quot;: { &quot;enabled&quot;: true, &quot;onlyInViewport&quot;: true }, &quot;breakpoints&quot;: { &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 60 }, &quot;992&quot;: { &quot;slidesPerView&quot;: 2, &quot;spaceBetween&quot;: 40 }, &quot;768&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 25 }, &quot;576&quot;: { &quot;slidesPerView&quot;: 2 } }, &quot;effect&quot;: &quot;slide&quot; }">
+                                <div class="swiper-wrapper" id="swiper-wrapper-710e51094df678b7ae" aria-live="off" style="transition-duration: 0ms; transform: translate3d(-1206px, 0px, 0px); transition-delay: 0ms;">
+                                    @foreach (var galleryImage in galleryImages)
+                                    {
+                                        <div class="swiper-slide text-center" role="group" aria-label="5 / 6" style="width: 342px; margin-right: 60px;" data-swiper-slide-index="4">
+                                            <img src="@galleryImage.Url()" class="w-100" alt="" data-no-retina="">
+                                        </div>
+                                    }
+                                </div>
+                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

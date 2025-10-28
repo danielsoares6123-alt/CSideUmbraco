@@ -1,4 +1,13 @@
-﻿<!-- Container Principal -->
+﻿@model IPublishedContent
+
+@{
+    var settings = Model.Value<IPublishedContent>("parameter");
+    string email = settings.Value("email").ToString();
+    string phoneNumbers = settings.Value("phoneNumbers").ToString();
+    string address = settings.Value("address").ToString();
+}
+
+<!-- Container Principal -->
 <div class="container mt-5 mb-5">
     <div class="contact-box ps-4 pe-4">
         <!-- Primeira Row: Informação + Form -->
@@ -13,19 +22,15 @@
                 <!-- Row Interna: 4 Colunas -->
                 <div class="row inner-row">
                     <div class="col-6 contact-item">
-                        <strong>Contacto</strong><br>214 481 960 | 229 476 886
+                        <strong>Contacto</strong><br />@phoneNumbers
 
                     </div>
                     <div class="col-6 contact-item">
-                        <strong>Email</strong><br />geral@woosh.pt
+                        <strong>Email</strong><br />@email
                     </div>
                     <div class="col-12 contact-item">
                         <strong>Horário de atendimento</strong>
-                        <ul class="schedule">
-                            <li><span>Lisboa:</span><br /> 2ª a 6ª — 9h-13h / 14h-17h30</li>
-                            <li><span>Porto:</span><br /> 2ª a 6ª — 8h30-19h</li>
-                            <li><span>Sábado (Porto):</span><br /> 9h-13h</li>
-                        </ul>
+                        @Html.Raw(address)
                     </div>
                 </div>
             </div>
