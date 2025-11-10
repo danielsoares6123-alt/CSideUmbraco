@@ -1,12 +1,32 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels
+@using Microsoft.AspNetCore.Http
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
 @{
     Layout = "master.cshtml";
 
     var homeNode = Umbraco.AssignedContentItem;
+    var httpContext = Context;
+    var requestPath = httpContext.Request.Path.Value?.ToLower() ?? "";
+    var defaultLanguage = "pt"; // <-- muda aqui para o alias da língua padrão
+
+    // Podes definir aqui as línguas disponíveis no site
+    var supportedLanguages = new[] { "pt", "en", "es", "fr" };
+
+    // Verifica se o caminho começa com uma das línguas
+    bool hasLang = supportedLanguages.Any(lang => requestPath.StartsWith($"/{lang}/") || requestPath.Equals($"/{lang}"));
+
+    if (!hasLang)
+    {
+        var newUrl = $"/{defaultLanguage}{requestPath}";
+        httpContext.Response.Redirect(newUrl, false);
+        httpContext.Response.CompleteAsync().Wait();
+        return;
+    }
 
     IPublishedContent Blocks = homeNode.Children.Where(x => x.IsDocumentType("blocks")).FirstOrDefault();
 }
+
 
 <div class="home-children">
     @foreach (var bloco in Blocks.Children)

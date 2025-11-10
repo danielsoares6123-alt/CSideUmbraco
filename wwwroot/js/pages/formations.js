@@ -43,7 +43,7 @@ function abrirFormularioInscricao({ titulo, tipo }) {
                 Identificamos objetivos, elaboramos conteúdos e disponibilizamos recursos técnicos e humanos adequados.
             </p>
             <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required mb-2"
-                   id="company" type="text" name="company" placeholder="Nome da empresa">`
+                   id="company" type="text" name="company" placeholder="Empresa">`
         : '';
 
     Swal.fire({
@@ -52,13 +52,13 @@ function abrirFormularioInscricao({ titulo, tipo }) {
             <div style="color: #43C2FF; font-size: 15px; font-weight: bold;" class="mb-3 fw-bold">${titulo}</div>
             ${extraHTML}
             <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required mb-2"
-                   id="name" type="text" name="name" placeholder="Qual o seu nome?">
+                   id="name" type="text" name="name" placeholder="Nome">
             <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required mb-2"
-                   id="email" type="email" name="email" placeholder="Qual o seu email?">
+                   id="email" type="email" name="email" placeholder="Email">
             <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required mb-2"
-                   id="phone" type="text" name="phone" placeholder="Qual o seu telefone?">
+                   id="phone" type="text" name="phone" placeholder="Telefone">
             <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required mb-2"
-                   id="address" type="text" name="address" placeholder="Qual a sua morada?">
+                   id="address" type="text" name="address" placeholder="Morada">
             <textarea class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required"
                       id="message" name="message" placeholder="Descreva o seu pedido" rows="4"></textarea>
         `,

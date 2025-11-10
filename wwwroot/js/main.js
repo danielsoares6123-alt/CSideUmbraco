@@ -3772,3 +3772,32 @@ document.addEventListener('DOMContentLoaded', () => {
 $(document).on('click', '#menuToggleBtn', function () {
     $('#mainNavbar').collapse('toggle'); // alterna abrir/fechar
 });
+
+function openLanguageModal() {
+    document.getElementById("languageModal").style.display = "flex";
+}
+
+function closeLanguageModal() {
+    document.getElementById("languageModal").style.display = "none";
+}
+
+function switchLanguage(lang) {
+    const path = window.location.pathname;
+    let newPath = path;
+
+    if (path.startsWith("/pt") || path.startsWith("/en") || path.startsWith("/es") || path.startsWith("/fr")) {
+        newPath = "/" + lang + path.substring(3);
+    } else {
+        newPath = "/" + lang + path;
+    }
+
+    window.location.href = newPath;
+}
+
+// Fecha modal ao clicar fora
+window.onclick = function (event) {
+    const modal = document.getElementById("languageModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}

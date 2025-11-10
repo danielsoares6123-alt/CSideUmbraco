@@ -27,15 +27,13 @@
         background-color: #fff;
         padding: 30px 30px;
         border-radius: 20px;
-        transform: translate(-650px, 0); /* fora da tela inicialmente */
+        transform: translate(0, 0); /* fora da tela inicialmente */
         transition: transform 0.4s ease; /* anima ambos */
     }
 
         .map-header .map-menu.active {
-            transform: translate(0, 0); /* desliza para a posição visível */
+            transform: translate(-650px, 0); /* desliza para a posição visível */
         }
-
-
 
         .map-header .map-menu .map-search-icon {
             width: 20px;

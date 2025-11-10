@@ -1,59 +1,32 @@
-﻿<div class="container">
+﻿@model IPublishedContent
+@{
+    IPublishedContent Boxes = Model.Value<IPublishedContent>("parameter");
+}
+
+<div class="container">
     <h1>Expertise</h1>
 </div>
-<div class="expertise-container container p-0 mt-4">
+<div class="expertise-container container p-0 mt-1">
 
     <div class="container-fluid">
         <div class="expertise-row">
-            <div class="expertise-col">
-                <div class="expertise-box">
-                    <div class="overlay"></div>
-                    <div class="box-content pt-5">
-                        <!-- Import the component -->
-                        <!--<model-viewer style="overflow: hidden;" alt="Higienização e Tratamentos" src="/3d/higienizacao.glb" shadow-intensity="0" camera-controls touch-action="pan-y" auto-rotate rotation-per-second="60deg"></model-viewer> -->                       <span class="slide-title">Higienização e Tratamentos</span>
-                        <p class="slide-desc">
-                            A nossa procura constante pela inovação e otimização da limpeza permitiu-nos desenvolver novos métodos. Veja abaixo o resultado da modernização dos serviços de higienização e acabamentos.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="expertise-col">
-                <div class="expertise-box">
-                    <div class="overlay"></div>
-                    <div class="box-content pt-5">
-                        <span class="slide-title">Impermeabilização</span>
-                        <p class="slide-desc">
-                            Impermeabilizar as suas peças é uma excelente maneira de prolongar a sua longevidade e durabilidade. A Woosh disponibiliza este serviço adaptado a tapetes, sofás, cadeiras e vestuário.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @foreach (var box in Boxes.Children)
+            {
 
-        <div class="expertise-row">
-            <div class="expertise-col">
-                <div class="expertise-box">
-                    <div class="overlay"></div>
-                    <div class="box-content pt-5">
-                        <span class="slide-title">Limpeza especializada</span>
-                        <p class="slide-desc">
-                            A Woosh garante limpeza profunda de vestuário e têxteis-lar com métodos avançados. Pela App pode acompanhar artigos, encomendar e gerir a conta. Descubra como a Woosh ajuda o seu negócio a crescer.                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="expertise-col"> 
-                <div class="expertise-box">
-                    <div class="overlay"></div>
-                    <div class="box-content pt-5">
-                        <span class="slide-title">Retardante de fogo</span>
-                        <p class="slide-desc">
-                            Este produto cria um acabamento retardante de chama, não permanente, nos tecidos feitos de fibras de celulose regenerativas, lã, poliacrilonitrila, poliéster e tecidos feitos de fibras sintéticas e naturais.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+                string name = box.Value("boxName").ToString();
+                string description = box.Value("description").ToString();
 
+                <div class="expertise-col">
+                    <div class="expertise-box">
+                        <div class="overlay"></div>
+                        <div class="box-content pt-5">
+                            <span class="slide-title">@name</span>
+                            <p class="slide-desc">@description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>
 
@@ -66,15 +39,16 @@
 
     .expertise-row {
         display: flex;
-        flex-wrap: wrap; /* permite quebrar linha */
-        gap: 20px;
-        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 20px; /* espaçamento entre colunas e linhas */
     }
 
-.expertise-col {
-    flex: 1 1 calc(50% - 20px) !important; /* 2 por linha no desktop */
-    box-sizing: border-box;
-}
+
+    .expertise-col {
+        flex: 1 1 calc(50% - 20px) !important;
+        box-sizing: border-box;
+    }
+
 
     .expertise-box {
         position: relative;
@@ -90,7 +64,7 @@
         -webkit-backdrop-filter: blur(15px); /* suporte Safari */
         border: 1px solid rgba(255, 255, 255, 0.25); /* borda translúcida */
         /*background-image: url('/images/DSCF5828.jpg');
-        background-size: cover;*/
+                        background-size: cover;*/
     }
 
 
@@ -108,9 +82,9 @@
             filter: blur(3px);
             transition: all 0.5s ease;
             opacity: 1;
-            height: 88%;
+            height: 86%;
             position: absolute;
-            width: 95%;
+            width: 93%;
         }
 
         .expertise-box model-viewer {
@@ -121,7 +95,7 @@
 
         .expertise-box .slide-title {
             position: unset !important;
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             margin-bottom: 10px;
             transition: transform 0.4s ease, padding-top 0.4s ease;
             font-weight: 700;
@@ -163,7 +137,7 @@
         }
 
         .expertise-box:hover .slide-title {
-            padding-top: 5% !important;
+            padding-top: 10% !important;
         }
 
         .expertise-box:hover .slide-desc {

@@ -1,4 +1,6 @@
-﻿<div id="simulator">
+﻿@inject Umbraco.Cms.Web.Common.UmbracoHelper Umbraco
+
+<div id="simulator">
     <div class="box">
         <div class="simulator-phaser">
             <div class="phase done" data-number="0"></div>
@@ -6,12 +8,13 @@
             <div class="phase" data-number="2"></div>
         </div>
         <img src="/images/circulo_arrow_Woosh.svg" class="simulator-back" data-no-retina="">
-        <h6 class="text-center text-black mt-3 simulator-title">PRODUTO E QUANTIDADE</h6>
+        <h6 class="text-center text-black mt-3 simulator-title">
+            @Umbraco.GetDictionaryValue("Simulador.ProdutoEQuantidade")</h6>
         <!-- FASE 1: CARACTERISTICAS DE PRODUTO -->
         <div class="row simulator-phase simulator-phase-one gap-5" data-phase="1">
             <div class="col flex flex-col items-center">
                 <img src="/images/icons/sofa.svg" alt="Sofá" class="w-16 h-16" />
-                <span>Sofá</span>
+                <span data-name="Sofá">@Umbraco.GetDictionaryValue("Simulador.Sofa")</span>
 
                 <!-- Contador -->
                 <div class="flex items-center gap-3 mt-2 simulator-counter">
@@ -22,7 +25,7 @@
             </div>
             <div class="col flex flex-col items-center">
                 <img src="/images/icons/tapete.svg" alt="Tapete" class="w-16 h-16" />
-                <span>Tapete</span>
+                <span data-name="Tapete">@Umbraco.GetDictionaryValue("Simulador.Tapete")</span>
 
                 <!-- Contador -->
                 <div class="flex items-center gap-3 mt-2 simulator-counter">
@@ -33,7 +36,7 @@
             </div>
             <div class="col flex flex-col items-center">
                 <img src="/images/icons/puff.svg" alt="Puff" class="w-16 h-16" />
-                <span>Puff</span>
+                <span data-name="Puff">@Umbraco.GetDictionaryValue("Simulador.Puff")</span>
 
                 <!-- Contador -->
                 <div class="flex items-center gap-3 mt-2 simulator-counter">
@@ -44,7 +47,7 @@
             </div>
             <div class="col flex flex-col items-center">
                 <img src="/images/icons/cadeira.svg" alt="Cadeira" class="w-16 h-16" />
-                <span>Cadeira</span>
+                <span data-name="Cadeira">@Umbraco.GetDictionaryValue("Simulador.Cadeira")</span>
 
                 <!-- Contador -->
                 <div class="flex items-center gap-3 mt-2 simulator-counter">
@@ -55,7 +58,7 @@
             </div>
             <div class="col flex flex-col items-center">
                 <img src="/images/icons/cabeceira.svg" alt="Cabeceira" class="w-16 h-16" />
-                <span>Cabeceira</span>
+                <span data-name="Cabeceira">@Umbraco.GetDictionaryValue("Simulador.Cabeceira")</span>
 
                 <!-- Contador -->
                 <div class="flex items-center gap-3 mt-2 simulator-counter">
@@ -66,7 +69,7 @@
             </div>
             <div class="col flex flex-col items-center">
                 <img src="/images/icons/colchao.svg" alt="Colchão" class="w-16 h-16" />
-                <span>Colchão</span>
+                <span data-name="Colchão">@Umbraco.GetDictionaryValue("Simulador.Colchao")</span>
 
                 <!-- Contador -->
                 <div class="flex items-center gap-3 mt-2 simulator-counter">
@@ -85,12 +88,12 @@
 
             <div class="col-lg-2 col-4 bg-lightgray add-more-products d-flex flex-column align-items-center justify-content-center text-center">
                 <button class="add-more-products-btn counter-btn increment bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">+</button>
-                <span style="width: 131px;display: block;word-break: break-word;line-height: 117%;">Adicionar produtos</span>
+                <span style="width: 131px;display: block;word-break: break-word;line-height: 117%;">@Umbraco.GetDictionaryValue("Simulador.AdicionarProdutos")</span>
             </div>
             <div class="item-properties">
                 <div class="row properties">
                     <div class="col-lg-3 col-12">
-                        <span class="property-text"><span class="property-number">01.</span> Caracteristicas</span>
+                        <span class="property-text"><span class="property-number">01.</span> @Umbraco.GetDictionaryValue("Simulador.Caracteristicas")</span>
                     </div>
                     <div class="col-lg-9 col-12 text-left">
 
@@ -100,7 +103,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box text-center">
                                         <img src="/images/icons/sofa.svg" alt="Sofá" />
-                                        <p>Sofá lugares</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.SofaLugares")</p>
                                         <!-- Contador -->
                                         <div class="flex items-center gap-3 simulator-counter justify-center">
                                             <button class="counter-btn counter-inner decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
@@ -122,7 +125,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/redondo.svg" alt="Redondo" />
-                                        <p>Redondo</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Tapete.Redondo")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-open-details="1" data-name="Redondo" />
@@ -133,7 +136,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/quadrado.svg" alt="Quadrado" />
-                                        <p>Quadrado</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Tapete.Quadrado")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-open-details="2" data-name="Quadrado" />
@@ -144,7 +147,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/retangulo.svg" alt="Retângulo" />
-                                        <p>Retângulo</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Tapete.Retangulo")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-open-details="3" data-name="Retângulo" />
@@ -155,7 +158,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/outro.svg" alt="Outro" />
-                                        <p>Outro</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Tapete.Outro")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-open-details="4" data-name="Outro" />
@@ -172,7 +175,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/puff.svg" alt="Puff" />
-                                        <p>Puff lugares</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.PuffLugares")</p>
                                         <!-- Contador -->
                                         <div class="flex items-center gap-3 simulator-counter">
                                             <button class="counter-btn counter-inner decrement bg-gray-300 text-gray-700 px-3 py-1 rounded-lg font-bold hover:bg-gray-400">-</button>
@@ -190,7 +193,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/cadeirao.svg" alt="Cadeirão" />
-                                        <p>Cadeirão</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Cadeira.Cadeirao")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-name="Cadeirão" />
@@ -201,7 +204,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/cadeira.svg" alt="Cadeira" />
-                                        <p>Assento/costas</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Cadeira.AssentoCostas")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-name="Assento/costas" />
@@ -212,7 +215,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/acento.svg" alt="Assento" />
-                                        <p>Só assento</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Cadeira.SoAssento")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-name="Só assento" />
@@ -223,7 +226,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/chaiselong.svg" alt="Chaise Long" />
-                                        <p>Chaise Long</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Cadeira.ChaiseLong")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-name="Chaise Long" />
@@ -240,7 +243,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box text-center">
                                         <img src="/images/icons/cabeceira.svg" alt="Cabeceira" class="mx-auto" />
-                                        <p class="mt-2">Cabeceira cama</p>
+                                        <p class="mt-2">@Umbraco.GetDictionaryValue("Simulador.Cabeceira.Cama")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-name="Cabeceira cama" />
@@ -257,7 +260,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/bebe.svg" alt="Bebé" />
-                                        <p>Bebé</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Colchao.Bebe")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-name="Bebé" />
@@ -268,7 +271,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/colchaoIndividual.svg" alt="Colchão Individual" />
-                                        <p>Individual</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simulador.Colchao.Individual")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-name="Individual" />
@@ -279,7 +282,7 @@
                                 <div class="col-lg-2 col-12 attribute-col">
                                     <div class="attribute-box">
                                         <img src="/images/icons/colchao.svg" alt="Colchão" />
-                                        <p>Casal</p>
+                                        <p>@Umbraco.GetDictionaryValue("Simualdor.Colchao.Casal")</p>
                                         <!-- Switch toggle -->
                                         <label class="switch mt-3 cursor-pointer">
                                             <input type="checkbox" class="hidden" data-name="Casal" />
@@ -296,10 +299,10 @@
                                 <a href="#">
                                     <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" data-no-retina="">
                                 </a>
-                                <div>Formato: Redondo</div>
+                                <div>@Umbraco.GetDictionaryValue("Simulador.Tapete.Formato"): @Umbraco.GetDictionaryValue("Simulador.Tapete.Redondo")</div>
                             </div>
                             <div class="row p-0 pt-1">
-                                <div>Introduza as medidas do tapete</div>
+                                <div>@Umbraco.GetDictionaryValue("Simulador.Tapete.Medidas")</div>
                             </div>
                             <div class="row">
                                 <div class="d-flex p-0 measurements">
@@ -307,7 +310,7 @@
                                         <img src="/images/icons/redondo.svg" alt="Redondo" />
                                     </div>
                                     <div class="d-flex">
-                                        <span>Diametro</span>
+                                        <span>@Umbraco.GetDictionaryValue("Simulador.Tapete.Diametro")</span>
                                         <input type="text" class="format-input" id="redondo" name="redondo" />
                                         <span>= <span id="redondoResultados"></span></span>
                                     </div>
@@ -320,10 +323,10 @@
                                 <a href="#">
                                     <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" data-no-retina="">
                                 </a>
-                                <div>Formato: Quadrado</div>
+                                <div>@Umbraco.GetDictionaryValue("Simulador.Tapete.Formato"): @Umbraco.GetDictionaryValue("Simulador.Tapete.Quadrado")</div>
                             </div>
                             <div class="row p-0 pt-1">
-                                <div>Introduza as medidas do tapete</div>
+                                <div>@Umbraco.GetDictionaryValue("Simulador.Tapete.Medidas")</div>
                             </div>
                             <div class="row">
                                 <div class="d-flex p-0 measurements">
@@ -346,10 +349,10 @@
                                 <a href="#">
                                     <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" data-no-retina="">
                                 </a>
-                                <div>Formato: Retângulo</div>
+                                <div>@Umbraco.GetDictionaryValue("Simulador.Tapete.Formato"): @Umbraco.GetDictionaryValue("Simulador.Tapete.Retangulo")</div>
                             </div>
                             <div class="row p-0 pt-1">
-                                <div>Introduza as medidas do tapete</div>
+                                <div>@Umbraco.GetDictionaryValue("Simulador.Tapete.Medidas")</div>
                             </div>
                             <div class="row">
                                 <div class="d-flex p-0 measurements">
@@ -372,10 +375,10 @@
                                 <a href="#">
                                     <img src="/images/circulo_arrow_Woosh.svg" class="box-slide-icon" data-no-retina="">
                                 </a>
-                                <div>Formato: Outro</div>
+                                <div>@Umbraco.GetDictionaryValue("Simulador.Tapete.Formato"): @Umbraco.GetDictionaryValue("Simulador.Tapete.Outro")</div>
                             </div>
                             <div class="row p-0 pt-1">
-                                <div>Introduza as medidas do tapete</div>
+                                <div>@Umbraco.GetDictionaryValue("Simulador.Tapete.Medidas")</div>
                             </div>
                             <div class="row">
                                 <div class="d-flex p-0 measurements">
@@ -396,23 +399,23 @@
                 </div>
                 <div class="row pt-4 pb-4 mb-0 finish">
                     <div class="col-3">
-                        <span class="property-text"><span class="property-number">02.</span> Acabamento</span>
+                        <span class="property-text"><span class="property-number">02.</span> @Umbraco.GetDictionaryValue("Simulador.Acabamento")</span>
                     </div>
                     <div class="col-9 text-left">
                         <div class="flex">
-                            <button class="private-button finish-button" data-value="Tecido">Tecido</button>
-                            <button class="private-button finish-button" data-value="Pele">Pele</button>
+                            <button class="private-button finish-button" data-value="Tecido">@Umbraco.GetDictionaryValue("Simulador.Acabamento.Tecido")</button>
+                            <button class="private-button finish-button" data-value="Pele">@Umbraco.GetDictionaryValue("Simulador.Acabamento.Pele")</button>
                         </div>
                     </div>
                 </div>
                 <div class="row pt-4 pb-4 service">
                     <div class="col-3 text-left">
-                        <span class="property-text"><span class="property-number">03.</span> Serviço</span>
+                        <span class="property-text"><span class="property-number">03.</span> @Umbraco.GetDictionaryValue("Simulador.Serviço")</span>
                     </div>
                     <div class="col-9 text-left">
                         <div class="flex">
-                            <button class="private-button service-s-button" data-value="Limpeza">Limpeza</button>
-                            <button class="private-button service-s-button" data-value="Impermeabilização">Impermeabilização</button>
+                            <button class="private-button service-s-button" data-value="Limpeza">@Umbraco.GetDictionaryValue("Simulador.Serviço.Limpeza")</button>
+                            <button class="private-button service-s-button" data-value="Impermeabilização">@Umbraco.GetDictionaryValue("Simulador.Serviço.Impermeabilização")</button>
                         </div>
                     </div>
                 </div>
@@ -426,11 +429,11 @@
 
     </div>
     <a href="#" class="ws-button simulator-button-next">
-        SEGUINTE
+        @Umbraco.GetDictionaryValue("Simulador.Seguinte")
         <img src="/images/circulo_arrow_Woosh.svg" class="icon-accordion" data-no-retina="">
     </a>
     <a href="#" class="ws-button submit-button" style="display: none;">
-        FINALIZAR
+        @Umbraco.GetDictionaryValue("Simulador.Finalizar")
         <img src="/images/circulo_arrow_Woosh.svg" class="icon-accordion" data-no-retina="">
     </a>
 </div>

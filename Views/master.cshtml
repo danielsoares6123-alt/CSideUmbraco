@@ -4,7 +4,7 @@
     Layout = null;
 
     // Pega o ancestor ou self no nível 1
-    var currentPage = Umbraco.AssignedContentItem?.AncestorOrSelf(1);
+    var currentPage = Umbraco.AssignedContentItem?.AncestorOrSelf(2);
     var navigationPage = Umbraco.AssignedContentItem;
     string metaTitle = navigationPage.HasValue("metaTitle") && !string.IsNullOrWhiteSpace(currentPage.Value<string>("metaTitle"))
                        ? navigationPage.Value<string>("metaTitle")

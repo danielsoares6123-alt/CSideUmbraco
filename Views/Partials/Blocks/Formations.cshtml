@@ -3,6 +3,7 @@
 @{
     IPublishedContent Formations = Model.Value<IPublishedContent>("parameter");
     List<IPublishedContent> FormationsList = Formations.Children().Where(x => x.IsDocumentType("formation")).ToList();
+    string content = Formations.Value("content").ToString();
 }
 
 <section class="overflow-hidden formations-section" style="margin-top: -50px;">
@@ -106,20 +107,7 @@
         </div>
         <div class="row mb-3 specific-formation">
             <div class="col-12">
-                <p>
-                    Estruturamos e realizamos acções de formação certificada de acordo com as necessidades das empresas e seus colaboradores. Utilizamos dinâmicas e métodos facilitadores de aprendizagem, direccionada para cada perfil de Cliente.
-                </p>
-                <p>
-                    As acções de formação são enriquecidas pela transversalidade de produtos e equipamentos, e pela experiência dos nossos técnicos que, pela resolução de casos práticos, ajudam na formação específica dos seus colaboradores. Ajustamo-nos a cada Cliente.
-                </p>
-                <p>
-                    Contactados pela empresa interessada numa acção de formação:
-                </p>
-                <ul>
-                    <li><p>Identificamos em conjunto as necessidades de formação</p></li>
-                    <li><p>Planeamos a formação, definindo objectivos, elaborando conteúdos e identificando metodologias</p></li>
-                    <li><p>Disponibilizamos recursos humanos, pedagógicos e logísticos</p></li>
-                    <li><p>Enviamos relatório de formação</p></li>
+                @Html.Raw(content)
             </div>
             <div class="col">
                 <div>

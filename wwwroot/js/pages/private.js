@@ -1,6 +1,8 @@
 ﻿var productIndex = -1;
 localStorage.removeItem("products");
 
+const lang = window.location.pathname.startsWith('/es') ? 'es' : 'pt';
+
 const productPrices = {
     sofá: {
         "1_lugares": { limpeza: 47, protecao: 41, ambos: 68 },
@@ -433,15 +435,46 @@ function renderItemsFromStorage() {
 
     const stored = JSON.parse(localStorage.getItem('products')) || [];
 
-    // Mapeamento de key para data-type e ícone
+    // Mapeamento de produtos com traduções
     const productMap = {
-        'sofá': { type: 1, icon: '/images/icons/sofa.svg', alt: 'Sofá' },
-        'tapete': { type: 2, icon: '/images/icons/tapete.svg', alt: 'Tapete' },
-        'puff': { type: 3, icon: '/images/icons/puff.svg', alt: 'Puff' },
-        'cadeira': { type: 4, icon: '/images/icons/cadeira.svg', alt: 'Cadeira' },
-        'cabeceira': { type: 5, icon: '/images/icons/cabeceira.svg', alt: 'Cabeceira' },
-        'colchão': { type: 6, icon: '/images/icons/colchao.svg', alt: 'Colchão' }
+        'sofá': {
+            type: 1,
+            icon: '/images/icons/sofa.svg',
+            alt: lang === 'es' ? 'Sofá' : 'Sofá',
+            name: lang === 'es' ? 'Sofá' : 'Sofá'
+        },
+        'tapete': {
+            type: 2,
+            icon: '/images/icons/tapete.svg',
+            alt: lang === 'es' ? 'Alfombra' : 'Tapete',
+            name: lang === 'es' ? 'Alfombra' : 'Tapete'
+        },
+        'puff': {
+            type: 3,
+            icon: '/images/icons/puff.svg',
+            alt: lang === 'es' ? 'Puf' : 'Puff',
+            name: lang === 'es' ? 'Puf' : 'Puff'
+        },
+        'cadeira': {
+            type: 4,
+            icon: '/images/icons/cadeira.svg',
+            alt: lang === 'es' ? 'Silla' : 'Cadeira',
+            name: lang === 'es' ? 'Silla' : 'Cadeira'
+        },
+        'cabeceira': {
+            type: 5,
+            icon: '/images/icons/cabeceira.svg',
+            alt: lang === 'es' ? 'Cabecero' : 'Cabeceira',
+            name: lang === 'es' ? 'Cabecero' : 'Cabeceira'
+        },
+        'colchão': {
+            type: 6,
+            icon: '/images/icons/colchao.svg',
+            alt: lang === 'es' ? 'Colchón' : 'Colchão',
+            name: lang === 'es' ? 'Colchón' : 'Colchão'
+        }
     };
+
 
     // Seleciona todos os atributos e elementos .finish
     const attributes = document.querySelectorAll('.attribute');
@@ -819,7 +852,7 @@ document.querySelector('.simulator-button-next')?.addEventListener('click', () =
         const newProductsArray = [];
 
         container.forEach(col => {
-            const name = col.querySelector('span')?.textContent?.trim();
+            const name = col.querySelector('span')?.dataset.name?.trim();
             const count = parseInt(col.querySelector('.counter-text')?.textContent || '0');
 
             // Pega produtos existentes do mesmo tipo
@@ -875,6 +908,9 @@ function renderSelectedProductsPricing() {
     const products = JSON.parse(localStorage.getItem('products')) || [];
     container.innerHTML = '';
 
+    // 🔹 Detecta idioma pela URL
+    const lang = window.location.pathname.startsWith('/es') ? 'es' : 'pt';
+
     let totalGlobal = 0;
 
     products.forEach((product, index) => {
@@ -884,18 +920,29 @@ function renderSelectedProductsPricing() {
         let details = '';
 
         if (!priceInfo || !properties) {
-            container.innerHTML += `<div class="product-item">Dados em falta para ${product.name}</div>`;
+            const msg = lang === 'es'
+                ? `Faltan datos para ${product.name}`
+                : `Dados em falta para ${product.name}`;
+            container.innerHTML += `<div class="product-item">${msg}</div>`;
             return;
         }
 
-        // 🔸 Sofás
+
+        // 🔸 Sofás e Puff
         if ((type === 'sofa' || type === 'sofá') || type === "puff") {
             const lugaresKey = `${properties.lugares}_lugares${properties.hasChaise ? '_chaise_long' : ''}`;
             const serviceType = normalizeService(properties.service);
             totalPrice = priceInfo[lugaresKey]?.[serviceType] || 0;
 
-            const labelLugar = properties.lugares == 1 ? 'lugar' : 'lugares';
-            details = `${properties.lugares} ${labelLugar}${properties.hasChaise ? ' (chaise long)' : ''}`;
+            const labelLugar = properties.lugares == 1
+                ? (lang === 'es' ? 'asiento' : 'lugar')
+                : (lang === 'es' ? 'asientos' : 'lugares');
+
+            const chaiseText = properties.hasChaise
+                ? (lang === 'es' ? ' (chaise longue)' : ' (chaise long)')
+                : '';
+
+            details = `${properties.lugares} ${labelLugar}${chaiseText}`;
         }
 
         // 🔸 Tapetes
@@ -911,17 +958,22 @@ function renderSelectedProductsPricing() {
                 const area = spec.result || 0;
 
                 if (area > 50) {
-                    totalPrice = null; // não mostrar preço
+                    totalPrice = null;
                     details = `${spec.name} — ${area} m² <br/>
-        <small class="text-danger">
-            Este tapete tem mais de 50 m², contacte-nos para orçamento.
-        </small>`;
+                    <small class="text-danger">
+                    ${lang === 'es'
+                            ? 'Esta alfombra supera los 50 m², contáctenos para una cotización.'
+                            : 'Este tapete tem mais de 50 m², contacte-nos para orçamento.'}
+                    </small>`;
+
                 } else {
                     totalPrice = pricePerM2 * area;
                     details = `${spec.name} — ${area} m²`;
                 }
             }
-        } // 🔸 Cadeiras
+        }
+
+        // 🔸 Cadeiras
         else if (type === 'cadeira') {
             const serviceType = normalizeService(properties.service);
             const spec = properties.specifications;
@@ -930,14 +982,13 @@ function renderSelectedProductsPricing() {
                 : Object.values(priceInfo).find(item => item.name.toLowerCase() === spec.name.toLowerCase());
 
             if (match) {
-                totalPrice = match[serviceType] || 0; // preço apenas baseado na specification
-                details = `${spec.name}`; // apenas nome da especificação
+                totalPrice = match[serviceType] || 0;
+                details = `${spec.name}`;
             } else {
                 totalPrice = null;
-                details = `${spec.name} — preço não disponível`;
+                details = `${spec.name} — ${lang === 'es' ? 'precio no disponible' : 'preço não disponível'}`;
             }
         }
-
 
         // 🔸 Outros produtos
         else if (Array.isArray(priceInfo)) {
@@ -950,49 +1001,96 @@ function renderSelectedProductsPricing() {
             details = match ? match.name : '';
         }
 
-        if (properties.finish)
-            details += `<br/> <b>Acabamento: <b class="text-black">${properties.finish}</b>`;
+        // 🔸 Traduções
+        const translations = {
+            pt: {
+                finishLabel: "Acabamento",
+                serviceLabel: "Serviço",
+                finishValues: {
+                    "pele": "pele",
+                    "tecido": "tecido"
+                },
+                serviceValues: {
+                    "Limpeza": "Limpeza",
+                    "Impermeabilização": "Impermeabilização",
+                    "Limpeza + Impermeabilização": "Limpeza + Impermeabilização"
+                }
+            },
+            es: {
+                finishLabel: "Acabado",
+                serviceLabel: "Servicio",
+                finishValues: {
+                    "pele": "cuero",
+                    "tecido": "tela"
+                },
+                serviceValues: {
+                    "Limpeza": "Limpieza",
+                    "Impermeabilização": "Impermeabilización",
+                    "Limpeza + Impermeabilização": "Limpieza + Impermeabilización"
+                }
+            }
+        };
 
-        // 🔹 Atualiza o total no objeto produto
+        // Define a língua ativa (por exemplo, a partir da URL)
+        const t = translations[lang];
+
+        // 🔸 Acabamento
+        if (properties.finish) {
+            const finishTranslated = t.finishValues[properties.finish.toLowerCase()] || properties.finish;
+            details += `<br/> <b>${t.finishLabel}: <b class="text-black">${finishTranslated}</b>`;
+        }
+
+        // 🔸 Serviço (um ou vários)
+        const serviceTranslated = properties.service
+            .map(s => t.serviceValues[s] || s)
+            .join(' + ');
+
+        // Atualiza total no produto
         product.totalPrice = totalPrice || 0;
-
         totalGlobal += totalPrice || 0;
 
+        // 🔸 Render HTML
         const html = `
-        <div class="product-item d-flex justify-content-between align-items-center py-2 border-bottom pt-1 pb-1 ps-2 pe-2">
-            <div>
-                <strong>${product.name}</strong><br>
-                <small>${details}</small><br/>
-                <small>Serviço: <b class="text-black">${properties.service.join(' + ')}</b></small>
-            </div>
-            <div class="text-end">
-                <span class="price fw-bold">${totalPrice ? totalPrice.toFixed(2) + ' €' : '—'}</span>
-            </div>
-        </div>
-        `;
+<div class="product-item d-flex justify-content-between align-items-center py-2 border-bottom pt-1 pb-1 ps-2 pe-2">
+    <div>
+        <strong>${product.name}</strong><br>
+        <small>${details}</small><br/>
+        <small>${t.serviceLabel}: <b class="text-black">${serviceTranslated}</b></small>
+    </div>
+    <div class="text-end">
+        <span class="price fw-bold">${totalPrice ? totalPrice.toFixed(2) + ' €' : '—'}</span>
+    </div>
+</div>
+`;
+
 
         container.insertAdjacentHTML('beforeend', html);
     });
 
-    // 🔹 Atualiza o localStorage com os preços
+    // Atualiza localStorage com preços
     localStorage.setItem('products', JSON.stringify(products));
 
-    // 🔸 Linha total
+    // 🔹 Rodapé (texto de aviso e total)
+    const notice = lang === 'es'
+        ? '*cargo mínimo de servicio de 70 € para Lisboa y Oporto <br/>*cargo mínimo a determinar fuera de estas zonas'
+        : '*valor de serviço mínimo de 70€ para Lisboa e Porto <br/>*valor de serviço mínimo a determinar fora destas zonas';
+
+    const totalLabel = lang === 'es' ? 'Total' : 'Total';
+
     const totalHtml = `
     <div class="row mt-1 p-2 align-items-center">
         <div class="col text-start small">
-            <span>
-                *valor de serviço mínimo de 70€ para Lisboa e Porto <br/>
-                *valor de serviço mínimo a determinar fora destas zonas
-            </span>
+            <span>${notice}</span>
         </div>
         <div class="col text-end pt-1">
-            <h5 class="fw-bold mb-0">Total: ${totalGlobal.toFixed(2)} €</h5>
+            <h5 class="fw-bold mb-0">${totalLabel}: ${totalGlobal.toFixed(2)} €</h5>
         </div>
     </div>
     `;
+
     container.insertAdjacentHTML('beforeend', totalHtml);
 }
+
 
 
 
@@ -1012,13 +1110,22 @@ function updatePhasesProgress(currentPhase) {
     const phases = document.querySelectorAll('.simulator-phaser .phase');
     const titleEl = document.querySelector('.simulator-title');
 
-    // Textos correspondentes a cada fase
+    // Textos correspondentes a cada fase por idioma
     const phaseTitles = {
-        0: "PRODUTOS E QUANTIDADE",
-        1: "CARACTERÍSTICAS DO PRODUTO",
-        2: "",
-        3: "Serviços e Acabamentos",
-        4: "Resumo e Confirmação"
+        pt: {
+            0: "PRODUTOS E QUANTIDADE",
+            1: "CARACTERÍSTICAS DO PRODUTO",
+            2: "",
+            3: "Serviços e Acabamentos",
+            4: "Resumo e Confirmação"
+        },
+        es: {
+            0: "PRODUCTOS Y CANTIDAD",
+            1: "CARACTERÍSTICAS DEL PRODUCTO",
+            2: "",
+            3: "Servicios y Acabados",
+            4: "Resumen y Confirmación"
+        }
     };
 
     // Atualiza visuais das fases
@@ -1032,10 +1139,12 @@ function updatePhasesProgress(currentPhase) {
     });
 
     // Atualiza o título se existir
-    if (titleEl && phaseTitles[currentPhase]) {
-        titleEl.textContent = phaseTitles[currentPhase];
+    const titleText = phaseTitles[lang]?.[currentPhase];
+    if (titleEl && titleText) {
+        titleEl.textContent = titleText;
     }
 }
+
 
 // 🔸 Evento do botão FINALIZAR
 document.querySelector('.submit-button').addEventListener('click', async (e) => {
@@ -1044,19 +1153,48 @@ document.querySelector('.submit-button').addEventListener('click', async (e) => 
     // 🔹 Pega o token do anti-forgery na página
     const antiForgeryToken = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
 
+    // Traduções
+    const translations = {
+        pt: {
+            title: "Finalize o seu pedido",
+            name: "Qual o seu nome?",
+            email: "Qual o seu email?",
+            phone: "Contacto telefónico",
+            location: "Localidade",
+            send: "Submeter Pedido",
+            cancel: "Cancelar"
+        },
+        es: {
+            title: "Finaliza tu solicitud",
+            name: "¿Cuál es tu nombre?",
+            email: "¿Cuál es tu correo electrónico?",
+            phone: "Número de teléfono",
+            location: "Ubicación",
+            send: "Enviar solicitud",
+            cancel: "Cancelar"
+        }
+    };
+
+    const t = translations[lang];
+
+    // SweetAlert com placeholders traduzidos
     const { value: formValues } = await Swal.fire({
-        title: '<span class="text-center text-black mt-3 simulator-title text-uppercase">Finalize o seu pedido</span>',
+        title: `<span class="text-center text-black mt-3 simulator-title text-uppercase">${t.title}</span>`,
         html: `
-    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="swal-name" type="text" name="name" placeholder="Qual o seu nome?">
-    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="swal-email" type="email" name="email" placeholder="Qual o seu email?">
-    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="swal-phone" type="tel" name="phone" placeholder="Contacte telefónico.">
-    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required" id="swal-location" type="text" name="location" placeholder="Localidade.">
+    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required"
+        id="swal-name" type="text" name="name" placeholder="${t.name}">
+    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required"
+        id="swal-email" type="email" name="email" placeholder="${t.email}">
+    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required"
+        id="swal-phone" type="tel" name="phone" placeholder="${t.phone}">
+    <input class="ps-0 border-radius-0px border-color-extra-medium-gray bg-transparent form-control required"
+        id="swal-location" type="text" name="location" placeholder="${t.location}">
     <input type="hidden" name="__RequestVerificationToken" value="${antiForgeryToken}">
 `,
         focusConfirm: false,
         showCancelButton: true,
-        confirmButtonText: 'Submeter pedido',
-        cancelButtonText: 'Cancelar',
+        confirmButtonText: t.send,
+        cancelButtonText: t.cancel,
         customClass: {
             confirmButton: 'ws-button text-uppercase',
             cancelButton: 'ws-button text-uppercase ws-button-cancel'

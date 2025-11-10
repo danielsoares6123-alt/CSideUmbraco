@@ -1,4 +1,5 @@
-﻿@model IPublishedContent
+﻿@inject Umbraco.Cms.Web.Common.UmbracoHelper Umbraco
+@model IPublishedContent
 
 @{
     var laundries = Model.Value<IPublishedContent>("parameter");
@@ -15,17 +16,36 @@
         <img src="/images/icons/menu.svg" style="height: 50px; margin-left: unset !important; margin-top: -12px; filter: invert(1);" />
         <img class="leftArrow" src="/images/icons/left-arrow.svg" />
     </button>
-    <img role="link" onclick="window.location.href = '/'" class="map-logo" src="/images/logo.svg" />
-    <div class="map-menu">
-        <p class="mb-0">Pesquisar lavandaria (Código postal ou Rua)</p>
+
+    @{
+        var currentPath = Context.Request.Path.Value?.ToLower() ?? "";
+        string currentLang = "pt"; // valor padrão
+        var supportedLanguages = new[] { "pt", "en", "es", "fr" };
+
+        foreach (var lang in supportedLanguages)
+        {
+            if (currentPath.StartsWith($"/{lang}"))
+            {
+                currentLang = lang;
+                break;
+            }
+        }
+
+        // Define o link principal da língua atual
+        var homeUrl = $"/{currentLang}";
+    }
+
+    <img role="link" onclick="window.location.href = '@homeUrl'" class="map-logo" src="/images/logo.svg" />
+    <div class="map-menu show">
+        <p class="mb-0">@Umbraco.GetDictionaryValue("Mapa.PesquisarLavandaria")</p>
         <input class="ps-0 border-radius-0px bg-transparent form-control required"
                id="laundrySearch"
                type="text"
                name="laundrySearch"
-               placeholder="Ex: 1234-567 ou Rua da Liberdade">
+               placeholder="@Umbraco.GetDictionaryValue("Mapa.Placeholder")">
         <button class="mt-3 ws-button ws-button-full w-100" type="submit">
             <img class="map-search-icon" src="/images/icons/map.svg" />
-            Filtrar mapa
+            @Umbraco.GetDictionaryValue("Mapa.Filtrar")
         </button>
     </div>
 </div>

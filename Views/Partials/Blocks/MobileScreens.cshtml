@@ -68,13 +68,13 @@
                         <p class="w-85 xl-w-100 mb-40px md-mb-35px" style="" el="childs" staggervalue="150" easing="easeOutQuad">@galleryDescription</p>
                     </div>
                     <div class="col-xl-8 col-lg-7 appear anime-complete" data-anime="{ &quot;translateY&quot;: [0, 0], &quot;opacity&quot;: [0,1], &quot;duration&quot;: 1200, &quot;delay&quot;: 0, &quot;staggervalue&quot;: 150, &quot;easing&quot;: &quot;easeOutQuad&quot; }" staggervalue="150" easing="easeOutQuad" style="">
-                        <div class="outside-box-right-10 md-outside-box-right-20 sm-outside-box-right-0 margin-minus-95px-bottom md-margin-minus-60px-bottom">
+                        <div class="sm-outside-box-right-0 margin-minus-95px-bottom md-margin-minus-60px-bottom" style="margin-right: -45px;">
                             <div class="swiper slider-one-slide magic-cursor drag-cursor swiper-initialized swiper-horizontal swiper-backface-hidden" data-slider-options="{ &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 20, &quot;loop&quot;: true, &quot;autoplay&quot;: { &quot;delay&quot;: 4000, &quot;disableOnInteraction&quot;: false }, &quot;keyboard&quot;: { &quot;enabled&quot;: true, &quot;onlyInViewport&quot;: true }, &quot;breakpoints&quot;: { &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 60 }, &quot;992&quot;: { &quot;slidesPerView&quot;: 2, &quot;spaceBetween&quot;: 40 }, &quot;768&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 25 }, &quot;576&quot;: { &quot;slidesPerView&quot;: 2 } }, &quot;effect&quot;: &quot;slide&quot; }">
                                 <div class="swiper-wrapper" id="swiper-wrapper-710e51094df678b7ae" aria-live="off" style="transition-duration: 0ms; transform: translate3d(-1206px, 0px, 0px); transition-delay: 0ms;">
                                     @foreach (var galleryImage in galleryImages)
                                     {
-                                        <div class="swiper-slide text-center" role="group" aria-label="5 / 6" style="width: 342px; margin-right: 60px;" data-swiper-slide-index="4">
-                                            <img src="@galleryImage.Url()" class="w-100" alt="" data-no-retina="">
+                                        <div class="swiper-slide text-center" role="group" aria-label="5 / 6" style="height: 600px !important; width: 330px; margin-right: 30px;" data-swiper-slide-index="4">
+                                            <img style="height: 130%; margin-top: -110px; object-fit: cover;" src="@galleryImage.Url()" class="w-100" alt="" data-no-retina="">
                                         </div>
                                     }
                                 </div>
