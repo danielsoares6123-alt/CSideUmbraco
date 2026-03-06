@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>c|side Content Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --bg-primary: #1a1a2e;
+        --bg-secondary: #16213e;
+        --bg-card: #0f3460;
+        --accent: #e94560;
+        --accent-hover: #ff6b6b;
+        --text: #eaeaea;
+        --text-muted: #8892b0;
+        --success: #64ffda;
+        --warning: #ffd93d;
+        --border: #233554;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      /* Header */
+      .header {
+        background: var(--bg-secondary);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 300;
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      /* Buttons */
+      .btn {
+        background: var(--bg-card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+      }
+
+      .btn:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .btn-danger {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .btn-danger:hover {
+        background: var(--accent-hover);
+      }
+
+      .btn-success {
+        background: var(--success);
+        color: var(--bg-primary);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Main Layout */
+      .main {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        height: calc(100vh - 60px);
+      }
+
+      /* Sidebar - Tree */
+      .sidebar {
+        background: var(--bg-secondary);
+        border-right: 1px solid var(--border);
+        overflow-y: auto;
+        padding: 1rem;
+      }
+
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .sidebar-title {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+      }
+
+      /* Tree */
+      .tree-node {
+        margin-left: 1rem;
+      }
+
+      .tree-node:first-child {
+        margin-left: 0;
+      }
+
+      .tree-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s;
+        margin-bottom: 2px;
+      }
+
+      .tree-item:hover {
+        background: var(--bg-card);
+      }
+
+      .tree-item.selected {
+        background: var(--accent);
+      }
+
+      .tree-item input[type="checkbox"] {
+        margin-right: 0.5rem;
+        width: 16px;
+        height: 16px;
+        accent-color: var(--accent);
+      }
+
+      .tree-toggle {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.7rem;
+      }
+
+      .tree-toggle.empty {
+        visibility: hidden;
+      }
+
+      .tree-icon {
+        margin-right: 0.5rem;
+        color: var(--text-muted);
+      }
+
+      .tree-name {
+        flex: 1;
+        font-size: 0.9rem;
+      }
+
+      .tree-type {
+        font-size: 0.7rem;
+        background: var(--bg-primary);
+        padding: 2px 6px;
+        border-radius: 3px;
+        color: var(--text-muted);
+      }
+
+      .tree-children {
+        display: none;
+      }
+
+      .tree-children.expanded {
+        display: block;
+      }
+
+      /* Content Area */
+      .content {
+        padding: 2rem;
+        overflow-y: auto;
+      }
+
+      .content-header {
+        margin-bottom: 2rem;
+      }
+
+      .content-title {
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 0.5rem;
+      }
+
+      .content-subtitle {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      /* Selection Bar */
+      .selection-bar {
+        background: var(--bg-card);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .selection-count {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .selection-count strong {
+        color: var(--accent);
+        font-size: 1.2rem;
+      }
+
+      .selection-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      /* Node Details */
+      .node-details {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 2rem;
+        border: 1px solid var(--border);
+      }
+
+      .node-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .node-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .node-id {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+      }
+
+      .property-grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .property-item {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 1rem;
+        align-items: start;
+      }
+
+      .property-label {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        padding-top: 0.5rem;
+      }
+
+      .property-input {
+        background: var(--bg-primary);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        width: 100%;
+      }
+
+      .property-input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      /* Stats */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        background: var(--bg-secondary);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .stat-label {
+        color: var(--text-muted);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 0.25rem;
+      }
+
+      /* Toast */
+      .toast-container {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 1000;
+      }
+
+      .toast {
+        background: var(--bg-card);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        animation: slideIn 0.3s ease;
+        border-left: 4px solid var(--success);
+      }
+
+      .toast.error {
+        border-left-color: var(--accent);
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Loading */
+      .loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
+        color: var(--text-muted);
+      }
+
+      .spinner {
+        width: 30px;
+        height: 30px;
+        border: 3px solid var(--border);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 1rem;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Empty State */
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-muted);
+      }
+
+      .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+      }
+
+      /* Quick Create Modal */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .modal-overlay.active {
+        display: flex;
+      }
+
+      .modal {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 2rem;
+        width: 100%;
+        max-width: 500px;
+        border: 1px solid var(--border);
+      }
+
+      .modal-title {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+      }
+
+      .form-input {
+        width: 100%;
+        background: var(--bg-primary);
+        border: 1px solid var(--border);
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        color: var(--text);
+        font-size: 0.9rem;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">c<span>|</span>side Dashboard</div>
+      <div class="header-actions">
+        <button class="btn" onclick="refreshTree()">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+        <button class="btn btn-success" onclick="openCreateModal()">
+          <i class="fas fa-plus"></i> Create
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-title">Content Tree</span>
+          <button
+            class="btn"
+            style="padding: 0.4rem 0.8rem; font-size: 0.8rem"
+            onclick="selectAll()"
+          >
+            <i class="fas fa-check-double"></i>
+          </button>
+        </div>
+        <div id="tree-container">
+          <div class="loading">
+            <div class="spinner"></div>
+            Loading...
+          </div>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div class="content-header">
+          <h1 class="content-title">Content Manager</h1>
+          <p class="content-subtitle">Gestão rápida de conteúdo Umbraco</p>
+        </div>
+
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-total">-</div>
+            <div class="stat-label">Total Nodes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-pages">-</div>
+            <div class="stat-label">Pages</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-blocks">-</div>
+            <div class="stat-label">Blocks</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-selected">0</div>
+            <div class="stat-label">Selected</div>
+          </div>
+        </div>
+
+        <div class="selection-bar" id="selection-bar" style="display: none">
+          <div class="selection-count">
+            <i class="fas fa-check-circle" style="color: var(--success)"></i>
+            <strong id="selected-count">0</strong> nodes selected
+          </div>
+          <div class="selection-actions">
+            <button class="btn" onclick="clearSelection()">
+              <i class="fas fa-times"></i> Clear
+            </button>
+            <button class="btn btn-danger" onclick="deleteSelected()">
+              <i class="fas fa-trash"></i> Delete Selected
+            </button>
+          </div>
+        </div>
+
+        <div id="node-details">
+          <div class="empty-state">
+            <i class="fas fa-mouse-pointer"></i>
+            <p>Select a node to view details</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Create Modal -->
+    <div class="modal-overlay" id="create-modal">
+      <div class="modal">
+        <h3 class="modal-title">Create New Node</h3>
+        <div class="form-group">
+          <label class="form-label">Parent ID</label>
+          <input
+            type="number"
+            class="form-input"
+            id="create-parent"
+            placeholder="Parent node ID"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-input"
+            id="create-name"
+            placeholder="Node name"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Content Type</label>
+          <input
+            type="text"
+            class="form-input"
+            id="create-type"
+            placeholder="e.g., block, page"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Partial Name (optional)</label>
+          <input
+            type="text"
+            class="form-input"
+            id="create-partial"
+            placeholder="Partial view name"
+          />
+        </div>
+        <div class="modal-actions">
+          <button class="btn" onclick="closeCreateModal()">Cancel</button>
+          <button class="btn btn-success" onclick="createNode()">Create</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script>
+      const API_BASE = "/api/contentmanager";
+      let selectedNodes = new Set();
+      let allNodes = [];
+      let currentNode = null;
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        refreshTree();
+      });
+
+      // Fetch tree
+      async function refreshTree() {
+        const container = document.getElementById("tree-container");
+        container.innerHTML =
+          '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+        try {
+          const response = await fetch(`${API_BASE}/tree?maxDepth=5`);
+          const data = await response.json();
+          allNodes = flattenTree(data);
+          renderTree(data);
+          updateStats();
+        } catch (error) {
+          container.innerHTML =
+            '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error loading tree</p></div>';
+          showToast("Error loading content tree", true);
+        }
+      }
+
+      // Flatten tree for stats
+      function flattenTree(nodes, result = []) {
+        nodes.forEach((node) => {
+          result.push(node);
+          if (node.children) {
+            flattenTree(node.children, result);
+          }
+        });
+        return result;
+      }
+
+      // Render tree
+      function renderTree(nodes, depth = 0) {
+        const container = document.getElementById("tree-container");
+        if (depth === 0) container.innerHTML = "";
+
+        const html = nodes.map((node) => renderTreeNode(node)).join("");
+
+        if (depth === 0) {
+          container.innerHTML = html;
+        }
+        return html;
+      }
+
+      function renderTreeNode(node) {
+        const hasChildren = node.children && node.children.length > 0;
+        const childrenHtml = hasChildren
+          ? node.children.map((c) => renderTreeNode(c)).join("")
+          : "";
+
+        return `
+                <div class="tree-node">
+                    <div class="tree-item" data-id="${node.id}" onclick="handleNodeClick(event, ${node.id})">
+                        <input type="checkbox" onclick="handleCheckbox(event, ${node.id})" ${selectedNodes.has(node.id) ? "checked" : ""}>
+                        <span class="tree-toggle ${hasChildren ? "" : "empty"}" onclick="toggleChildren(event, ${node.id})">
+                            <i class="fas fa-chevron-right"></i>
+                        </span>
+                        <i class="fas fa-${getNodeIcon(node.type)} tree-icon"></i>
+                        <span class="tree-name">${node.name}</span>
+                        <span class="tree-type">${node.type}</span>
+                    </div>
+                    <div class="tree-children" id="children-${node.id}">
+                        ${childrenHtml}
+                    </div>
+                </div>
+            `;
+      }
+
+      function getNodeIcon(type) {
+        const icons = {
+          home: "home",
+          page: "file-alt",
+          block: "cube",
+          blocks: "cubes",
+          settings: "cog",
+        };
+        return icons[type] || "folder";
+      }
+
+      // Toggle children
+      function toggleChildren(e, id) {
+        e.stopPropagation();
+        const children = document.getElementById(`children-${id}`);
+        const toggle = e.currentTarget;
+
+        if (children) {
+          children.classList.toggle("expanded");
+          toggle.querySelector("i").style.transform =
+            children.classList.contains("expanded") ? "rotate(90deg)" : "";
+        }
+      }
+
+      // Handle checkbox
+      function handleCheckbox(e, id) {
+        e.stopPropagation();
+        if (e.target.checked) {
+          selectedNodes.add(id);
+        } else {
+          selectedNodes.delete(id);
+        }
+        updateSelectionUI();
+      }
+
+      // Handle node click
+      async function handleNodeClick(e, id) {
+        if (e.target.type === "checkbox") return;
+
+        // Remove previous selection
+        document
+          .querySelectorAll(".tree-item.selected")
+          .forEach((el) => el.classList.remove("selected"));
+        e.currentTarget.classList.add("selected");
+
+        // Fetch node details
+        try {
+          const response = await fetch(`${API_BASE}/get/${id}`);
+          currentNode = await response.json();
+          renderNodeDetails(currentNode);
+        } catch (error) {
+          showToast("Error loading node details", true);
+        }
+      }
+
+      // Render node details
+      function renderNodeDetails(node) {
+        const container = document.getElementById("node-details");
+
+        const propsHtml = Object.entries(node.properties || {})
+          .filter(([key, value]) => value)
+          .map(
+            ([key, value]) => `
+                    <div class="property-item">
+                        <label class="property-label">${key}</label>
+                        <input type="text" class="property-input" 
+                               value="${value || ""}" 
+                               data-property="${key}"
+                               onchange="updateProperty(${node.id}, '${key}', this.value)">
+                    </div>
+                `,
+          )
+          .join("");
+
+        container.innerHTML = `
+                <div class="node-details">
+                    <div class="node-header">
+                        <div>
+                            <h2 class="node-title">${node.name}</h2>
+                            <span class="node-id">ID: ${node.id} | Type: ${node.alias}</span>
+                        </div>
+                        <button class="btn btn-danger" onclick="deleteNode(${node.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                    <div class="property-grid">
+                        ${propsHtml || '<p style="color: var(--text-muted);">No properties</p>'}
+                    </div>
+                </div>
+            `;
+      }
+
+      // Update property
+      async function updateProperty(id, property, value) {
+        try {
+          const response = await fetch(
+            `${API_BASE}/set?id=${id}&property=${property}&value=${encodeURIComponent(value)}`,
+          );
+          const result = await response.json();
+          if (result.success) {
+            showToast(`Updated ${property}`);
+          } else {
+            showToast(result.error || "Error updating", true);
+          }
+        } catch (error) {
+          showToast("Error updating property", true);
+        }
+      }
+
+      // Delete node
+      async function deleteNode(id) {
+        if (!confirm("Move this node to recycle bin?")) return;
+
+        try {
+          const response = await fetch(`${API_BASE}/delete?id=${id}`);
+          const result = await response.json();
+          if (result.success) {
+            showToast(result.message);
+            refreshTree();
+            document.getElementById("node-details").innerHTML =
+              '<div class="empty-state"><i class="fas fa-mouse-pointer"></i><p>Select a node to view details</p></div>';
+          }
+        } catch (error) {
+          showToast("Error deleting node", true);
+        }
+      }
+
+      // Delete selected
+      async function deleteSelected() {
+        if (selectedNodes.size === 0) return;
+        if (!confirm(`Delete ${selectedNodes.size} selected nodes?`)) return;
+
+        for (const id of selectedNodes) {
+          try {
+            await fetch(`${API_BASE}/delete?id=${id}`);
+          } catch (e) {}
+        }
+
+        showToast(`Deleted ${selectedNodes.size} nodes`);
+        selectedNodes.clear();
+        updateSelectionUI();
+        refreshTree();
+      }
+
+      // Update selection UI
+      function updateSelectionUI() {
+        const count = selectedNodes.size;
+        document.getElementById("selected-count").textContent = count;
+        document.getElementById("stat-selected").textContent = count;
+        document.getElementById("selection-bar").style.display =
+          count > 0 ? "flex" : "none";
+      }
+
+      // Clear selection
+      function clearSelection() {
+        selectedNodes.clear();
+        document
+          .querySelectorAll('.tree-item input[type="checkbox"]')
+          .forEach((cb) => (cb.checked = false));
+        updateSelectionUI();
+      }
+
+      // Select all visible
+      function selectAll() {
+        document
+          .querySelectorAll('.tree-item input[type="checkbox"]')
+          .forEach((cb) => {
+            cb.checked = true;
+            const id = parseInt(cb.closest(".tree-item").dataset.id);
+            selectedNodes.add(id);
+          });
+        updateSelectionUI();
+      }
+
+      // Update stats
+      function updateStats() {
+        document.getElementById("stat-total").textContent = allNodes.length;
+        document.getElementById("stat-pages").textContent = allNodes.filter(
+          (n) => n.type === "page",
+        ).length;
+        document.getElementById("stat-blocks").textContent = allNodes.filter(
+          (n) => n.type === "block",
+        ).length;
+      }
+
+      // Create modal
+      function openCreateModal() {
+        document.getElementById("create-modal").classList.add("active");
+      }
+
+      function closeCreateModal() {
+        document.getElementById("create-modal").classList.remove("active");
+      }
+
+      async function createNode() {
+        const parentId = document.getElementById("create-parent").value;
+        const name = document.getElementById("create-name").value;
+        const contentType = document.getElementById("create-type").value;
+        const partialName = document.getElementById("create-partial").value;
+
+        if (!parentId || !name || !contentType) {
+          showToast("Please fill all required fields", true);
+          return;
+        }
+
+        try {
+          let url = `${API_BASE}/create?parentId=${parentId}&name=${encodeURIComponent(name)}&contentType=${contentType}`;
+          if (partialName) url += `&partialName=${partialName}`;
+
+          const response = await fetch(url);
+          const result = await response.json();
+
+          if (result.success) {
+            showToast(`Created: ${result.name} (ID: ${result.id})`);
+            closeCreateModal();
+            refreshTree();
+          } else {
+            showToast(result.error || "Error creating node", true);
+          }
+        } catch (error) {
+          showToast("Error creating node", true);
+        }
+      }
+
+      // Toast notifications
+      function showToast(message, isError = false) {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = `toast ${isError ? "error" : ""}`;
+        toast.innerHTML = `
+                <i class="fas fa-${isError ? "exclamation-circle" : "check-circle"}"></i>
+                ${message}
+            `;
+        container.appendChild(toast);
+
+        setTimeout(() => toast.remove(), 3000);
+      }
+    </script>
+  </body>
+</html>

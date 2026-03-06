@@ -1,0 +1,18 @@
+@model IPublishedContent
+
+@{
+    string title = Model.HasValue("title") ? Model.Value<string>("title") : "o nosso trabalho";
+    string subtitle = Model.HasValue("subtitle") ? Model.Value<string>("subtitle") : "saiba mais acerca do que conseguimos fazer";
+    string buttonText = Model.HasValue("buttonText") ? Model.Value<string>("buttonText") : "Casos de estudo";
+    string buttonUrl = Model.HasValue("buttonUrl") ? Model.Value<string>("buttonUrl") : "/pt/casos-de-estudo/visao-global/";
+    string backgroundImage = Model.HasValue("backgroundImage") ? Model.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("backgroundImage")?.MediaUrl() : "/images/cside-trabalho-bg.jpg";
+}
+
+<section class="cside-section cside-section-medium cside-bg-image cside-overlay" style="background-image: url('@backgroundImage');">
+    <div class="container text-center">
+        <h2 class="cside-section-title">@title</h2>
+        <p class="cside-section-subtitle" style="color: var(--cside-white);">@subtitle</p>
+        
+        <a href="@buttonUrl" class="cside-btn">@buttonText</a>
+    </div>
+</section>

@@ -1,0 +1,19 @@
+@model IPublishedContent
+
+@{
+    string title = Model.HasValue("title") ? Model.Value<string>("title") : "c|side";
+    string description = Model.HasValue("description") ? Model.Value<string>("description") : "somos reconhecidos pelo nosso trabalho criativo, conteúdos de qualidade e rápido desenvolvimento de novos produtos";
+    string buttonText = Model.HasValue("buttonText") ? Model.Value<string>("buttonText") : "Sobre Nós";
+    string buttonUrl = Model.HasValue("buttonUrl") ? Model.Value<string>("buttonUrl") : "/pt/a-nossa-empresa/";
+}
+
+<section class="cside-section cside-section-medium cside-bg-mesh p-relative" style="border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <div class="container text-center reveal-on-scroll">
+        <h2 class="cside-logo-section" style="color: var(--cside-white);">c<span>|</span>side</h2>
+        <p class="cside-section-subtitle" style="color: var(--cside-white); max-width: 600px; margin: 0 auto 2rem;">
+            @Html.Raw(description)
+        </p>
+        
+        <a href="@buttonUrl" class="cside-btn">@buttonText</a>
+    </div>
+</section>

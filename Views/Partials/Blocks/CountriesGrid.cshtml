@@ -1,0 +1,174 @@
+@model IPublishedContent
+
+@{
+    var countries = new[] {
+        new { Name = "Portugal", Code = "pt", Color = "#e8a87c" },
+        new { Name = "Hungria", Code = "hu", Color = "#c38d9e" },
+        new { Name = "Eslovénia", Code = "si", Color = "#41b3a3" },
+        new { Name = "Dinamarca", Code = "dk", Color = "#e27d60" },
+        new { Name = "Luxemburgo", Code = "lu", Color = "#85cdca" },
+        new { Name = "Bélgica", Code = "be", Color = "#4a90a4" },
+        new { Name = "Uruguai", Code = "uy", Color = "#5ab9ea" },
+        new { Name = "Montenegro", Code = "me", Color = "#8860d0" }
+    };
+}
+
+<section class="countries-section cside-bg-dots p-relative">
+    <!-- Top Divider (Wave) -->
+
+
+    <div class="countries-header reveal-on-scroll">
+        <span class="section-badge">c|side Global</span>
+        <h1 class="section-title">Onde Estamos</h1>
+        <p class="section-subtitle">Presença internacional em múltiplos mercados europeus e sul-americanos</p>
+    </div>
+
+    <div class="countries-grid reveal-on-scroll reveal-delay-2">
+        @foreach (var country in countries)
+        {
+            <a href="#" class="country-card" style="--accent-color: @country.Color;">
+                <div class="country-flag">
+                    <img src="https://flagcdn.com/w160/@(country.Code).png" alt="@country.Name flag" />
+                </div>
+                <span class="country-name">@country.Name</span>
+            </a>
+        }
+    </div>
+</section>
+
+<style>
+    .countries-section {
+        min-height: 100vh;
+        /* background: linear-gradient(135deg, #1f1b24 0%, #2d2835 50%, #1a1720 100%); REMOVED */
+        padding: 120px 0 80px;
+    }
+
+    .countries-header {
+        text-align: center;
+        padding: 0 20px 60px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .section-badge {
+        display: inline-block;
+        background: rgba(255, 107, 53, 0.15);
+        color: #FF6B35;
+        padding: 8px 24px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 107, 53, 0.3);
+    }
+
+    .section-title {
+        font-size: 3rem;
+        font-weight: 300;
+        color: #fff;
+        margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.6;
+    }
+
+    .countries-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+    }
+
+    .country-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        padding: 2rem;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    .country-card:hover {
+        background: rgba(255, 107, 53, 0.1);
+        border-color: rgba(255, 107, 53, 0.3);
+        transform: translateY(-8px);
+    }
+
+    .country-flag {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .country-card:hover .country-flag {
+        transform: scale(1.1);
+        box-shadow: 0 12px 40px var(--accent-color, rgba(255, 107, 53, 0.4));
+    }
+
+    .country-flag img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .country-name {
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    .country-card:hover .country-name {
+        color: #FF6B35;
+    }
+
+    /* Responsive */
+    @@media (max-width: 1024px) {
+        .countries-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .countries-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .country-card {
+            padding: 1.5rem;
+        }
+
+        .country-flag {
+            width: 80px;
+            height: 80px;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .countries-grid {
+            grid-template-columns: repeat(2, 1fr);
+            padding: 0 20px;
+        }
+    }
+</style>

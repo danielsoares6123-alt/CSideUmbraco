@@ -1,0 +1,288 @@
+@model IPublishedContent
+
+@{
+    string title = Model.HasValue("title") ? Model.Value<string>("title") : "Migração Inteligente";
+    string subtitle = Model.HasValue("subtitle") ? Model.Value<string>("subtitle") : "A transição energética começa na sua casa";
+    string description = Model.HasValue("description") ? Model.Value<string>("description") : "Os contadores inteligentes são a base de uma rede elétrica moderna e eficiente, permitindo uma gestão otimizada do consumo e produção de energia.";
+    string buttonText = Model.HasValue("buttonText") ? Model.Value<string>("buttonText") : "Saiba Mais";
+    string buttonUrl = Model.HasValue("buttonUrl") ? Model.Value<string>("buttonUrl") : "/pt/solucoes/eletricidade-gas-agua/";
+    // Use a specific image or fallback
+    string bgImage = Model.HasValue("backgroundImage") ? Model.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("backgroundImage")?.MediaUrl() : "/images/cside-hero-energy.png";
+}
+
+<section class="cside-section cside-benefits-split p-relative">
+    <div class="container">
+        <div class="benefits-grid">
+            <!-- Left Column: Visual Composition -->
+            <div class="benefits-visual reveal-on-scroll">
+                <div class="main-image-wrapper">
+                    <div class="main-image" style="background-image: url('@bgImage');"></div>
+                    <div class="image-overlay"></div>
+                </div>
+                
+                <!-- Floating Cards -->
+                <div class="float-card card-1">
+                    <div class="card-icon"><i class="fas fa-leaf"></i></div>
+                    <div class="card-text">
+                        <strong>Sustentabilidade</strong>
+                        <span>Eficiência Real</span>
+                    </div>
+                </div>
+
+                <div class="float-card card-2">
+                    <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="card-text">
+                        <strong>Fiabilidade</strong>
+                        <span>Energia Segura</span>
+                    </div>
+                </div>
+
+                <div class="float-card card-3">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="card-text">
+                        <strong>Economia</strong>
+                        <span>Redução de Custos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Content -->
+            <div class="benefits-content reveal-on-scroll reveal-delay-2">
+                <span class="cside-badge">Benefícios</span>
+                <h2 class="benefits-title">@Html.Raw(title)</h2>
+                <div class="benefits-line"></div>
+                <p class="benefits-description">@subtitle</p>
+                <p class="benefits-text">@description</p>
+                
+                <a href="@buttonUrl" class="cside-link-btn">
+                    @buttonText
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<style>
+    .cside-benefits-split {
+        padding: 120px 0;
+        background: linear-gradient(135deg, #1f1b24 0%, #2d2835 100%);
+        overflow: hidden;
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 80px;
+        align-items: center;
+    }
+
+    /* Visual Section */
+    .benefits-visual {
+        position: relative;
+        height: 600px;
+    }
+
+    .main-image-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 85%;
+        height: 85%;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+
+    .main-image {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.5s ease;
+    }
+
+    .image-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, rgba(255,107,53,0.1), transparent);
+    }
+
+    /* Floating Cards */
+    .float-card {
+        position: absolute;
+        background: rgba(45, 40, 53, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: transform 0.3s ease;
+        min-width: 220px;
+    }
+
+    .float-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(255,107,53,0.3);
+    }
+
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255,107,53,0.15);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FF6B35;
+        font-size: 1.2rem;
+    }
+
+    .card-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-text strong {
+        color: #fff;
+        font-size: 0.95rem;
+        margin-bottom: 2px;
+    }
+
+    .card-text span {
+        color: rgba(255,255,255,0.6);
+        font-size: 0.8rem;
+    }
+
+    /* Card Positions */
+    .card-1 {
+        top: 10%;
+        right: 0;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .card-2 {
+        top: 45%;
+        right: -20px;
+        animation: float 6s ease-in-out infinite 1s;
+        background: #FF6B35;
+    }
+    
+    .card-2 .card-icon {
+        background: rgba(255,255,255,0.2);
+        color: #fff;
+    }
+    
+    .card-2 .card-text strong { color: #fff; }
+    .card-2 .card-text span { color: rgba(255,255,255,0.8); }
+
+    .card-3 {
+        bottom: 5%;
+        right: 10%;
+        animation: float 6s ease-in-out infinite 2s;
+    }
+
+    /* Content Section */
+    .cside-badge {
+        color: #FF6B35;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.85rem;
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    .benefits-title {
+        font-size: 3rem;
+        line-height: 1.1;
+        color: #fff !important;
+        margin-bottom: 1.5rem;
+        font-weight: 300;
+    }
+
+    .benefits-line {
+        width: 60px;
+        height: 3px;
+        background: #FF6B35;
+        margin-bottom: 2rem;
+    }
+
+    .benefits-description {
+        font-size: 1.25rem;
+        color: #fff;
+        margin-bottom: 1rem;
+        font-weight: 400;
+    }
+
+    .benefits-text {
+        color: rgba(255,255,255,0.7);
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+    }
+
+    .cside-link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #FF6B35;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: gap 0.3s ease;
+    }
+
+    .cside-link-btn:hover {
+        gap: 1rem;
+        color: #fff;
+    }
+
+    @@keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @@media (max-width: 992px) {
+        .benefits-grid {
+            grid-template-columns: 1fr;
+            gap: 60px;
+        }
+
+        .benefits-visual {
+            height: 500px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .main-image-wrapper {
+            width: 90%;
+            left: 5%;
+        }
+
+        .card-1 { right: 5%; }
+        .card-2 { right: 0; }
+        .card-3 { right: 10%; }
+        
+        .benefits-title { text-align: center; }
+        .benefits-content { text-align: center; }
+        .benefits-line { margin: 0 auto 2rem; }
+        .cside-link-btn { justify-content: center; }
+    }
+
+    @@media (max-width: 576px) {
+        .benefits-title { font-size: 2rem; }
+        .float-card {
+            padding: 1rem;
+            min-width: auto;
+        }
+    }
+</style>

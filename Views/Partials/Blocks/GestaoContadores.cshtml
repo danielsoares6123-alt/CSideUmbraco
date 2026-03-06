@@ -1,0 +1,552 @@
+@model IPublishedContent
+
+<section class="services-section cside-bg-dots p-relative">
+
+
+    <!-- Header -->
+    <div class="services-header reveal-on-scroll">
+        <span class="services-badge">c|side Energy Solutions</span>
+        <h1 class="services-title">Serviços Avançados de Energia</h1>
+        
+        <!-- Service Tabs -->
+        <nav class="services-tabs">
+            <button class="tab-btn active" data-tab="gestao">Gestão de Dados</button>
+            <button class="tab-btn" data-tab="analise">Análise de Dados</button>
+            <button class="tab-btn" data-tab="relatorios">Relatórios</button>
+            <button class="tab-btn" data-tab="previsao">Previsão</button>
+            <button class="tab-btn" data-tab="resposta">Resposta à Procura</button>
+        </nav>
+    </div>
+
+    <!-- Service Content Panels -->
+    <div class="services-content reveal-on-scroll reveal-delay-2">
+        <!-- Gestão de Dados -->
+        <div class="service-panel active" id="gestao">
+            <div class="service-grid">
+                <div class="service-info cside-glass">
+                    <div class="service-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h2>Gestão de Dados de Contadores</h2>
+                    <p class="service-tagline">Assegurar a informação mais atual e precisa</p>
+                    
+                    <div class="info-block">
+                        <h3><i class="fas fa-info-circle"></i> Descrição</h3>
+                        <p>As ferramentas avançadas de Gestão de Dados de Contadores reúnem os dados de medição e interagem com plataformas intermédias para fornecer informações detalhadas para faturação, análise de dados do contador, serviços de valor acrescentado e proteção de receitas.</p>
+                        <p>A nossa plataforma gere diferentes protocolos de comunicação para reunir e armazenar dados de contadores, que são posteriormente analisados e agrupados em estatísticas relevantes e relatórios.</p>
+                    </div>
+                    
+                    <div class="info-block benefits">
+                        <h3><i class="fas fa-check-circle"></i> Benefícios</h3>
+                        <ul>
+                            <li>Validação, estimação e edição (VEE) em tempo real</li>
+                            <li>Dados fidedignos para análise posterior</li>
+                            <li>Controlo total sobre regras de validação configuráveis</li>
+                            <li>Alertas instantâneos quando existem problemas</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-visual">
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <span>Tempo Real</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-shield-alt"></i></div>
+                        <span>Proteção de Receitas</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-cogs"></i></div>
+                        <span>Regras Configuráveis</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-bell"></i></div>
+                        <span>Alertas Automáticos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Análise de Dados -->
+        <div class="service-panel" id="analise">
+            <div class="service-grid">
+                <div class="service-info cside-glass">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h2>Análise de Dados Energéticos</h2>
+                    <p class="service-tagline">Identificar padrões e otimizar o seu negócio</p>
+                    
+                    <div class="info-block">
+                        <h3><i class="fas fa-info-circle"></i> Descrição</h3>
+                        <p>A CSide analisa dados energéticos para identificar padrões de consumo, sugerir medidas de poupança de energia, detetar anomalias e encontrar novas formas para tornar mais eficientes os negócios dos nossos clientes.</p>
+                        <p>A nossa plataforma converte o enorme volume de dados em conhecimento utilizável para lançamento de programas de eficiência energética e campanhas de marketing.</p>
+                    </div>
+                    
+                    <div class="info-block benefits">
+                        <h3><i class="fas fa-check-circle"></i> Benefícios</h3>
+                        <ul>
+                            <li>Deteção de anomalias automática</li>
+                            <li>Perfis de carga personalizados</li>
+                            <li>Integração com dados meteorológicos</li>
+                            <li>Campanhas de marketing direccionadas</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-visual">
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-search"></i></div>
+                        <span>Deteção Anomalias</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-user-chart"></i></div>
+                        <span>Perfis de Consumo</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-cloud-sun"></i></div>
+                        <span>Dados Meteorológicos</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-bullseye"></i></div>
+                        <span>Marketing Inteligente</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Relatórios -->
+        <div class="service-panel" id="relatorios">
+            <div class="service-grid">
+                <div class="service-info cside-glass">
+                    <div class="service-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h2>Relatórios de Consumo Energético</h2>
+                    <p class="service-tagline">Ensinar aos seus clientes como gastam e poupam energia</p>
+                    
+                    <div class="info-block">
+                        <h3><i class="fas fa-info-circle"></i> Descrição</h3>
+                        <p>A CSide permite melhorar a relação entre consumidores e fornecedores de energia através de relatórios intuitivos e fáceis de utilizar que ensinam novas maneiras para entender e gerir o consumo de eletricidade, gás e água.</p>
+                        <p>Os relatórios periódicos são uma ferramenta importante para poupar energia e construir uma relação de confiança com os consumidores.</p>
+                    </div>
+                    
+                    <div class="info-block benefits">
+                        <h3><i class="fas fa-check-circle"></i> Benefícios</h3>
+                        <ul>
+                            <li>Relatórios únicos e personalizados</li>
+                            <li>Ciência comportamental aplicada</li>
+                            <li>Design focado no consumidor</li>
+                            <li>Sugestões inteligentes de poupança</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-visual">
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-user"></i></div>
+                        <span>Personalizado</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-brain"></i></div>
+                        <span>Ciência Comportamental</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-piggy-bank"></i></div>
+                        <span>Poupança Energética</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-handshake"></i></div>
+                        <span>Relação de Confiança</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Previsão -->
+        <div class="service-panel" id="previsao">
+            <div class="service-grid">
+                <div class="service-info cside-glass">
+                    <div class="service-icon">
+                        <i class="fas fa-crystal-ball"></i>
+                    </div>
+                    <h2>Previsão Energética</h2>
+                    <p class="service-tagline">Otimizar o seu negócio com previsões inteligentes</p>
+                    
+                    <div class="info-block">
+                        <h3><i class="fas fa-info-circle"></i> Descrição</h3>
+                        <p>O uso de dados meteorológicos na previsão de consumos e produção solar ajuda a uma melhor gestão dos diferentes sistemas de energia.</p>
+                        <p>Ao aplicar modelos estatísticos avançados, a nossa plataforma gera previsões precisas de energia consumida para uma melhor gestão dos recursos energéticos.</p>
+                    </div>
+                    
+                    <div class="info-block benefits">
+                        <h3><i class="fas fa-check-circle"></i> Benefícios</h3>
+                        <ul>
+                            <li>Gestão automática de cargas</li>
+                            <li>Aumento de taxas de auto-consumo</li>
+                            <li>Otimização quando energia é mais barata</li>
+                            <li>Tarifários dinâmicos</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-visual">
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-chart-line"></i></div>
+                        <span>Modelos Avançados</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-solar-panel"></i></div>
+                        <span>Produção Solar</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-robot"></i></div>
+                        <span>Automação</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-coins"></i></div>
+                        <span>Tarifas Dinâmicas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resposta à Procura -->
+        <div class="service-panel" id="resposta">
+            <div class="service-grid">
+                <div class="service-info cside-glass">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h2>Resposta à Procura</h2>
+                    <p class="service-tagline">Minimizar riscos e aumentar a confiabilidade do sistema</p>
+                    
+                    <div class="info-block">
+                        <h3><i class="fas fa-info-circle"></i> Descrição</h3>
+                        <p>A solução da CSide permite que os fornecedores de energia enviem sinais de preços aos consumidores e implementem programas avançados de resposta à procura energética.</p>
+                        <p>O uso de aparelhos pode ser reduzido de acordo com um plano de priorização durante períodos onde a procura ou os preços são elevados.</p>
+                    </div>
+                    
+                    <div class="info-block benefits">
+                        <h3><i class="fas fa-check-circle"></i> Benefícios</h3>
+                        <ul>
+                            <li>Minimiza risco de distúrbios na rede</li>
+                            <li>Reduz picos de procura elétrica</li>
+                            <li>Aumenta confiança no sistema</li>
+                            <li>Eficiência para consumidor e operador</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-visual">
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-network-wired"></i></div>
+                        <span>Estabilidade da Rede</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-chart-area"></i></div>
+                        <span>Redução de Picos</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-leaf"></i></div>
+                        <span>Consciência Ambiental</span>
+                    </div>
+                    <div class="visual-card">
+                        <div class="visual-icon"><i class="fas fa-balance-scale"></i></div>
+                        <span>Eficiência Total</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Solutions -->
+    <div class="services-footer">
+        <a href="/pt/solucoes/" class="back-link reveal-on-scroll">
+            <i class="fas fa-arrow-left"></i> Voltar às Soluções
+        </a>
+    </div>
+
+
+</section>
+
+<style>
+    .services-section {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1f1b24 0%, #2d2835 50%, #1a1720 100%);
+        color: #fff;
+        padding: 100px 0 60px;
+    }
+
+    .services-header {
+        text-align: center;
+        padding: 0 20px 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .services-badge {
+        display: inline-block;
+        background: rgba(255, 107, 53, 0.15);
+        color: #FF6B35;
+        padding: 8px 24px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 107, 53, 0.3);
+    }
+
+    .services-title {
+        font-size: 3rem;
+        font-weight: 300;
+        margin-bottom: 3rem;
+    }
+
+    .services-tabs {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tab-btn {
+        background: rgba(255,255,255,0.05);
+        color: rgba(255,255,255,0.7);
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+
+    .tab-btn:hover {
+        background: rgba(255, 107, 53, 0.1);
+        color: #FF6B35;
+        border-color: rgba(255, 107, 53, 0.3);
+    }
+
+    .tab-btn.active {
+        background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+        color: #fff;
+        border-color: transparent;
+        font-weight: 600;
+    }
+
+    .services-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+    }
+
+    .service-panel {
+        display: none;
+        animation: fadeIn 0.5s ease;
+    }
+
+    .service-panel.active {
+        display: block;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .service-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 60px;
+        align-items: start;
+    }
+
+    .service-info {
+        background: rgba(255,255,255,0.03);
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .service-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 140, 66, 0.2) 100%);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-icon i {
+        font-size: 2rem;
+        color: #FF6B35;
+    }
+
+    .service-info h2 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .service-tagline {
+        color: #FF6B35;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .info-block {
+        margin-bottom: 2rem;
+    }
+
+    .info-block h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .info-block h3 i {
+        color: #FF6B35;
+    }
+
+    .info-block p {
+        color: rgba(255,255,255,0.8);
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    .info-block.benefits ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .info-block.benefits li {
+        padding: 0.75rem 0;
+        padding-left: 2rem;
+        position: relative;
+        color: rgba(255,255,255,0.9);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .info-block.benefits li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #FF6B35;
+        font-weight: bold;
+    }
+
+    .service-visual {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .visual-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .visual-card:hover {
+        background: rgba(255, 107, 53, 0.1);
+        border-color: rgba(255, 107, 53, 0.3);
+        transform: translateY(-5px);
+    }
+
+    .visual-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 140, 66, 0.2) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+    }
+
+    .visual-icon i {
+        font-size: 1.5rem;
+        color: #FF6B35;
+    }
+
+    .visual-card span {
+        font-size: 0.85rem;
+        color: rgba(255,255,255,0.8);
+    }
+
+    .services-footer {
+        max-width: 1400px;
+        margin: 60px auto 0;
+        padding: 0 40px;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #FF6B35;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .back-link:hover {
+        gap: 1rem;
+    }
+
+    @@media (max-width: 1024px) {
+        .service-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .service-visual {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .services-title {
+            font-size: 2rem;
+        }
+
+        .tabs-btn {
+            padding: 10px 16px;
+            font-size: 0.8rem;
+        }
+
+        .service-visual {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .service-info {
+            padding: 24px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.service-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const target = this.dataset.tab;
+
+                // Remove active from all
+                tabs.forEach(t => t.classList.remove('active'));
+                panels.forEach(p => p.classList.remove('active'));
+
+                // Add active to clicked
+                this.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+    });
+</script>
